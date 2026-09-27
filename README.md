@@ -1,6 +1,6 @@
-# Cultural Data Analysis: type-along exercises
+# Cultural Data Analysis: code-along exercises
 
-Pages for students to type code along with the lectures.
+Pages for students to code along with the lectures.
 
 ```
 index.html          home page linking to each week
