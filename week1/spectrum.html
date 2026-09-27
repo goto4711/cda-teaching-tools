@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="The Computer Programming Spectrum slide, with an agentic programming overlay that builds up click by click.">
+<title>Programming Spectrum Overlay</title>
+<style>
+  :root {
+    --page: #E7E6EB;
+    --ink: #1D1B22;
+    --muted: #5C5866;
+    --ctl: #FFFFFF;
+    --ctl-line: #C9C6D1;
+    --accent: #5B2A86;
+    --accent-soft: #E9DEF3;
+    --accent-ink: #FFFFFF;
+    --shadow: rgba(35, 20, 55, 0.18);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --page: #141318;
+      --ink: #ECEAF1;
+      --muted: #A39FAE;
+      --ctl: #211E28;
+      --ctl-line: #3B3746;
+      --accent: #A97DD8;
+      --accent-soft: #3A2A4D;
+      --accent-ink: #141318;
+      --shadow: rgba(0, 0, 0, 0.55);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #141318;
+    --ink: #ECEAF1;
+    --muted: #A39FAE;
+    --ctl: #211E28;
+    --ctl-line: #3B3746;
+    --accent: #A97DD8;
+    --accent-soft: #3A2A4D;
+    --accent-ink: #141318;
+    --shadow: rgba(0, 0, 0, 0.55);
+  }
+
+  html, body { height: 100%; }
+  body { margin: 0; font-size: 14px; }
+  [hidden] { display: none !important; }
+  body {
+    background: var(--page);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  .viewer {
+    min-height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding-block: 20px;
+    padding-inline: 16px;
+  }
+
+  .stage {
+    width: min(100%, 1100px, max(480px, calc((100vh - 150px) * 4 / 3)));
+    max-width: 100%;
+    aspect-ratio: 4 / 3;
+    background: #fff;
+    box-shadow: 0 6px 28px var(--shadow);
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  .stage svg { display: block; width: 100%; height: 100%; }
+  .stage:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+
+  .slide text { font-family: Arial, Helvetica, "Liberation Sans", sans-serif; fill: #111; }
+  .slide .lang { fill: #E5322A; }
+  .slide .ag { fill: #5B2A86; }
+  .slide .wt { fill: #fff; }
+
+  .ov {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.45s ease, transform 0.45s ease;
+  }
+  .ov.on { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .ov { transform: none; transition: opacity 0.15s linear; }
+  }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    max-width: 1100px;
+  }
+  .steps {
+    display: flex;
+    flex-wrap: wrap;
+    background: var(--ctl);
+    border: 1px solid var(--ctl-line);
+    border-radius: 999px;
+    padding: 4px;
+    gap: 4px;
+  }
+  button {
+    font: inherit;
+    font-size: 14px;
+    color: var(--ink);
+    background: transparent;
+    border: 0;
+    border-radius: 999px;
+    padding: 8px 14px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .steps button.reached { background: var(--accent-soft); }
+  .steps button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); font-weight: 600; }
+  .steps button[data-go="0"][aria-pressed="true"] { background: var(--ink); color: var(--page); }
+  .present {
+    background: var(--ctl);
+    border: 1px solid var(--ctl-line);
+  }
+  .hint { margin: 0; font-size: 13px; color: var(--muted); text-align: center; }
+  kbd {
+    font-family: inherit;
+    font-size: 12px;
+    border: 1px solid var(--ctl-line);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    padding: 0 5px;
+    background: var(--ctl);
+  }
+
+  .viewer:fullscreen { background: #000; justify-content: center; padding: 0; }
+  .viewer:fullscreen .stage { width: min(100vw, calc(100vh * 4 / 3)); box-shadow: none; }
+  .viewer:fullscreen .controls, .viewer:fullscreen .hint { display: none; }
+  .viewer:-webkit-full-screen { background: #000; justify-content: center; padding: 0; }
+  .viewer:-webkit-full-screen .stage { width: min(100vw, calc(100vh * 4 / 3)); box-shadow: none; }
+  .viewer:-webkit-full-screen .controls, .viewer:-webkit-full-screen .hint { display: none; }
+</style>
+</head>
+<body>
+<div class="viewer" id="viewer">
+  <div class="stage" id="stage" tabindex="0" aria-label="Slide. Click to add the next overlay layer.">
+    <svg class="slide" viewBox="0 0 1200 900" role="img" aria-labelledby="slideTitle">
+      <title id="slideTitle">Computer Programming Spectrum, with an agentic programming overlay</title>
+      <defs>
+        <filter id="lift" x="-5%" y="-30%" width="110%" height="180%">
+          <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#2A1640" flood-opacity="0.28"/>
+        </filter>
+      </defs>
+
+      <rect width="1200" height="900" fill="#fff"/>
+
+      <!-- Title -->
+      <text x="600" y="104" text-anchor="middle" font-size="66" font-weight="700">Computer Programming</text>
+      <text x="600" y="180" text-anchor="middle" font-size="66" font-weight="700">Spectrum</text>
+
+      <!-- Corner labels -->
+      <text font-size="22">
+        <tspan x="50" y="228">Closest to</tspan>
+        <tspan x="50" y="256">fundamental</tspan>
+        <tspan x="50" y="284">hardware:</tspan>
+        <tspan x="50" y="312">Most technically</tspan>
+        <tspan x="50" y="340">demanding</tspan>
+      </text>
+      <text font-size="22">
+        <tspan x="1012" y="256">Most “user</tspan>
+        <tspan x="1012" y="284">friendly”:</tspan>
+        <tspan x="1012" y="312">requires little</tspan>
+        <tspan x="1012" y="340">technical skill</tspan>
+      </text>
+
+      <!-- Command over Hardware bar -->
+      <rect x="33" y="352" width="1144" height="44" fill="#F6C142" stroke="#43608F" stroke-width="3"/>
+      <text x="48" y="383" font-size="26">Do Anything</text>
+      <text x="600" y="383" font-size="26" font-weight="700" text-anchor="middle">Command over Hardware</text>
+      <text x="1165" y="383" font-size="26" text-anchor="end">Much constrained</text>
+
+      <!-- Double-headed arrow -->
+      <rect x="56" y="402" width="1088" height="8" fill="#5579B8"/>
+      <polygon points="20,406 62,393 62,419" fill="#5579B8"/>
+      <polygon points="1182,406 1140,393 1140,419" fill="#5579B8"/>
+
+      <!-- Innovation Potential bar -->
+      <rect x="33" y="416" width="1144" height="44" fill="#FFFF52" stroke="#43608F" stroke-width="3"/>
+      <text x="48" y="447" font-size="26">Most potential innovation</text>
+      <text x="600" y="447" font-size="26" font-weight="700" text-anchor="middle">Innovation Potential</text>
+      <text x="1165" y="447" font-size="26" text-anchor="end">Least potential innovation</text>
+
+      <!-- Box 1: Hardware / OS -->
+      <rect x="14" y="480" width="256" height="348" fill="#DDE4F0" stroke="#43608F" stroke-width="3"/>
+      <text x="58" y="532" font-size="28" font-style="italic">Windows</text>
+      <text x="58" y="566" font-size="28" font-style="italic">Mac OS</text>
+      <text class="lang" x="40" y="682" font-size="28">Machine Code</text>
+      <text class="lang" x="76" y="728" font-size="28">Assembler</text>
+      <text class="lang" x="150" y="766" font-size="28">C, C++</text>
+      <text x="26" y="796" font-size="22">Hardware (Drivers),</text>
+      <text x="26" y="820" font-size="22">Op System</text>
+
+      <!-- Box 2: Application Dev -->
+      <rect x="306" y="480" width="257" height="348" fill="#BDCCE4" stroke="#43608F" stroke-width="3"/>
+      <text x="332" y="552" font-size="26">Creating Apps</text>
+      <text x="346" y="676" font-size="25">Developing a</text>
+      <text x="346" y="704" font-size="25">Word Processor</text>
+      <text class="lang" x="316" y="746" font-size="28">C, C++</text>
+      <text class="lang" x="468" y="772" font-size="28">Java</text>
+      <text x="350" y="815" font-size="22">Application Dev</text>
+
+      <!-- Box 3: Scripting -->
+      <rect x="580" y="480" width="257" height="348" fill="#9CB3D7" stroke="#43608F" stroke-width="3"/>
+      <text x="612" y="552" font-size="26">Scripting</text>
+      <text class="lang" x="792" y="672" font-size="28">R</text>
+      <text class="lang" x="612" y="690" font-size="28">Python</text>
+      <text class="lang" x="664" y="734" font-size="28">Perl</text>
+      <text class="lang" x="736" y="778" font-size="28">XSLT</text>
+      <text x="668" y="815" font-size="22">Scripting</text>
+
+      <!-- Box 4: Using Applications -->
+      <rect x="864" y="480" width="313" height="348" fill="#5F83BD" stroke="#43608F" stroke-width="3"/>
+      <text x="896" y="552" font-size="26">Spreadsheet</text>
+      <text x="980" y="684" font-size="26">Word Proc</text>
+      <text x="1040" y="740" font-size="26">Browsing</text>
+      <text x="1162" y="815" font-size="22" text-anchor="end">Using Applications</text>
+
+      <!-- "Programming" bracket -->
+      <path d="M5 836 V858 Q5 864 11 864 H322" fill="none" stroke="#E5322A" stroke-width="5"/>
+      <path d="M530 864 H836 Q843 864 843 857 V836" fill="none" stroke="#E5322A" stroke-width="5"/>
+      <text x="426" y="873" font-size="26" text-anchor="middle">“Programming”</text>
+
+      <!-- ============ OVERLAY ============ -->
+
+      <!-- Step 1: the agent layer across every level -->
+      <g class="ov" data-step="1">
+        <rect x="10" y="580" width="1171" height="58" rx="10" fill="#5B2A86" filter="url(#lift)"/>
+        <path d="M130 636 l12 14 l12 -14 z" fill="#5B2A86"/>
+        <path d="M422 636 l12 14 l12 -14 z" fill="#5B2A86"/>
+        <path d="M696 636 l12 14 l12 -14 z" fill="#5B2A86"/>
+        <path d="M1008 636 l12 14 l12 -14 z" fill="#5B2A86"/>
+        <rect x="26" y="594" width="192" height="30" rx="15" fill="#fff"/>
+        <text class="lang" x="122" y="616" font-size="19" text-anchor="middle">Natural language</text>
+        <text class="wt" x="236" y="617" font-size="20"><tspan font-size="22" font-weight="700">Agentic programming</tspan><tspan dx="14">·</tspan><tspan dx="14">you describe</tspan><tspan dx="10">→</tspan><tspan dx="10">an agent writes code at any level</tspan><tspan dx="10">→</tspan><tspan dx="10">you verify</tspan></text>
+      </g>
+
+      <!-- Step 2: does the Programming bracket stretch? -->
+      <g class="ov" data-step="2">
+        <path d="M843 864 H878" fill="none" stroke="#5B2A86" stroke-width="4" stroke-dasharray="9 7"/>
+        <path d="M1142 864 H1166 Q1173 864 1173 857 V836" fill="none" stroke="#5B2A86" stroke-width="4" stroke-dasharray="9 7"/>
+        <text class="ag" x="1010" y="871" font-size="20" font-style="italic" text-anchor="middle">Vibe coding: programming?</text>
+      </g>
+
+      <!-- Step 3: what changes -->
+      <g class="ov" data-step="3">
+        <rect x="250" y="204" width="745" height="138" rx="12" fill="#fff" stroke="#5B2A86" stroke-width="3" filter="url(#lift)"/>
+        <text class="ag" x="276" y="240" font-size="24" font-weight="700">With agents, power and skill come apart</text>
+        <text x="276" y="270" font-size="20">A plain-language request can now reach every level of the spectrum.</text>
+        <text x="276" y="297" font-size="20">But you can only trust code you understand well enough to check,</text>
+        <text x="276" y="324" font-size="20">so the skill shifts from writing code to specifying and testing it.</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="controls">
+    <div class="steps" role="group" aria-label="Overlay layers">
+      <button type="button" id="step0" data-go="0" aria-pressed="true">Until chatbots</button>
+      <button type="button" id="step1" data-go="1" aria-pressed="false">+ Agent layer</button>
+      <button type="button" id="step2" data-go="2" aria-pressed="false">+ Vibe coding?</button>
+      <button type="button" id="step3" data-go="3" aria-pressed="false">+ The shift</button>
+    </div>
+    <button type="button" class="present" id="present">Present full screen</button>
+  </div>
+  <p class="hint">Click the slide or press <kbd>→</kbd> to add the next layer, <kbd>←</kbd> to take one away.</p>
+</div>
+
+<script>
+  (function () {
+    var MAX = 3;
+    var step = 0;
+    var layers = Array.prototype.slice.call(document.querySelectorAll('.ov'));
+    var buttons = Array.prototype.slice.call(document.querySelectorAll('.steps button'));
+    var stage = document.getElementById('stage');
+    var viewer = document.getElementById('viewer');
+    var present = document.getElementById('present');
+
+    function show(n) {
+      step = Math.max(0, Math.min(MAX, n));
+      layers.forEach(function (g) {
+        g.classList.toggle('on', Number(g.dataset.step) <= step);
+      });
+      buttons.forEach(function (b) {
+        var v = Number(b.dataset.go);
+        b.setAttribute('aria-pressed', String(v === step));
+        b.classList.toggle('reached', v > 0 && v < step);
+      });
+    }
+
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () { show(Number(b.dataset.go)); });
+    });
+
+    stage.addEventListener('click', function () {
+      show(step >= MAX ? 0 : step + 1);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      var onButton = e.target && e.target.tagName === 'BUTTON';
+      if (onButton && (e.key === ' ' || e.key === 'Enter')) return;
+      switch (e.key) {
+        case 'ArrowRight': case 'ArrowDown': case 'PageDown': case ' ': case 'Enter':
+          e.preventDefault(); show(step + 1); break;
+        case 'ArrowLeft': case 'ArrowUp': case 'PageUp': case 'Backspace':
+          e.preventDefault(); show(step - 1); break;
+        case 'Home': show(0); break;
+        case 'End': show(MAX); break;
+        case 'f': case 'F': goFullscreen(); break;
+      }
+    });
+
+    var canFull = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+    if (!canFull) present.hidden = true;
+
+    function goFullscreen() {
+      if (!canFull) return;
+      try {
+        if (document.fullscreenElement || document.webkitFullscreenElement) return;
+        var req = viewer.requestFullscreen || viewer.webkitRequestFullscreen;
+        var p = req && req.call(viewer);
+        if (p && p.catch) p.catch(function () {});
+      } catch (err) { /* full screen not available here */ }
+    }
+    present.addEventListener('click', goFullscreen);
+
+    show(0);
+  })();
+</script>
+</body>
+</html>

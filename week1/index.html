@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 1: Python Follow-Along</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
+<style>
+  body {
+    margin: 0;
+    background: #FFFFFF;
+    color: #000000;
+    font: 16px/1.5 Georgia, "Times New Roman", serif;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 48px; }
+  h1 { font-size: 28px; font-weight: normal; margin: 0 0 4px; }
+  .sub { color: #555555; margin: 0 0 16px; }
+  h2 { font-size: 20px; margin: 32px 0 8px; border-bottom: 1px solid #CCCCCC; padding-bottom: 2px; }
+  h3 { font-size: 17px; margin: 24px 0 8px; }
+  a { color: #0000EE; }
+  a:visited { color: #551A8B; }
+  a:focus-visible { outline: 2px dotted #000000; }
+  .small { font-size: 14px; color: #555555; }
+  pre {
+    background: #F4F4F4;
+    border: 1px solid #CCCCCC;
+    padding: 10px 12px;
+    overflow-x: auto;
+    font: 14px/1.45 "Courier New", Courier, monospace;
+    margin: 8px 0;
+  }
+  details pre { background: #FFFFFF; border-style: dashed; }
+  summary { cursor: pointer; }
+  ol, ul { padding-left: 24px; }
+  hr { border: 0; border-top: 1px solid #CCCCCC; margin: 32px 0 12px; }
+  /* Course style: University of Amsterdam colours and fonts */
+  body {
+    font-family: "Source Sans 3", "Source Sans Pro", Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    color: #1F1D21;
+    border-top: 6px solid #BC0031;
+  }
+  h1 { font-weight: 700; font-size: 30px; }
+  h2 { font-weight: 700; border-bottom-color: #BEC6D1; }
+  .sub { font-family: Faustina, Georgia, "Times New Roman", serif; font-style: italic; color: #555555; }
+  a { color: #BC0031; }
+  a:visited { color: #7E0021; }
+  a:focus-visible { outline: 2px solid #BC0031; outline-offset: 2px; }
+  p > b:first-child { color: #BC0031; }
+  pre { font-family: "Courier New", Courier, monospace; background: #F9F9F9; border-color: #BEC6D1; }
+  details pre { background: #FFFFFF; border-color: #BEC6D1; }
+  blockquote { border-left-color: #BC0031; }
+  hr { border-top-color: #BEC6D1; }
+  summary { color: #1F1D21; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="small"><a href="../">&larr; All weeks</a></p>
+  <h1>Type along in Python Tutor</h1>
+  <p class="sub">Cultural Data Analysis &middot; Lecture 1: Data Analysis with Python</p>
+
+  <p>These are the code examples from today's slides, in lecture order. Keep this page open next to
+  <a id="blank" href="https://pythontutor.com/visualize.html#mode=edit" target="_blank" rel="noopener">a blank Python Tutor</a>
+  (choose Python 3) and type each example yourself as we go.</p>
+
+  <p>For each example:</p>
+  <ol>
+    <li>Read the question and predict what will happen.</li>
+    <li>Type the code by hand. Don't copy and paste; the typos are part of the lesson.</li>
+    <li>Click <i>Visualize Execution</i> and press <i>Next</i> to step through it.</li>
+    <li>Check your result against the expected output, or open our version.</li>
+  </ol>
+
+  <h2>Contents</h2>
+  <ol id="toc"></ol>
+
+  <div id="list"></div>
+
+  <hr>
+  <p class="small">Python Tutor runs plain Python only, so it cannot import NumPy or pandas. Use Google Colab for those.
+  Python Tutor: <a href="https://pythontutor.com" target="_blank" rel="noopener">pythontutor.com</a> &middot; <a href="spectrum.html">Computer Programming Spectrum</a></p>
+</div>
+
+<script>
+  var EXERCISES = [{"id": "calc", "slides": "40\u201341", "title": "Python as a calculator", "predict": "Which line gives a number with a decimal point?", "code": "print(7 + 3)\nprint(7 - 3)\nprint(7 * 3)\nprint(7 / 2)\nprint(2 + 3 * 4)\nprint((2 + 3) * 4)", "out": "10\n4\n21\n3.5\n14\n20", "colab": false}, {"id": "vars", "slides": "45\u201348", "title": "Variables", "predict": "What is the value of someVariable at the very end?", "code": "my_apples = 5\nfruit_list = [140, -50, 20, -120, 240]\n\nsomeVariable = 10\nanotherVariable = 5 + 9\naThirdVariable = 10 * anotherVariable\nsomeVariable = someVariable + anotherVariable\nprint(someVariable)", "out": "24", "colab": false}, {"id": "types", "slides": "49\u201352", "title": "Data types and conversions", "predict": "What does type(f) print, and why is it different from type(i)?", "code": "myString = 'Hello everyone'\nmyFloat = 1.12\nmyBool = True\nprint(type(myString), type(myFloat), type(myBool))\n\nprint(float(99) / 100)\ni = 42\nprint(type(i))\nf = float(i)\nprint(f)\nprint(type(f))", "out": "<class 'str'> <class 'float'> <class 'bool'>\n0.99\n<class 'int'>\n42.0\n<class 'float'>", "colab": false}, {"id": "lists", "slides": "54\u201355", "title": "Lists and indexing", "predict": "Before running: what do my_list[5] and my_list[0] print?", "code": "fruit = [\"Bananas\", \"Apples\", \"Oranges\", \"Prunes\",\n         \"Grapes\", \"Strawberries\", \"Plumbs\"]\nprint(fruit[0])\nprint(fruit[-1])\n\nmy_list = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24]\nprint(my_list[5])\n\nmy_list = [\"Lucy\", 14, \"Abdur\", 16, \"Lewis\", 15, \"Zak\", 16]\nprint(my_list[0])", "out": "Bananas\nPlumbs\n12\nLucy", "colab": false}, {"id": "editlist", "slides": "56", "title": "Editing a list", "predict": "Which value does pop(5) remove, once 200 has been appended?", "code": "my_list = [55, 23, 62, 78, 44, 80, 57, 60, 33, 10, 20]\nmy_list[4] = 100\nprint(len(my_list))\nmy_list.append(200)\nremoved = my_list.pop(5)\nprint(removed)\nprint(my_list.index(200))\nprint(my_list)", "out": "11\n80\n10\n[55, 23, 62, 78, 100, 57, 60, 33, 10, 20, 200]", "colab": false}, {"id": "dict", "slides": "59\u201360", "title": "Editing a dictionary", "predict": "After these edits, which keys are left?", "code": "my_dict = {\n    \"name\": \"Alice\",\n    \"age\": 25,\n    \"city\": \"New York\",\n    \"score\": 88\n}\nmy_dict[\"age\"] = 26\nmy_dict[\"email\"] = \"alice@example.com\"\nmy_dict.pop(\"city\")\nprint(my_dict[\"score\"])\nprint(my_dict.keys())\nprint(my_dict.values())\nprint(\"age\" in my_dict)", "out": "88\ndict_keys(['name', 'age', 'score', 'email'])\ndict_values(['Alice', 26, 88, 'alice@example.com'])\nTrue", "colab": false}, {"id": "numpy", "slides": "62\u201364", "title": "NumPy arrays", "predict": "What happens to every element when you write a * 2?", "code": "import numpy as np\nl = [6, 7, 8, 0, 1]\na = np.array(l)\nprint(a)\nprint(a * 2)\nprint(l * 2)", "out": "[6 7 8 0 1]\n[12 14 16  0  2]\n[6, 7, 8, 0, 1, 6, 7, 8, 0, 1]", "colab": true}, {"id": "ifelse", "slides": "71\u201372", "title": "If \u2026 else", "predict": "With i = 20, which block runs? Change i to 10 and run again.", "code": "i = 20\nif (i < 15):\n    print(\"i is smaller than 15\")\n    print(\"i'm in if Block\")\nelse:\n    print(\"i is greater than 15\")\n    print(\"i'm in else Block\")", "out": "i is greater than 15\ni'm in else Block", "colab": false}, {"id": "forloop", "slides": "73\u201375", "title": "For loops", "predict": "How many times does print run in each loop?", "code": "# Iterating over a list\nl = [\"geeks\", \"for\", \"geeks\"]\nfor i in l:\n    print(i)\n\n# String iteration\ns = \"Geeks\"\nfor i in s:\n    print(i)", "out": "geeks\nfor\ngeeks\nG\ne\ne\nk\ns", "colab": false}, {"id": "builtins", "slides": "76\u201377", "title": "Built-in functions", "predict": "Which of these functions change the list, and which only read it?", "code": "scores = [55, 23, 62, 78, 44]\nprint(len(scores))\nprint(sum(scores))\nprint(max(scores), min(scores))\nprint(sorted(scores))\nprint(scores)\nprint(round(sum(scores) / len(scores), 1))", "out": "5\n262\n78 23\n[23, 44, 55, 62, 78]\n[55, 23, 62, 78, 44]\n52.4", "colab": false}];
+
+  function esc(s) {
+    return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  function tutorUrl(code) {
+    return 'https://pythontutor.com/visualize.html#code=' + encodeURIComponent(code) +
+      '&cumulative=false&curInstr=0&heapPrimitives=nevernest&mode=display&origin=opt-frontend.js&py=3&rawInputLstJSON=%5B%5D&textReferences=false';
+  }
+
+  var list = document.getElementById('list');
+  var toc = document.getElementById('toc');
+
+  EXERCISES.forEach(function (ex, i) {
+    var li = document.createElement('li');
+    li.innerHTML = '<a href="#' + ex.id + '">' + esc(ex.title) + '</a>';
+    toc.appendChild(li);
+
+    var open = ex.colab
+      ? 'Python Tutor cannot import NumPy, so type this one into <a href="https://colab.research.google.com/#create=true" target="_blank" rel="noopener">a new Google Colab notebook</a>.'
+      : '<a href="' + tutorUrl(ex.code) + '" target="_blank" rel="noopener">Open our version in Python Tutor</a>';
+
+    var sec = document.createElement('div');
+    sec.id = ex.id;
+    sec.innerHTML =
+      '<h2>' + (i + 1) + '. ' + esc(ex.title) + '</h2>' +
+      
+      '<p><b>Predict:</b> ' + esc(ex.predict) + '</p>' +
+      '<pre>' + esc(ex.code) + '</pre>' +
+      '<p>' + open + '</p>' +
+      '<details><summary>Show expected output</summary><pre>' + esc(ex.out) + '</pre></details>';
+    list.appendChild(sec);
+  });
+</script>
+</body>
+</html>
