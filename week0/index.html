@@ -1,9 +1,5 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Week 0: Setup Walkthrough</title>
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Week 0 Setup Walkthrough</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
@@ -58,11 +54,10 @@
   blockquote { border-left-color: #BC0031; }
   hr { border-top-color: #BEC6D1; }
   summary { color: #1F1D21; }
+  code { font-family: "Courier New", Courier, monospace; font-size: 15px; }
 </style>
-</head>
-<body>
+
 <div class="wrap">
-  <p class="small"><a href="../">&larr; All weeks</a></p>
   <h1>Week 0: getting set up</h1>
   <p class="sub">Cultural Data Analysis &middot; Python Bootcamp</p>
 
@@ -79,14 +74,35 @@
   <div id="list"></div>
 
   <hr>
-  <h2>At home: Jupyter on your own laptop</h2>
-  <p>The slides also show how to install <a href="https://www.anaconda.com/download" target="_blank" rel="noopener">Anaconda</a>
-  and run Jupyter Notebooks on your own machine. You don't need it for the course, since Colab is enough, but it is good to have.
-  Installation guides: <a href="https://www.datacamp.com/tutorial/installing-anaconda-mac-os-x" target="_blank" rel="noopener">Mac</a>,
-  <a href="https://www.datacamp.com/tutorial/installing-anaconda-windows" target="_blank" rel="noopener">Windows</a>.
-  The markdown and keyboard shortcuts you practised today work the same way there.</p>
+  <h2 id="laptop">At home: Python on your own laptop</h2>
+  <p>Colab is all you need for this course. If you also want to work on your own laptop, these commands set up the same
+  libraries the course notebooks use. You need Python 3.12 (from <a href="https://www.python.org/downloads/" target="_blank" rel="noopener">python.org</a>,
+  or Anaconda as shown in the slides). The install is several gigabytes because of the language and image models.</p>
 
-  <p class="small">Questions: cdai-fgw@uva.nl &middot; Next: <a href="../week1/">Week 1, Python</a></p>
+  <p class="where">Terminal (Mac or Linux):</p>
+  <pre>python3 -m venv cda-env
+source cda-env/bin/activate
+pip install -r https://raw.githubusercontent.com/goto4711/cdai/refs/heads/main/requirements.txt
+pip install --no-build-isolation git+https://github.com/Kaggle/learntools.git
+python -m nltk.downloader punkt punkt_tab stopwords
+jupyter notebook</pre>
+
+  <p class="where">Command Prompt (Windows):</p>
+  <pre>py -m venv cda-env
+cda-env\Scripts\activate
+pip install -r https://raw.githubusercontent.com/goto4711/cdai/refs/heads/main/requirements.txt
+pip install --no-build-isolation git+https://github.com/Kaggle/learntools.git
+python -m nltk.downloader punkt punkt_tab stopwords
+jupyter notebook</pre>
+
+  <p>Two libraries also need a separate program: Week 5's text recognition needs
+  <a href="https://tesseract-ocr.github.io/tessdoc/Installation.html" target="_blank" rel="noopener">Tesseract</a>, and Week 3's tree drawings need
+  <a href="https://graphviz.org/download/" target="_blank" rel="noopener">Graphviz</a>. On a Mac: <code>brew install tesseract graphviz</code>.
+  The list of libraries is in the course repository: <a href="https://raw.githubusercontent.com/goto4711/cdai/refs/heads/main/requirements.txt" target="_blank" rel="noopener">requirements.txt</a>.</p>
+
+  <p class="small">Why two pip commands? The <code>learntools</code> checker used in the workshops can only be installed once pandas is in place.</p>
+
+  <p class="small">Questions: cdai-fgw@uva.nl &middot; Next: Week 1, Python</p>
 </div>
 
 <script>
@@ -118,5 +134,6 @@
     list.appendChild(sec);
   });
 </script>
-</body>
-</html>
+
+
+</body></html>
