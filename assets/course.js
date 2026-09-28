@@ -66,7 +66,7 @@
   var bar = el('div', { 'class': 'cda-topbar', role: 'banner' });
   var crumbs = '<a class="cda-course" href="' + root + '">Cultural Data Analysis</a>';
   if (week != null && week !== '') {
-    crumbs += '<span class="cda-sep">/</span><a href="' + root + 'week' + week + '/">Week ' + week + (WEEKS[week] ? ': ' + WEEKS[week] : '') + '</a>';
+    crumbs += '<span class="cda-sep">/</span><a href="' + root + 'code-along/week' + week + '/">Week ' + week + (WEEKS[week] ? ': ' + WEEKS[week] : '') + '</a>';
   }
   if (cfg.title) crumbs += '<span class="cda-sep">/</span><span class="cda-tool">' + cfg.title + '</span>';
   if (cfg.note) crumbs += ' <span class="cda-chip" title="The numbers on this page are made up to show the idea; they do not come from a real model.">' + cfg.note + '</span>';
@@ -75,7 +75,7 @@
   nav += '<span class="cda-url" title="Address of this page">' + shortUrl + '</span>';
   if (cfg.guidePage) nav += '<a class="cda-primary" href="./">Open the tool</a>';
   else if (cfg.guide) nav += '<a href="' + cfg.guide + '">Guide</a>';
-  if (week != null && week !== '') nav += '<a href="' + root + 'week' + week + '/">Code along</a>';
+  if (week != null && week !== '') nav += '<a href="' + root + 'code-along/week' + week + '/">Code along</a>';
   nav += '<a href="' + root + '#tools">All tools</a>';
   if (!cfg.guidePage) nav += '<button type="button" class="cda-keep" data-cda="present" title="Presentation mode (P)">Present</button>';
   nav += '<button type="button" class="cda-keep" data-cda="help" title="Keyboard shortcuts (?)" aria-label="Help">?</button>';

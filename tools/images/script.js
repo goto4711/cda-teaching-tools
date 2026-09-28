@@ -123,7 +123,7 @@ function showAll() {
     document.getElementById('flat-note').innerHTML =
         `To learn from images, a simple model reads each picture as <b>one row of ${len.toLocaleString('en')} numbers</b>: ` +
         `pixel 1's red, green and blue, then pixel 2's, and so on, row by row. That row is like one row of the features table in ` +
-        `the <a href="../../week3/">Week 3 code-along</a>, with ${len.toLocaleString('en')} columns instead of a handful. Where each pixel sat in the picture is no longer visible.`;
+        `the <a href="../../code-along/week3/">Week 3 code-along</a>, with ${len.toLocaleString('en')} columns instead of a handful. Where each pixel sat in the picture is no longer visible.`;
     let head = '<tr><th class="rowhead">feature</th>', row = '<tr><td class="rowhead">value</td>';
     for (let k = 0; k < n * n; k++) {
         const o = k * 4;

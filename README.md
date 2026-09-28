@@ -11,8 +11,8 @@ assets/course.css           course bar, help panel, presentation mode
 assets/course.js            course bar, keyboard shortcuts, ?steps= and ?present= links
 assets/guide.css            style for the guide pages
 
-week0/  week1/  week3/  week4/     code-along exercises
-week1/spectrum.html                Computer Programming Spectrum with agentic overlay
+code-along/week0/ week1/ week3/ week4/   code-along exercises
+code-along/week1/spectrum.html     Computer Programming Spectrum with agentic overlay
 
 tools/cpu/          CPU simulator (Week 1)                 + guide.html
 tools/loops/        Loops in four languages (Week 1)
