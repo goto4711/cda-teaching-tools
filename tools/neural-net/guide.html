@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Neural network training: guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
+<link rel="stylesheet" href="../../assets/guide.css">
+<link rel="stylesheet" href="../../assets/course.css">
+<style>.halo { background: #F0C4CE; padding: 0 4px; border-radius: 3px; }</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Neural network training: guide</h1>
+<p class="sub">How a network learns to tell cats from dogs &middot; Week 3: Structured Data and Machine Learning</p>
+
+<p class="lead">A very small neural network learns to sort animals into cats and dogs. You can watch every weight
+change while it learns, see which weights the error pushes hardest, and test the result on animals it has never seen.
+The procedure is <b>backpropagation</b>, the same one used by the large models later in the course, at a size where every number is still visible.</p>
+<p><a class="try primary" href="./">Open the network</a> <a class="try" href="./?seed=1">Open with fixed starting weights (seed 1)</a></p>
+
+<div class="toc"><b>On this page</b>
+<ol>
+  <li><a href="#screen">The screen, part by part</a></li>
+  <li><a href="#data">The data: overlapping, clear-cut and unseen animals</a></li>
+  <li><a href="#learning">What happens in one epoch</a></li>
+  <li><a href="#w1">Walkthrough 1: the first epochs</a></li>
+  <li><a href="#w2">Walkthrough 2: backpropagation, weight by weight</a></li>
+  <li><a href="#w3">Walkthrough 3: the animals it cannot get right</a></li>
+  <li><a href="#w4">Walkthrough 4: easy data, and the learning rate</a></li>
+  <li><a href="#class">Questions for class</a></li>
+  <li><a href="#limits">What the demonstration leaves out</a></li>
+</ol></div>
+
+<h2 id="screen">1. The screen, part by part</h2>
+<img class="shot" src="img/nn-trained.png" alt="The network after 100 epochs on the overlapping data: 91.7% accuracy on training animals, 100% on unseen ones, a loss curve levelling off, pink halos on the weights that changed most, and a list of every animal with Dog 6 marked wrong." width="1280" height="1766" loading="lazy">
+<p class="cap">After 100 epochs on the overlapping data (seed 1): 11 of 12 training animals right, all 4 unseen animals right, and the loss levelling off at about 0.2.</p>
+<div class="tablewrap"><table>
+<tr><th>Part</th><th>What it shows</th></tr>
+<tr><td><b>Training Progress</b></td><td><b>Epoch</b>: how many times the network has seen all training animals. <b>Accuracy, training animals</b>: how many it now sorts correctly. <b>Accuracy, 4 unseen animals</b>: the same for four animals it never trains on. <b>Loss</b>: how wrong it is on average (see section 3).</td></tr>
+<tr><td><b>Current Sample</b> and <b>Prediction</b></td><td>The last animal the network learned from in this epoch, its four feature values, and how sure the network now is that it is a cat or a dog.</td></tr>
+<tr><td><b>Train</b> / <b>Pause</b>, <b>Step</b>, <b>Reset</b></td><td>Train runs epochs one after the other until Max Epochs (100). Step runs exactly one epoch. Reset draws new random weights. <kbd>Enter</kbd>, <kbd>Space</kbd>, <kbd>R</kbd>.</td></tr>
+<tr><td><b>Data</b></td><td><b>Overlapping (12 animals)</b>, the default, or <b>Clear-cut (8 animals)</b>. Switching resets the network.</td></tr>
+<tr><td><b>Learning Rate</b>, <b>Max Epochs</b>, <b>Speed</b></td><td>How big each weight change is (0.01 to 0.5, default 0.10), when training stops, and epochs per second.</td></tr>
+<tr><td><b>Network diagram</b></td><td>Four inputs, six hidden neurons (H1 to H6, top to bottom), two outputs. Every line is a <b>weight</b>: <span style="color:#5B7BA8;font-weight:700">blue-grey</span> positive, <span style="color:#BC0031;font-weight:700">crimson</span> negative; thicker means larger. A <span class="halo">pink halo</span> marks the five weights that changed most in the last epoch. The dark fill in each circle is the neuron's activation for the current sample.</td></tr>
+<tr><td><b>Loss per epoch</b></td><td>The loss after every epoch: crimson for the training animals, dashed blue-grey for the unseen ones. The dotted line at 0.69 is the loss of guessing 50/50.</td></tr>
+<tr><td><b>Biggest weight changes</b></td><td>The same five weights as the halos, with how much each moved in the last epoch, for example <i>Ear Pointiness → H4 −0.016</i>.</td></tr>
+<tr><td><b>Every animal, right now</b></td><td>Each training and unseen animal with the network's probability for <i>cat</i>, and ✓ or ✗.</td></tr>
+</table></div>
+<p><b>Links that open in a given state:</b> <code>?seed=1</code> (the same starting weights every time, for a class demonstration), <code>?data=clear</code>, <code>?steps=20</code>; combine them, for example <a href="./?seed=1&amp;steps=10"><code>?seed=1&amp;steps=10</code></a>. Other keys: <kbd>P</kbd> presentation mode, <kbd>?</kbd> help, <kbd>G</kbd> this guide.</p>
+
+<h2 id="data">2. The data: overlapping, clear-cut and unseen animals</h2>
+<p>Each animal is four made-up numbers between 0 and 1: ear pointiness, whisker length, nose wetness and fur pattern.</p>
+<div class="tablewrap"><table>
+<tr><th>Animals</th><th>Ears</th><th>Whiskers</th><th>Nose</th><th>Fur</th><th>In which set</th></tr>
+<tr><td>Cat 1–4</td><td>0.80–0.95</td><td>0.75–0.90</td><td>0.20–0.30</td><td>0.65–0.80</td><td>both</td></tr>
+<tr><td>Dog 1–4</td><td>0.15–0.30</td><td>0.20–0.35</td><td>0.75–0.90</td><td>0.30–0.45</td><td>both</td></tr>
+<tr><td>Cat 5, folded ears</td><td>0.25</td><td>0.80</td><td>0.35</td><td>0.70</td><td>overlapping</td></tr>
+<tr><td>Dog 5, pointy ears</td><td>0.90</td><td>0.35</td><td>0.80</td><td>0.45</td><td>overlapping</td></tr>
+<tr><td>Cat 6 and Dog 6</td><td>0.55</td><td>0.50</td><td>0.55</td><td>0.50</td><td>overlapping: exactly the same numbers</td></tr>
+<tr><td>Cat A, Dog A</td><td>0.80 / 0.30</td><td>0.70 / 0.30</td><td>0.35 / 0.70</td><td>0.60 / 0.40</td><td>unseen, never trained on</td></tr>
+<tr><td>Cat B (folded ears), Dog B (pointy ears)</td><td>0.30 / 0.80</td><td>0.75 / 0.30</td><td>0.30 / 0.75</td><td>0.75 / 0.40</td><td>unseen, never trained on</td></tr>
+</table></div>
+<div class="box"><p>This is a table of structured data, like the ones earlier in the lecture. The network never sees a picture:
+someone has already turned each animal into four numbers. Cat 6 and Dog 6 show what that costs. Whatever tells them apart
+is not in the four numbers, so no network can get both right.</p></div>
+
+<h2 id="learning">3. What happens in one epoch</h2>
+<p>The training animals are shuffled. For each one in turn:</p>
+<ol>
+  <li><b>Forward pass.</b> Each hidden neuron adds up the four inputs, each multiplied by its weight, plus a bias. If the sum is
+  negative the neuron stays at 0 (ReLU). The two outputs do the same with the six hidden values, and softmax turns them into two probabilities.</li>
+  <li><b>Loss.</b> How surprised the network is by the right answer: &minus;log(probability it gave to the right label).
+  50/50 gives 0.69; 99% sure and right gives 0.01; 99% sure and wrong gives 4.6.</li>
+  <li><b>Backward pass.</b> Working back from the output, the network works out for every weight whether nudging it up or down
+  would have made the loss smaller, and by how much (the <b>gradient</b>).</li>
+  <li><b>Update.</b> Every weight moves a little against its gradient: new weight = old weight &minus; learning rate &times; gradient.</li>
+</ol>
+<p>The halos and the <i>Biggest weight changes</i> list add up these small updates over the whole epoch.</p>
+
+<h2 id="w1">4. Walkthrough 1: the first epochs</h2>
+<p><a class="try primary" href="./?seed=1">Open with seed 1</a> &nbsp;about 5 minutes. With seed 1 the numbers below are exactly what you will see.</p>
+<ol>
+  <li><b>Look before you press.</b> The lines are thin and mixed: the weights are random. Ask: if it guessed now, how often would it be right?</li>
+  <li><b>Step once</b> (<kbd>Space</kbd>). Loss 0.70: the loss of a coin toss. Training accuracy 83.3%, unseen 75%. With random weights the network happens to lean one way.</li>
+  <li><b>Step to epoch 10.</b> Training accuracy 91.7% (11 of 12), unseen 100%. The loss curve drops steeply, then flattens.</li>
+  <li><b>Press Train</b> (<kbd>Enter</kbd>). The training loss levels off at about 0.2 and never reaches 0. The next two walkthroughs explain why.</li>
+</ol>
+
+<h2 id="w2">5. Walkthrough 2: backpropagation, weight by weight</h2>
+<ol>
+  <li>Reset, then Step a few times, watching the <span class="halo">pink halos</span>. Early on, the halos cluster around one or two hidden neurons: the error is pushed through the neurons that are active, and neurons that output 0 pass no error back.</li>
+  <li>Read the <i>Biggest weight changes</i> list aloud. With seed 1 the top entry after the first Step is <i>Whisker Length → H4 +0.061</i>: after this epoch, long whiskers push H4 a little more.</li>
+  <li>Later in training you will often see pairs like <i>H4 → Dog +0.017</i> and <i>H4 → Cat −0.017</i>: the two outputs compete, so a gain for one is a loss for the other.</li>
+  <li>Watch the size of the changes. With seed 1 the top change grows to about 0.14 by epoch 20, then falls to about 0.02 by epoch 100. It never reaches 0, because Cat 6 and Dog 6 pull the same weights in opposite directions in every epoch (walkthrough 3). With other seeds the tug-of-war stays larger, around 0.05.</li>
+</ol>
+
+<h2 id="w3">6. Walkthrough 3: the animals it cannot get right</h2>
+<ol>
+  <li>Train to 100 epochs and scroll to <i>Every animal, right now</i>.</li>
+  <li><b>Cat 5</b> (folded ears) and <b>Dog 5</b> (pointy ears) end up right, usually at 95% or more: the network has learned to use whiskers and nose as well as ears.</li>
+  <li><b>Cat 6</b> and <b>Dog 6</b> have the same bar, because they have the same numbers. One of them always gets a ✗; which one depends on the starting weights. Training accuracy stops at 11 of 12 (91.7%), and the loss cannot fall below 0.12: this pair alone costs 2 &times; 0.69 / 12.</li>
+  <li>Look at the unseen animals. In simulated runs the network gets all four right in almost every run, including the folded-ear cat and the pointy-ear dog. It has learned something that carries over.</li>
+</ol>
+
+<h2 id="w4">7. Walkthrough 4: easy data, and the learning rate</h2>
+<p><a class="try primary" href="./?data=clear&amp;seed=1">Open with the clear-cut data</a></p>
+<p>With only the eight clear-cut animals, training accuracy reaches 100% within a few epochs and the loss goes almost to 0. The task looks solved,
+but the network has never met a cat with folded ears. Compare the unseen animals with those in the overlapping run.</p>
+<p>Then run both datasets at three learning rates, pressing Reset in between. Typical results from 200 simulated runs of each, after 100 epochs:</p>
+<div class="tablewrap"><table>
+<tr><th>Data</th><th>Learning rate</th><th>Loss after 10 epochs</th><th>Loss after 100</th><th>Training accuracy after 100</th></tr>
+<tr><td>Overlapping</td><td>0.01</td><td>0.69</td><td>0.32</td><td>91.7%</td></tr>
+<tr><td>Overlapping</td><td>0.10</td><td>0.41</td><td>0.19</td><td>91.7%</td></tr>
+<tr><td>Overlapping</td><td>0.50</td><td>0.40</td><td>0.14</td><td>91.7%</td></tr>
+<tr><td>Clear-cut</td><td>0.01</td><td>0.68</td><td>0.24</td><td>100%</td></tr>
+<tr><td>Clear-cut</td><td>0.10</td><td>0.28</td><td>0.003</td><td>100%</td></tr>
+<tr><td>Clear-cut</td><td>0.50</td><td>0.01</td><td>0.000</td><td>100%</td></tr>
+</table></div>
+<p>A larger learning rate learns faster here. With 0.5 the loss curve on the overlapping data jitters, because each step overshoots a little.
+Ask the room why nobody sets the learning rate to 100.</p>
+<div class="box info"><p>Now and then (a few runs in two hundred) the hidden neurons all start at 0 for every animal and the network is stuck at 50%.
+Press Reset. It is a real problem in large networks too (“dead” neurons).</p></div>
+
+<h2 id="class">8. Questions for class</h2>
+<div class="ask"><ol>
+  <li>On the clear-cut data the network reaches 100%. What does that tell you about a cat with folded ears?</li>
+  <li>Cat 6 and Dog 6 cannot both be right. Is that a problem of the network, the data, or the features someone chose?</li>
+  <li>This network has 44 weights and biases. GPT-style models have billions. What stays the same?</li>
+  <li>Where in this process is there room for bias to enter: the features, the labels, the training, or all three?</li>
+</ol></div>
+
+<h2 id="limits">9. What the demonstration leaves out</h2>
+<p>The data are illustrative: invented animals, four hand-picked features, and a test set of only four. Real image classifiers start from pixels, not features,
+have millions of weights, train on batches of thousands of examples, and are tested on thousands of held-out images. The mechanics of forward pass, loss,
+backward pass and update are exactly the same.</p>
+<p class="muted">Used in the Week 3 lecture. Source: <a href="https://github.com/goto4711/cda-teaching-tools/tree/main/tools/neural-net">tools/neural-net</a>.</p>
+</div>
+<script src="../../assets/course.js" data-week="3" data-title="Neural network: guide" data-guide-page="1"></script>
+</body>
+</html>

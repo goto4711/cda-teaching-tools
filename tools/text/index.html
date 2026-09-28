@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Term Frequency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../assets/course.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Term Frequency (Bag-of-Words)</h1>
+        <div class="example-row">
+            <label for="example">Example:</label>
+            <select id="example"></select>
+        </div>
+        <div id="documents">
+            <h3>Documents: edit them and the tables below update</h3>
+            <textarea id="doc1" aria-label="Document 1"></textarea>
+            <textarea id="doc2" aria-label="Document 2"></textarea>
+            <textarea id="doc3" aria-label="Document 3"></textarea>
+        </div>
+        <div id="stopwords-container">
+            <h3>Stopwords (comma-separated):</h3>
+            <textarea id="stopwords" aria-label="Stopwords"></textarea>
+        </div>
+        <div class="buttons-container" role="group" aria-label="Weighting">
+            <button type="button" data-mode="tf" aria-pressed="true">Counts (term frequency)</button>
+            <button type="button" data-mode="tfidf" aria-pressed="false">TF-IDF</button>
+            <button type="button" id="processBtn" class="quiet">Recalculate</button>
+        </div>
+        <div id="output"></div>
+    </div>
+<script src="script.js"></script>
+    <script src="../../assets/course.js" data-week="4" data-title="Term frequency" data-guide="guide.html"
+        data-step='[data-mode][aria-pressed="false"]' data-step-label="Switch between counts and TF-IDF"
+        data-help="Edit the documents or the stopwords: the tables update as you type.|Open with an example or your own text: <kbd>?example=bites</kbd> or <kbd>house</kbd>; <kbd>?d1=...&amp;d2=...&amp;d3=...&amp;stop=the,a</kbd>; add <kbd>&amp;mode=tfidf</kbd> for TF-IDF."></script>
+</body>
+</html>

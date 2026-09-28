@@ -1,24 +1,78 @@
-# Cultural Data Analysis: code-along exercises
+# Cultural Data Analysis: teaching tools
 
-Pages for students to code along with the lectures.
+Code-along exercises and interactive teaching tools for the Cultural Data Analysis lectures
+(University of Amsterdam). Everything is static HTML, CSS and JavaScript: no build step.
+
+Live site: https://goto4711.github.io/cda-teaching-tools/
 
 ```
-index.html          home page linking to each week
-week0/index.html    Setup: Colab, Drive, terminal, paths, AI agent
-week1/index.html    Python basics in Python Tutor
-week1/spectrum.html Computer Programming Spectrum with agentic overlay
-week3/index.html    Machine learning: k-means, regression, teens data
-week4/index.html    Text: bag of words, TF-IDF, State of the Union, language models
+index.html                  home page: weeks and tools
+assets/course.css           course bar, help panel, presentation mode
+assets/course.js            course bar, keyboard shortcuts, ?steps= and ?present= links
+assets/guide.css            style for the guide pages
+
+week0/  week1/  week3/  week4/     code-along exercises
+week1/spectrum.html                Computer Programming Spectrum with agentic overlay
+
+tools/cpu/          CPU simulator (Week 1)                 + guide.html
+tools/loops/        Loops in four languages (Week 1)
+tools/text/         Term frequency (Weeks 3 and 4)         + guide.html
+tools/images/       How a computer sees an image (Week 3)
+tools/neural-net/   Neural network training (Week 3)       + guide.html
+tools/embeddings/   From words to embeddings (Week 4): landing page and multimodal.html
 ```
+
+The Streamlit app "Term frequency vs. embeddings" stays in the `nlp-to-embedding` repository,
+because Streamlit Community Cloud deploys from there. The AI ethics map stays in `ai-ethics-histories`.
+
+## Shortcuts and links (all tools)
+
+| Key | Action |
+|---|---|
+| Space | Step (what a step is depends on the tool) |
+| Enter | Run / pause, where the tool has one |
+| R | Reset |
+| P | Presentation mode: larger, shows the page address; + and − change the size |
+| G | Guide, where there is one |
+| ? | Help |
+
+URL parameters: `?present=1` everywhere; `?steps=N` wherever there is a Step button.
+Tool-specific:
+- `tools/cpu/?program=add|loop|input`
+- `tools/loops/?lang=assembly|python|javascript|cpp` (that language first, outlined)
+- `tools/text/?example=fox|bites|house`, `?d1=…&d2=…&d3=…&stop=…`, `&mode=tfidf`
+- `tools/images/?grid=8|16|32`, `?source=random`, `?seed=42`
+- `tools/neural-net/?seed=1`, `?data=clear`
+- `tools/embeddings/multimodal.html?trained=1`, `?select=Feline` (a word) or `?select=cat` (a picture)
+
+## Adding a tool
+
+1. Put it in `tools/<name>/`.
+2. Before `</head>`: `<link rel="stylesheet" href="../../assets/course.css">`.
+3. Before `</body>`:
+   ```html
+   <script src="../../assets/course.js" data-week="3" data-title="My tool"
+       data-step="#step-button" data-reset="#reset-button" data-guide="guide.html"></script>
+   ```
+   See the comment at the top of `assets/course.js` for all options.
+4. Add a card to the Interactive tools section of `index.html`.
+
+The neural network page is pre-compiled: edit `tools/neural-net/nn_app.jsx`, then compile it with Babel
+(preset-react) and paste the result into the `<script>` in `index.html`.
 
 ## Publishing with GitHub Pages
 
-1. Upload these files to the repository, keeping the folders.
-2. Go to Settings → Pages, choose "Deploy from a branch", then `main` and `/ (root)`, and save.
-3. The site appears at `https://<username>.github.io/<repository>/`.
+Settings → Pages → Deploy from a branch → `main`, `/ (root)`.
 
-## Adding a week
+## Installing the course libraries locally
 
-Copy one of the week folders, for example `week3/` to `week4/`, edit its
-`index.html`, and add a link to it on the home page. The exercises are in the
-`EXERCISES` list near the bottom of each page.
+The requirements file lives in the goto4711/cdai repository, next to the course data.
+
+```
+pip install -r https://raw.githubusercontent.com/goto4711/cdai/refs/heads/main/requirements.txt
+pip install --no-build-isolation git+https://github.com/Kaggle/learntools.git
+```
+
+`learntools` is installed separately because it can only be built once pandas is installed.
+Tesseract (Week 5) and Graphviz (Week 3) are separate programs. The notebooks were written for
+pandas 2 and transformers 4, so both are capped below their next major version.

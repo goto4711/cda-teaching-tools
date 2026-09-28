@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Computers See Images</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../assets/course.css">
+</head>
+<body>
+    <div class="container">
+        <h1>How a Computer 'Sees' an Image</h1>
+        <p>An image is a grid of pixels, where each pixel has a value for Red, Green, and Blue (RGB).</p>
+        <div class="controls">
+            <p id="upload-msg" role="status" style="color:#BC0031;margin:0 0 8px;min-height:1em"></p>
+            <button id="sampleBtn">Sample photo</button>
+            <button id="uploadBtn">Upload Image</button>
+            <button id="randomBtn">Random Image</button>
+        </div>
+        <div class="grid-choice" role="group" aria-label="Resolution"><button type="button" id="gridNext" hidden>next</button>
+            <span>Resolution:</span>
+            <button type="button" data-grid="8">8 &times; 8</button>
+            <button type="button" data-grid="16">16 &times; 16</button>
+            <button type="button" data-grid="32">32 &times; 32</button>
+        </div>
+        <input type="file" id="imageLoader" name="imageLoader" accept="image/png, image/jpeg, image/gif, image/bmp" style="display: none;" />
+
+        <h2 class="step-h">1. The picture as a grid of pixels</h2>
+        <div class="main-content">
+            <div class="canvas-container">
+                <canvas id="canvas"></canvas>
+                <p class="small" id="size-note"></p>
+            </div>
+            <div id="pixel-zoom-container">
+                <h3>Pixel Details</h3>
+                <div id="pixel-zoom"><span class="hint">Click a pixel</span></div>
+                <p class="small" id="pixel-where"></p>
+            </div>
+        </div>
+        <div id="pixel-grid"></div>
+
+        <h2 class="step-h">2. Three colour planes</h2>
+        <p class="small">The computer stores three grids of numbers from 0 to 255, one per colour: a tensor of shape <b id="shape"></b>.</p>
+        <div class="planes" id="planes"></div>
+
+        <h2 class="step-h">3. Flattened into one row of features</h2>
+        <p class="small" id="flat-note"></p>
+        <div class="flat-wrap"><table class="flat" id="flat"></table></div>
+    </div>
+    <script src="script.js"></script>
+    <script src="../../assets/course.js" data-week="3" data-title="How a computer sees an image"
+        data-step="#gridNext" data-step-label="Next resolution (8, 16, 32)"
+        data-help="Click any pixel to see its values, its place in the three colour planes, and its three columns in the flattened row.|Upload a photo, use the sample, or make a random image; switch the resolution to see detail disappear.|Links: <kbd>?grid=16</kbd>, <kbd>?source=random</kbd>, <kbd>?seed=42</kbd> (the same random image every time)."></script>
+</body>
+</html>

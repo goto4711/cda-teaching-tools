@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Network Backpropagation Visualization</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
+
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+            <style>/* Tailwind CSS v3.4.17, generated once for the classes used on this page */
+*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.mx-auto{margin-left:auto;margin-right:auto}.mb-1{margin-bottom:.25rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-6{margin-bottom:1.5rem}.mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-2{height:.5rem}.min-h-screen{min-height:100vh}.w-10{width:2.5rem}.w-12{width:3rem}.w-16{width:4rem}.w-20{width:5rem}.w-32{width:8rem}.w-36{width:9rem}.w-5{width:1.25rem}.w-full{width:100%}.max-w-6xl{max-width:72rem}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.transform{transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.grid-cols-1{grid-template-columns:repeat(1,minmax(0,1fr))}.flex-col{flex-direction:column}.flex-wrap{flex-wrap:wrap}.items-center{align-items:center}.justify-between{justify-content:space-between}.gap-2{gap:.5rem}.gap-3{gap:.75rem}.gap-4{gap:1rem}.gap-6{gap:1.5rem}.space-y-2>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(.5rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(.5rem*var(--tw-space-y-reverse))}.truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.rounded{border-radius:.25rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.p-4{padding:1rem}.p-6{padding:1.5rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-4{padding-top:1rem;padding-bottom:1rem}.pt-2{padding-top:.5rem}.text-center{text-align:center}.text-right{text-align:right}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-semibold{font-weight:600}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.transition-colors{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.duration-300{transition-duration:.3s}@media (min-width:1024px){.lg\:col-span-2{grid-column:span 2/span 2}.lg\:grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}.lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}}</style>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Source Sans 3", "Source Sans Pro", Arial, Helvetica, sans-serif;
+            border-top: 6px solid #BC0031;
+        }
+        .cda-page { background: #FFFFFF; color: #1F1D21; }
+        .cda-panel { background: #FFFFFF; border: 1px solid #BEC6D1; }
+        .cda-muted { color: #555555; }
+        .cda-faint { color: #8A8A8A; }
+        .cda-ink { color: #1F1D21; }
+        .cda-good { color: #1F1D21; }
+        .cda-bad { color: #BC0031; }
+        .cda-pos { color: #5B7BA8; }
+        .cda-track { background: #EBEBEC; }
+        .cda-bar { background: #BC0031; }
+        .cda-sub { font-family: Faustina, Georgia, serif; font-style: italic; }
+        .cda-btn { background: #FFFFFF; color: #1F1D21; border: 1px solid #BEC6D1; }
+        .cda-btn:hover { background: #F9F9F9; }
+        .cda-btn-primary { background: #BC0031; color: #FFFFFF; font-weight: 600; }
+        .cda-btn-primary:hover { background: #7E0021; }
+        .cda-btn:disabled, .cda-btn-primary:disabled { opacity: .45; }
+        input[type=range] { accent-color: #BC0031; }
+        .cda-rule { border-color: #BEC6D1; }
+        .halo-key { background: #F0C4CE; padding: 0 4px; border-radius: 3px; }
+    </style>
+<link rel="stylesheet" href="../../assets/course.css">
+</head>
+<body>
+    <div id="root"></div>
+
+    <script>
+/* compiled from JSX with Babel (preset-react); edit the source in nn_app.jsx and recompile */
+const {
+  useState,
+  useEffect,
+  useRef
+} = React;
+
+// ---- data: four made-up features per animal, label 0 = cat, 1 = dog
+const FEATURES = ["Ear Pointiness", "Whisker Length", "Nose Wetness", "Fur Pattern"];
+const CLEAR = [{
+  features: [0.9, 0.8, 0.3, 0.7],
+  label: 0,
+  name: "Cat 1"
+}, {
+  features: [0.85, 0.9, 0.2, 0.8],
+  label: 0,
+  name: "Cat 2"
+}, {
+  features: [0.95, 0.75, 0.25, 0.75],
+  label: 0,
+  name: "Cat 3"
+}, {
+  features: [0.8, 0.85, 0.3, 0.65],
+  label: 0,
+  name: "Cat 4"
+}, {
+  features: [0.2, 0.3, 0.8, 0.4],
+  label: 1,
+  name: "Dog 1"
+}, {
+  features: [0.3, 0.25, 0.75, 0.35],
+  label: 1,
+  name: "Dog 2"
+}, {
+  features: [0.15, 0.35, 0.85, 0.3],
+  label: 1,
+  name: "Dog 3"
+}, {
+  features: [0.25, 0.2, 0.9, 0.45],
+  label: 1,
+  name: "Dog 4"
+}];
+// the overlapping set adds animals that break the easy rule "pointy ears = cat"
+const OVERLAP = CLEAR.concat([{
+  features: [0.25, 0.8, 0.35, 0.7],
+  label: 0,
+  name: "Cat 5",
+  note: "folded ears"
+}, {
+  features: [0.9, 0.35, 0.8, 0.45],
+  label: 1,
+  name: "Dog 5",
+  note: "pointy ears"
+}, {
+  features: [0.55, 0.5, 0.55, 0.5],
+  label: 0,
+  name: "Cat 6",
+  note: "same numbers as Dog 6"
+}, {
+  features: [0.55, 0.5, 0.55, 0.5],
+  label: 1,
+  name: "Dog 6",
+  note: "same numbers as Cat 6"
+}]);
+// never trained on: the network only sees these to be tested
+const TEST = [{
+  features: [0.8, 0.7, 0.35, 0.6],
+  label: 0,
+  name: "Cat A"
+}, {
+  features: [0.3, 0.3, 0.7, 0.4],
+  label: 1,
+  name: "Dog A"
+}, {
+  features: [0.3, 0.75, 0.3, 0.75],
+  label: 0,
+  name: "Cat B",
+  note: "folded ears"
+}, {
+  features: [0.8, 0.3, 0.75, 0.4],
+  label: 1,
+  name: "Dog B",
+  note: "pointy ears"
+}];
+const DATASETS = {
+  overlap: {
+    data: OVERLAP,
+    label: "Overlapping (12 animals)"
+  },
+  clear: {
+    data: CLEAR,
+    label: "Clear-cut (8 animals)"
+  }
+};
+
+// small seeded random generator (mulberry32), so ?seed=7 gives the same start every time
+const makeRng = seed => {
+  let a = seed >>> 0;
+  return () => {
+    a = a + 0x6D2B79F5 >>> 0;
+    let t = a;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+};
+const params = new URLSearchParams(location.search);
+const seedParam = parseInt(params.get("seed"), 10);
+const startData = params.get("data") === "clear" ? "clear" : "overlap";
+const relu = x => Math.max(0, x);
+const reluDeriv = x => x > 0 ? 1 : 0;
+const softmax = arr => {
+  const max = Math.max(...arr);
+  const exps = arr.map(x => Math.exp(x - max));
+  const sum = exps.reduce((a, b) => a + b, 0);
+  return exps.map(x => x / sum);
+};
+const forward = (input, w1, b1, w2, b2) => {
+  const hidden = b1.map((bias, i) => relu(input.reduce((acc, val, j) => acc + val * w1[j][i], 0) + bias));
+  const output = b2.map((bias, i) => hidden.reduce((acc, val, j) => acc + val * w2[j][i], 0) + bias);
+  return {
+    hidden,
+    output,
+    probs: softmax(output)
+  };
+};
+const evaluate = (set, w1, b1, w2, b2) => {
+  let correct = 0,
+    loss = 0;
+  set.forEach(s => {
+    const p = forward(s.features, w1, b1, w2, b2).probs;
+    if ((p[0] > p[1] ? 0 : 1) === s.label) correct++;
+    loss += -Math.log(p[s.label] + 1e-10);
+  });
+  return {
+    acc: correct / set.length * 100,
+    loss: loss / set.length
+  };
+};
+const LossChart = ({
+  history,
+  maxEpochs
+}) => {
+  const W = 320,
+    H = 170,
+    L = 34,
+    R = 8,
+    T = 10,
+    B = 26;
+  const top = Math.max(1, ...history.map(h => Math.max(h.loss, h.testLoss)));
+  const x = e => L + e / Math.max(maxEpochs, 1) * (W - L - R);
+  const y = v => T + (1 - Math.min(v, top) / top) * (H - T - B);
+  const line = key => history.map((h, i) => (i ? "L" : "M") + x(h.epoch).toFixed(1) + " " + y(h[key]).toFixed(1)).join(" ");
+  const coin = Math.log(2);
+  return /*#__PURE__*/React.createElement("svg", {
+    viewBox: `0 0 ${W} ${H}`,
+    className: "w-full",
+    role: "img",
+    "aria-label": "Loss per epoch for training and unseen animals"
+  }, /*#__PURE__*/React.createElement("line", {
+    x1: L,
+    y1: T,
+    x2: L,
+    y2: H - B,
+    stroke: "#BEC6D1"
+  }), /*#__PURE__*/React.createElement("line", {
+    x1: L,
+    y1: H - B,
+    x2: W - R,
+    y2: H - B,
+    stroke: "#BEC6D1"
+  }), /*#__PURE__*/React.createElement("line", {
+    x1: L,
+    y1: y(coin),
+    x2: W - R,
+    y2: y(coin),
+    stroke: "#8A8A8A",
+    strokeDasharray: "3 3"
+  }), /*#__PURE__*/React.createElement("text", {
+    x: W - R,
+    y: y(coin) - 3,
+    fontSize: "9",
+    textAnchor: "end",
+    fill: "#555555"
+  }, "coin toss (0.69)"), /*#__PURE__*/React.createElement("text", {
+    x: L - 4,
+    y: T + 4,
+    fontSize: "9",
+    textAnchor: "end",
+    fill: "#555555"
+  }, top.toFixed(1)), /*#__PURE__*/React.createElement("text", {
+    x: L - 4,
+    y: H - B,
+    fontSize: "9",
+    textAnchor: "end",
+    fill: "#555555"
+  }, "0"), /*#__PURE__*/React.createElement("text", {
+    x: L,
+    y: H - 8,
+    fontSize: "9",
+    fill: "#555555"
+  }, "epoch 0"), /*#__PURE__*/React.createElement("text", {
+    x: W - R,
+    y: H - 8,
+    fontSize: "9",
+    textAnchor: "end",
+    fill: "#555555"
+  }, maxEpochs), /*#__PURE__*/React.createElement("text", {
+    x: 8,
+    y: (H - B) / 2 + 6,
+    fontSize: "9",
+    fill: "#555555",
+    transform: `rotate(-90 8 ${(H - B) / 2 + 6})`
+  }, "loss"), history.length > 0 && /*#__PURE__*/React.createElement("path", {
+    d: line("testLoss"),
+    fill: "none",
+    stroke: "#5B7BA8",
+    strokeWidth: "2",
+    strokeDasharray: "5 3"
+  }), history.length > 0 && /*#__PURE__*/React.createElement("path", {
+    d: line("loss"),
+    fill: "none",
+    stroke: "#BC0031",
+    strokeWidth: "2"
+  }));
+};
+const NeuralNetworkViz = () => {
+  const canvasRef = useRef(null);
+  const rngRef = useRef(makeRng(Number.isNaN(seedParam) ? Math.floor(Math.random() * 1e9) : seedParam));
+  const rng = () => rngRef.current();
+  const [dataKey, setDataKey] = useState(startData);
+  const trainingData = DATASETS[dataKey].data;
+  const [isTraining, setIsTraining] = useState(false);
+  const [epoch, setEpoch] = useState(0);
+  const [accuracy, setAccuracy] = useState(null);
+  const [testAccuracy, setTestAccuracy] = useState(null);
+  const [loss, setLoss] = useState(null);
+  const [history, setHistory] = useState([]);
+  const [changes, setChanges] = useState([]);
+  const [learningRate, setLearningRate] = useState(0.1);
+  const [currentSample, setCurrentSample] = useState(null);
+  const [prediction, setPrediction] = useState(null);
+  const [maxEpochs, setMaxEpochs] = useState(100);
+  const [speed, setSpeed] = useState(100);
+  const [weights1, setWeights1] = useState([]);
+  const [weights2, setWeights2] = useState([]);
+  const [biases1, setBiases1] = useState([]);
+  const [biases2, setBiases2] = useState([]);
+  const initWeights = () => {
+    setWeights1(Array(4).fill(0).map(() => Array(6).fill(0).map(() => (rng() - 0.5) * 0.5)));
+    setWeights2(Array(6).fill(0).map(() => Array(2).fill(0).map(() => (rng() - 0.5) * 0.5)));
+    setBiases1(Array(6).fill(0).map(() => (rng() - 0.5) * 0.1));
+    setBiases2(Array(2).fill(0).map(() => (rng() - 0.5) * 0.1));
+  };
+  useEffect(initWeights, []);
+  const backward = (input, target, w1, b1, w2, b2) => {
+    const hiddenRaw = b1.map((bias, i) => input.reduce((acc, val, j) => acc + val * w1[j][i], 0) + bias);
+    const hidden = hiddenRaw.map(relu);
+    const outputRaw = b2.map((bias, i) => hidden.reduce((acc, val, j) => acc + val * w2[j][i], 0) + bias);
+    const probs = softmax(outputRaw);
+    const outputGrad = probs.map((p, i) => p - (i === target ? 1 : 0));
+    const hiddenGrad = hidden.map((h, i) => outputGrad.reduce((acc, og, j) => acc + og * w2[i][j], 0) * reluDeriv(hiddenRaw[i]));
+    return {
+      w1Grad: w1.map((row, i) => row.map((_, j) => input[i] * hiddenGrad[j])),
+      b1Grad: hiddenGrad,
+      w2Grad: w2.map((row, i) => row.map((_, j) => hidden[i] * outputGrad[j])),
+      b2Grad: outputGrad,
+      loss: -Math.log(probs[target] + 1e-10)
+    };
+  };
+  const trainStep = () => {
+    if (weights1.length === 0) return;
+    let totalLoss = 0;
+    const shuffled = [...trainingData].sort(() => rng() - 0.5);
+    const newW1 = weights1.map(row => [...row]);
+    const newB1 = [...biases1];
+    const newW2 = weights2.map(row => [...row]);
+    const newB2 = [...biases2];
+    shuffled.forEach((sample, idx) => {
+      const g = backward(sample.features, sample.label, newW1, newB1, newW2, newB2);
+      totalLoss += g.loss;
+      for (let i = 0; i < 4; i++) for (let j = 0; j < 6; j++) newW1[i][j] -= learningRate * g.w1Grad[i][j];
+      for (let i = 0; i < 6; i++) for (let j = 0; j < 2; j++) newW2[i][j] -= learningRate * g.w2Grad[i][j];
+      for (let i = 0; i < 6; i++) newB1[i] -= learningRate * g.b1Grad[i];
+      for (let i = 0; i < 2; i++) newB2[i] -= learningRate * g.b2Grad[i];
+      if (idx === shuffled.length - 1) {
+        const r = forward(sample.features, newW1, newB1, newW2, newB2);
+        setCurrentSample(sample);
+        setPrediction({
+          probs: r.probs,
+          predicted: r.probs[0] > r.probs[1] ? 0 : 1
+        });
+      }
+    });
+    // which weights moved most in this epoch? (the heart of backpropagation)
+    const moved = [];
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 6; j++) moved.push({
+      layer: 1,
+      i,
+      j,
+      delta: newW1[i][j] - weights1[i][j]
+    });
+    for (let i = 0; i < 6; i++) for (let j = 0; j < 2; j++) moved.push({
+      layer: 2,
+      i,
+      j,
+      delta: newW2[i][j] - weights2[i][j]
+    });
+    moved.sort((a, b) => Math.abs(b.delta) - Math.abs(a.delta));
+    setChanges(moved.slice(0, 5));
+    const tr = evaluate(trainingData, newW1, newB1, newW2, newB2);
+    const te = evaluate(TEST, newW1, newB1, newW2, newB2);
+    setWeights1(newW1);
+    setWeights2(newW2);
+    setBiases1(newB1);
+    setBiases2(newB2);
+    setLoss(totalLoss / trainingData.length);
+    setAccuracy(tr.acc);
+    setTestAccuracy(te.acc);
+    setHistory(h => h.concat([{
+      epoch: h.length + 1,
+      loss: totalLoss / trainingData.length,
+      testLoss: te.loss
+    }]));
+    setEpoch(e => e + 1);
+  };
+  useEffect(() => {
+    if (!isTraining || weights1.length === 0) return;
+    if (epoch >= maxEpochs) {
+      setIsTraining(false);
+      return;
+    }
+    const interval = setInterval(trainStep, speed);
+    return () => clearInterval(interval);
+  }, [isTraining, weights1, weights2, biases1, biases2, learningRate, epoch, maxEpochs, speed, dataKey]);
+
+  // ---- network drawing
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || weights1.length === 0) return;
+    const ctx = canvas.getContext("2d");
+    const width = canvas.width,
+      height = canvas.height;
+    ctx.clearRect(0, 0, width, height);
+    const layers = [{
+      nodes: 4,
+      x: 120
+    }, {
+      nodes: 6,
+      x: 300
+    }, {
+      nodes: 2,
+      x: 480
+    }];
+    const getY = (l, n) => height / (layers[l].nodes + 1) * (n + 1);
+    const edge = (l, i, j, w, halo) => {
+      const x1 = layers[l].x,
+        y1 = getY(l, i),
+        x2 = layers[l + 1].x,
+        y2 = getY(l + 1, j);
+      if (halo) {
+        ctx.lineWidth = 11;
+        ctx.strokeStyle = "rgba(240, 196, 206, 0.95)";
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.stroke();
+      }
+      const a = Math.abs(w);
+      ctx.lineWidth = Math.max(0.5, Math.min(a * 4, 4));
+      ctx.strokeStyle = w > 0 ? `rgba(91, 123, 168, ${Math.min(a * 2, 1)})` : `rgba(188, 0, 49, ${Math.min(a * 2, 1)})`;
+      ctx.lineCap = "butt";
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    };
+    // halos first, underneath everything
+    changes.forEach(c => edge(c.layer - 1, c.i, c.j, c.layer === 1 ? weights1[c.i][c.j] : weights2[c.i][c.j], true));
+    for (let i = 0; i < 4; i++) for (let j = 0; j < 6; j++) edge(0, i, j, weights1[i][j], false);
+    for (let i = 0; i < 6; i++) for (let j = 0; j < 2; j++) edge(1, i, j, weights2[i][j], false);
+    const result = currentSample ? forward(currentSample.features, weights1, biases1, weights2, biases2) : null;
+    layers.forEach((layer, l) => {
+      for (let i = 0; i < layer.nodes; i++) {
+        const y = getY(l, i);
+        ctx.fillStyle = "#FFFFFF";
+        ctx.strokeStyle = "#BEC6D1";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(layer.x, y, 20, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+        if (result) {
+          const act = l === 0 ? currentSample.features[i] : l === 1 ? Math.min(result.hidden[i], 1) : result.probs[i];
+          ctx.fillStyle = `rgba(31, 29, 33, ${act})`;
+          ctx.beginPath();
+          ctx.arc(layer.x, y, 16, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        if (l === 1) {
+          ctx.fillStyle = "#555555";
+          ctx.font = '11px "Source Sans 3", Arial, sans-serif';
+          ctx.textAlign = "center";
+          ctx.fillText("H" + (i + 1), layer.x, y - 25);
+        }
+      }
+    });
+    ctx.fillStyle = "#1F1D21";
+    ctx.font = '13px "Source Sans 3", Arial, sans-serif';
+    ctx.textAlign = "right";
+    FEATURES.forEach((name, i) => ctx.fillText(name, 96, getY(0, i) + 4));
+    ctx.textAlign = "left";
+    ctx.fillText("🐱 Cat", layers[2].x + 30, getY(2, 0) + 4);
+    ctx.fillText("🐶 Dog", layers[2].x + 30, getY(2, 1) + 4);
+    ctx.textAlign = "center";
+    ctx.fillText("Input", layers[0].x, 13);
+    ctx.fillText("Hidden", layers[1].x, 13);
+    ctx.fillText("Output", layers[2].x, 13);
+  }, [weights1, weights2, currentSample, changes]);
+  const reset = key => {
+    setIsTraining(false);
+    setEpoch(0);
+    setAccuracy(null);
+    setTestAccuracy(null);
+    setLoss(null);
+    setHistory([]);
+    setChanges([]);
+    setCurrentSample(null);
+    setPrediction(null);
+    if (typeof key === "string") setDataKey(key);
+    initWeights();
+  };
+  const edgeName = c => c.layer === 1 ? `${FEATURES[c.i]} → H${c.j + 1}` : `H${c.i + 1} → ${c.j === 0 ? "Cat" : "Dog"}`;
+  const ready = weights1.length > 0;
+  const verdicts = set => set.map(s => {
+    const p = ready ? forward(s.features, weights1, biases1, weights2, biases2).probs : [0.5, 0.5];
+    return {
+      ...s,
+      pCat: p[0],
+      right: (p[0] > p[1] ? 0 : 1) === s.label
+    };
+  });
+  const pct = v => v == null ? "–" : v.toFixed(1) + "%";
+  const AnimalRow = ({
+    s
+  }) => /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-2 text-sm py-1 border-b cda-rule"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "w-20 shrink-0"
+  }, s.label === 0 ? "🐱" : "🐶", " ", s.name), /*#__PURE__*/React.createElement("div", {
+    className: "flex-1 cda-track rounded-full h-2",
+    title: `P(cat) = ${(s.pCat * 100).toFixed(0)}%`
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "cda-bar h-2 rounded-full",
+    style: {
+      width: `${s.pCat * 100}%`
+    }
+  })), /*#__PURE__*/React.createElement("span", {
+    className: "font-mono w-10 text-right"
+  }, (s.pCat * 100).toFixed(0), "%"), /*#__PURE__*/React.createElement("span", {
+    className: `w-5 text-center font-bold ${epoch === 0 ? "cda-faint" : s.right ? "cda-good" : "cda-bad"}`
+  }, epoch === 0 ? "·" : s.right ? "✓" : "✗"), /*#__PURE__*/React.createElement("span", {
+    className: "cda-faint text-xs w-36 truncate"
+  }, s.note || ""));
+  return /*#__PURE__*/React.createElement("div", {
+    className: "w-full min-h-screen cda-page p-6"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "max-w-6xl mx-auto"
+  }, /*#__PURE__*/React.createElement("h1", {
+    className: "text-3xl font-bold mb-2 text-center"
+  }, "Neural Network Backpropagation"), /*#__PURE__*/React.createElement("p", {
+    className: "cda-muted cda-sub text-center mb-6"
+  }, "Cat vs Dog Classification with Weight Updates"), /*#__PURE__*/React.createElement("div", {
+    className: "grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "cda-panel rounded p-4"
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "text-lg font-semibold mb-3"
+  }, "Training Progress"), /*#__PURE__*/React.createElement("div", {
+    className: "space-y-2"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "cda-muted"
+  }, "Epoch:"), /*#__PURE__*/React.createElement("span", {
+    className: "font-mono font-bold cda-ink"
+  }, epoch, " / ", maxEpochs)), /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "cda-muted"
+  }, "Accuracy, training animals:"), /*#__PURE__*/React.createElement("span", {
+    className: "font-mono font-bold cda-good",
+    "data-k": "train-acc"
+  }, pct(accuracy))), /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "cda-muted"
+  }, "Accuracy, 4 unseen animals:"), /*#__PURE__*/React.createElement("span", {
+    className: "font-mono font-bold cda-pos",
+    "data-k": "test-acc"
+  }, pct(testAccuracy))), /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "cda-muted"
+  }, "Loss:"), /*#__PURE__*/React.createElement("span", {
+    className: "font-mono font-bold cda-bad",
+    "data-k": "loss"
+  }, loss == null ? "–" : loss.toFixed(4))), epoch >= maxEpochs && /*#__PURE__*/React.createElement("div", {
+    className: "cda-bad text-center pt-2 border-t cda-rule"
+  }, "\u2713 Training Complete"))), /*#__PURE__*/React.createElement("div", {
+    className: "cda-panel rounded p-4"
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "text-lg font-semibold mb-3"
+  }, "Current Sample"), currentSample ? /*#__PURE__*/React.createElement("div", {
+    className: "space-y-2"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "text-xl text-center mb-2"
+  }, currentSample.label === 0 ? "🐱" : "🐶", " ", currentSample.name), /*#__PURE__*/React.createElement("div", {
+    className: "text-sm cda-muted"
+  }, FEATURES.map((name, i) => /*#__PURE__*/React.createElement("div", {
+    key: i,
+    className: "flex justify-between"
+  }, /*#__PURE__*/React.createElement("span", null, name, ":"), /*#__PURE__*/React.createElement("span", {
+    className: "font-mono"
+  }, currentSample.features[i].toFixed(2)))))) : /*#__PURE__*/React.createElement("div", {
+    className: "cda-faint text-center py-4"
+  }, "Start training to see samples")), /*#__PURE__*/React.createElement("div", {
+    className: "cda-panel rounded p-4"
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "text-lg font-semibold mb-3"
+  }, "Prediction"), prediction ? /*#__PURE__*/React.createElement("div", {
+    className: "space-y-2"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between items-center mb-2"
+  }, /*#__PURE__*/React.createElement("span", null, "\uD83D\uDC31 Cat:"), /*#__PURE__*/React.createElement("span", {
+    className: "font-mono font-bold"
+  }, (prediction.probs[0] * 100).toFixed(1), "%")), /*#__PURE__*/React.createElement("div", {
+    className: "w-full cda-track rounded-full h-2"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "cda-bar h-2 rounded-full transition-all duration-300",
+    style: {
+      width: `${prediction.probs[0] * 100}%`
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "flex justify-between items-center mb-2 mt-3"
+  }, /*#__PURE__*/React.createElement("span", null, "\uD83D\uDC36 Dog:"), /*#__PURE__*/React.createElement("span", {
+    className: "font-mono font-bold"
+  }, (prediction.probs[1] * 100).toFixed(1), "%")), /*#__PURE__*/React.createElement("div", {
+    className: "w-full cda-track rounded-full h-2"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "cda-bar h-2 rounded-full transition-all duration-300",
+    style: {
+      width: `${prediction.probs[1] * 100}%`
+    }
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "mt-3 text-center"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: `font-bold ${prediction.predicted === currentSample?.label ? "cda-good" : "cda-bad"}`
+  }, prediction.predicted === currentSample?.label ? "✓ Correct" : "✗ Incorrect"))) : /*#__PURE__*/React.createElement("div", {
+    className: "cda-faint text-center py-4"
+  }, "No prediction yet"))), /*#__PURE__*/React.createElement("div", {
+    className: "cda-panel rounded p-4 mb-6"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-wrap gap-4 items-center justify-between"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex gap-2"
+  }, /*#__PURE__*/React.createElement("button", {
+    onClick: () => setIsTraining(!isTraining),
+    disabled: epoch >= maxEpochs,
+    className: "flex items-center gap-2 cda-btn-primary px-4 py-2 rounded-lg transition-colors"
+  }, isTraining ? "⏸" : "▶", " ", isTraining ? "Pause" : "Train"), /*#__PURE__*/React.createElement("button", {
+    onClick: trainStep,
+    disabled: isTraining || epoch >= maxEpochs,
+    className: "flex items-center gap-2 cda-btn px-4 py-2 rounded-lg transition-colors"
+  }, "\u26A1 Step"), /*#__PURE__*/React.createElement("button", {
+    onClick: () => reset(),
+    className: "flex items-center gap-2 cda-btn px-4 py-2 rounded-lg transition-colors"
+  }, "\u21BB Reset")), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-2 text-sm",
+    role: "group",
+    "aria-label": "Training data"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "cda-muted"
+  }, "Data:"), Object.entries(DATASETS).map(([k, d]) => /*#__PURE__*/React.createElement("button", {
+    key: k,
+    "data-k": "data-" + k,
+    onClick: () => reset(k),
+    "aria-pressed": dataKey === k,
+    className: `px-3 py-1 rounded-lg ${dataKey === k ? "cda-btn-primary" : "cda-btn"}`
+  }, d.label)))), /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-wrap items-center gap-6 mt-4"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-3"
+  }, /*#__PURE__*/React.createElement("label", {
+    className: "text-sm cda-muted"
+  }, "Learning Rate:"), /*#__PURE__*/React.createElement("input", {
+    type: "range",
+    min: "0.01",
+    max: "0.5",
+    step: "0.01",
+    value: learningRate,
+    onChange: e => setLearningRate(parseFloat(e.target.value)),
+    className: "w-32"
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "font-mono text-sm w-12"
+  }, learningRate.toFixed(2))), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-3"
+  }, /*#__PURE__*/React.createElement("label", {
+    className: "text-sm cda-muted"
+  }, "Max Epochs:"), /*#__PURE__*/React.createElement("input", {
+    type: "number",
+    min: "10",
+    max: "1000",
+    step: "10",
+    value: maxEpochs,
+    onChange: e => setMaxEpochs(parseInt(e.target.value)),
+    className: "w-20 bg-white border cda-rule rounded px-2 py-1 text-sm"
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center gap-3"
+  }, /*#__PURE__*/React.createElement("label", {
+    className: "text-sm cda-muted"
+  }, "Speed:"), /*#__PURE__*/React.createElement("input", {
+    type: "range",
+    min: "10",
+    max: "500",
+    step: "10",
+    value: speed,
+    onChange: e => setSpeed(parseInt(e.target.value)),
+    className: "w-32"
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "font-mono text-sm w-16"
+  }, (1000 / speed).toFixed(1), "/s")))), /*#__PURE__*/React.createElement("div", {
+    className: "grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "cda-panel rounded p-4 lg:col-span-2"
+  }, /*#__PURE__*/React.createElement("canvas", {
+    ref: canvasRef,
+    width: 600,
+    height: 400,
+    className: "w-full rounded",
+    style: {
+      background: "#FFFFFF"
+    }
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "mt-4 text-sm cda-muted text-center"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "cda-pos font-semibold"
+  }, "Blue-grey"), " = positive weight \xB7", /*#__PURE__*/React.createElement("span", {
+    className: "cda-bad font-semibold"
+  }, " crimson"), " = negative \xB7 thickness = strength \xB7", /*#__PURE__*/React.createElement("span", {
+    className: "font-semibold cda-ink"
+  }, " ", /*#__PURE__*/React.createElement("span", {
+    className: "halo-key"
+  }, "pink halo")), " = the 5 weights that changed most in the last epoch")), /*#__PURE__*/React.createElement("div", {
+    className: "flex flex-col gap-6"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "cda-panel rounded p-4"
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "text-lg font-semibold mb-1"
+  }, "Loss per epoch"), /*#__PURE__*/React.createElement(LossChart, {
+    history: history,
+    maxEpochs: maxEpochs
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "text-xs cda-muted flex gap-4 mt-1"
+  }, /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("span", {
+    className: "cda-bad font-bold"
+  }, "\u2501"), " training animals"), /*#__PURE__*/React.createElement("span", null, /*#__PURE__*/React.createElement("span", {
+    className: "cda-pos font-bold"
+  }, "- -"), " unseen animals"))), /*#__PURE__*/React.createElement("div", {
+    className: "cda-panel rounded p-4"
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "text-lg font-semibold mb-1"
+  }, "Biggest weight changes"), changes.length ? /*#__PURE__*/React.createElement("div", {
+    className: "text-sm",
+    "data-k": "changes"
+  }, changes.map((c, k) => /*#__PURE__*/React.createElement("div", {
+    key: k,
+    className: "flex justify-between border-b cda-rule py-1"
+  }, /*#__PURE__*/React.createElement("span", null, edgeName(c)), /*#__PURE__*/React.createElement("span", {
+    className: `font-mono ${c.delta > 0 ? "cda-pos" : "cda-bad"}`
+  }, c.delta > 0 ? "+" : "−", Math.abs(c.delta).toFixed(3)))), /*#__PURE__*/React.createElement("p", {
+    className: "cda-faint text-xs mt-2"
+  }, "Backpropagation sends the error back through the network and changes each weight by how much it contributed.")) : /*#__PURE__*/React.createElement("div", {
+    className: "cda-faint text-sm py-2"
+  }, "Press Step to see which weights the error changes most.")))), /*#__PURE__*/React.createElement("div", {
+    className: "cda-panel rounded p-4 mb-6"
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "text-lg font-semibold mb-1"
+  }, "Every animal, right now"), /*#__PURE__*/React.createElement("p", {
+    className: "text-sm cda-muted mb-3"
+  }, "The bar is the network's probability for ", /*#__PURE__*/React.createElement("b", null, "cat"), ". \u2713 = sorted correctly."), /*#__PURE__*/React.createElement("div", {
+    className: "grid grid-cols-1 lg:grid-cols-2 gap-6"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "text-sm font-semibold mb-1"
+  }, "Training animals (", trainingData.length, ")"), verdicts(trainingData).map(s => /*#__PURE__*/React.createElement(AnimalRow, {
+    key: s.name,
+    s: s
+  }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "text-sm font-semibold mb-1"
+  }, "Unseen animals (never trained on)"), verdicts(TEST).map(s => /*#__PURE__*/React.createElement(AnimalRow, {
+    key: s.name,
+    s: s
+  }))))), /*#__PURE__*/React.createElement("div", {
+    className: "cda-panel rounded p-4 text-sm cda-muted"
+  }, /*#__PURE__*/React.createElement("h3", {
+    className: "font-semibold cda-ink mb-2"
+  }, "How it works:"), /*#__PURE__*/React.createElement("p", null, "A small neural network learns to sort cats from dogs by backpropagation, using four made-up features. In each epoch it sees every training animal once, measures its error, and nudges every weight in the direction that reduces the error; the pink halos show which weights moved most. The overlapping data include a cat with folded ears, a dog with pointy ears, and a cat and a dog with exactly the same numbers: no network can get both of those right. The four unseen animals are never trained on, so they show whether the network has learned something that carries over."))));
+};
+ReactDOM.render( /*#__PURE__*/React.createElement(NeuralNetworkViz, null), document.getElementById("root"));
+</script>
+<script src="../../assets/course.js" data-week="3" data-title="Neural network training" data-guide="guide.html"
+    data-note="Illustrative data"
+    data-step="text:Step" data-step-label="Step: train for one epoch" data-reset="text:Reset" data-run="text:Train|Pause"
+    data-help="One Step is one epoch: the network sees every training animal once and adjusts its weights after each.|Start with a given dataset or starting weights: <kbd>?data=clear</kbd>, <kbd>?seed=7</kbd>."></script>
+</body>
+</html>

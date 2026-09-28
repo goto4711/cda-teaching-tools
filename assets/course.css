@@ -1,0 +1,76 @@
+/* Cultural Data Analysis – shared bar, help panel and presentation mode for the teaching tools */
+:root {
+  --cda-crimson: #BC0031;
+  --cda-crimson-dark: #7E0021;
+  --cda-ink: #1F1D21;
+  --cda-muted: #555555;
+  --cda-line: #BEC6D1;
+  --cda-tint: #FBEEF1;
+  --cda-blue: #3F6391;
+  --cda-zoom: 1.3;
+}
+
+body.cda-has-bar { border-top: none !important; }
+
+.cda-topbar {
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  padding: 6px 16px; min-height: 40px; box-sizing: border-box;
+  background: #FFFFFF; border-top: 6px solid var(--cda-crimson); border-bottom: 1px solid var(--cda-line);
+  font: 15px/1.3 "Source Sans 3", "Source Sans Pro", Arial, Helvetica, sans-serif; color: var(--cda-ink);
+  flex: 0 0 auto; position: relative; z-index: 50; align-self: stretch; width: 100%; text-align: left;
+}
+.cda-topbar a { color: var(--cda-ink); text-decoration: none; }
+.cda-topbar a:hover { color: var(--cda-crimson); text-decoration: underline; }
+.cda-topbar a:focus-visible, .cda-topbar button:focus-visible { outline: 2px solid var(--cda-crimson); outline-offset: 2px; }
+.cda-crumbs { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; min-width: 0; }
+.cda-crumbs .cda-course { font-weight: 700; }
+.cda-crumbs .cda-sep { color: var(--cda-line); }
+.cda-crumbs .cda-tool { font-weight: 700; color: var(--cda-crimson); }
+.cda-chip {
+  font-size: 12.5px; color: var(--cda-crimson-dark); background: var(--cda-tint);
+  border: 1px solid #F0C4CE; border-radius: 10px; padding: 1px 8px; white-space: nowrap;
+}
+.cda-nav { margin-left: auto; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.cda-nav a, .cda-nav button {
+  font: inherit; font-size: 14px; font-weight: 600; color: var(--cda-ink); background: #FFFFFF;
+  border: 1px solid var(--cda-line); border-radius: 6px; padding: 3px 10px; cursor: pointer; line-height: 1.4;
+}
+.cda-nav a:hover, .cda-nav button:hover { background: var(--cda-tint); border-color: #F0C4CE; color: var(--cda-crimson); text-decoration: none; }
+.cda-nav .cda-primary { background: var(--cda-crimson); border-color: var(--cda-crimson); color: #FFFFFF; }
+.cda-nav .cda-primary:hover { background: var(--cda-crimson-dark); color: #FFFFFF; }
+.cda-url { display: none; font-family: "Courier New", Courier, monospace; font-size: 14px; color: var(--cda-crimson); font-weight: 700; }
+
+/* help panel */
+.cda-help-back { position: fixed; inset: 0; background: rgba(31, 29, 33, .45); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 16px; }
+.cda-help-back[hidden] { display: none; }
+.cda-help {
+  background: #FFFFFF; color: var(--cda-ink); border-top: 6px solid var(--cda-crimson); border-radius: 8px;
+  max-width: 520px; width: 100%; max-height: 85vh; overflow: auto; padding: 20px 24px;
+  font: 16px/1.5 "Source Sans 3", "Source Sans Pro", Arial, sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,.25);
+}
+.cda-help h2 { font-size: 20px; margin: 0 0 10px; color: var(--cda-ink); font-weight: 700; }
+.cda-help table { border-collapse: collapse; width: 100%; margin: 4px 0 12px; }
+.cda-help td { padding: 4px 6px; border-bottom: 1px solid #EBEBEC; vertical-align: top; }
+.cda-help kbd {
+  font-family: "Courier New", monospace; font-weight: 700; font-size: 14px; background: #F9F9F9;
+  border: 1px solid var(--cda-line); border-bottom-width: 2px; border-radius: 4px; padding: 0 6px; white-space: nowrap;
+}
+.cda-help p { margin: 6px 0; }
+.cda-help .cda-close { float: right; font-size: 22px; line-height: 1; background: none; border: 0; cursor: pointer; color: var(--cda-muted); }
+.cda-help a { color: var(--cda-crimson); }
+
+/* presentation mode: everything larger, for the lecture hall */
+html.cda-present body { zoom: var(--cda-zoom); }
+html.cda-present body.cda-fit { height: calc(100vh / var(--cda-zoom)); }
+html.cda-present .cda-url { display: inline; }
+html.cda-present .cda-nav a:not(.cda-keep) { display: none; }
+
+/* toast for zoom changes etc. */
+.cda-toast {
+  position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); background: var(--cda-ink); color: #FFFFFF;
+  font: 600 14px "Source Sans 3", Arial, sans-serif; padding: 6px 14px; border-radius: 6px; z-index: 1001; opacity: 0; transition: opacity .2s;
+  pointer-events: none;
+}
+.cda-toast.on { opacity: .92; }
+
+@media print { .cda-topbar, .cda-help-back, .cda-toast { display: none !important; } }

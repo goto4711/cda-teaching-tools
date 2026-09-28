@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multimodal Embeddings: Image & Text</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
+
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <style>
+        body {
+            font-family: "Source Sans 3", "Source Sans Pro", Arial, Helvetica, sans-serif;
+            color: #1F1D21;
+            margin: 0;
+            border-top: 6px solid #BC0031;
+            background-color: #FFFFFF;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            color: #1F1D21;
+            margin-bottom: 0;
+        }
+
+        #controls {
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #BC0031;
+            font-family: inherit;
+            font-weight: 600;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #7E0021;
+        }
+
+        #canvas {
+            background-color: white;
+            border: 1px solid #BEC6D1;
+        }
+
+        .node text {
+            font-size: 14px;
+            font-weight: bold;
+            pointer-events: none;
+            text-anchor: middle;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: #1F1D21;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            max-width: 300px;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 12px;
+        }
+
+        .intro { max-width: 760px; text-align: center; padding: 0 16px; }
+        #controls { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; justify-content: center; }
+        #controls button.quiet { background: #FFFFFF; color: #1F1D21; border: 1px solid #BEC6D1; font-weight: 400; }
+        #controls button.quiet:hover { background: #F9F9F9; }
+        .slider { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+        .slider input { width: 220px; accent-color: #BC0031; }
+        #progress-val { font-family: "Courier New", monospace; width: 3.5em; }
+        .layout { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; justify-content: center; padding: 0 16px 32px; max-width: 1200px; }
+        #vis { flex: 1 1 560px; max-width: 800px; }
+        .panel { flex: 0 1 300px; border: 1px solid #BEC6D1; border-radius: 8px; padding: 12px 16px; }
+        .panel h2 { font-size: 1.1rem; margin: 0 0 8px; }
+        .panel ol { padding-left: 20px; margin: 6px 0; }
+        .panel li { display: flex; justify-content: space-between; gap: 12px; padding: 2px 0; border-bottom: 1px solid #EBEBEC; color: #555555; }
+        .panel li.top { color: #1F1D21; font-weight: 700; }
+        .panel li { display: list-item; }
+        .panel li span.s { float: right; font-family: "Courier New", monospace; }
+        .panel .hint { color: #8A8A8A; }
+        .panel .small { font-size: 0.85rem; color: #555555; }
+        .node { cursor: pointer; }
+        .node:focus { outline: none; }
+        .node:focus-visible .ring { stroke: #BC0031; }
+        .sim-label { font-family: "Courier New", monospace; font-size: 14px; font-weight: 700; fill: #1F1D21; paint-order: stroke; stroke: #FFFFFF; stroke-width: 4px; }
+        .vector-preview {
+            color: #F0C4CE;
+            word-break: break-all;
+            margin-top: 5px;
+        }
+    </style>
+<link rel="stylesheet" href="../../assets/course.css">
+</head>
+
+<body>
+
+    <h1>Multimodal Embedding Space</h1>
+    <p class="intro">Pictures and words placed in one shared space. Train the space, then click a word or a picture to see its nearest neighbours.</p>
+
+    <div id="controls">
+        <button id="train-btn" type="button">&#9654; Train</button>
+        <label class="slider">Training
+            <input type="range" id="progress" min="0" max="100" value="0" aria-label="Training progress">
+            <span id="progress-val">0%</span>
+        </label>
+        <button id="reset-btn" type="button" class="quiet">Reset to random start</button>
+    </div>
+
+    <div class="layout">
+        <div id="vis"></div>
+        <aside class="panel" aria-live="polite">
+            <h2>Nearest neighbours</h2>
+            <div id="nn"><p class="hint">Click a word or a picture.</p></div>
+            <p class="small">Similarity is measured between the five-number vectors (cosine similarity, 1 = pointing the same way). The map is a flat sketch of those vectors, so distances on it are only approximate. Searching with a word returns the items at the top of this list: that is semantic search.</p>
+        </aside>
+    </div>
+    <div class="tooltip" id="tooltip"></div>
+
+    <script>
+        const width = 800;
+        const height = 600;
+        const svg = d3.select("#vis").append("svg")
+            .attr("viewBox", `0 0 ${width} ${height}`)
+            .attr("width", width)
+            .attr("height", height)
+            .style("max-width", "100%")
+            .style("height", "auto")
+            .attr("id", "canvas");
+
+        const fmt = v => "[" + v.map(n => n.toFixed(2)).join(", ") + ", ...]";
+        // small seeded generator so the random start is the same on every visit (mulberry32)
+        let seed = 20240920;   // chosen so that no item starts next to its own kind
+        const rand = () => { seed = (seed + 0x6D2B79F5) >>> 0; let t = seed; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+
+        const data = [
+            // Cats: High dim 0, Low dim 1
+            {
+                id: "img_cat", type: "image", src: "cat.jpg", label: "Image: Cat",
+                x_rand: 100, y_rand: 100, x_sem: 180, y_sem: 200,
+                vec_trained: [0.88, 0.12, -0.5, 0.3, 0.1]
+            },
+            {
+                id: "txt_cat", type: "text", text: "Cat", label: "Text: 'Cat'",
+                x_rand: 700, y_rand: 500, x_sem: 290, y_sem: 240,
+                vec_trained: [0.91, 0.15, -0.48, 0.28, 0.12]
+            },
+            {
+                id: "txt_fel", type: "text", text: "Feline", label: "Text: 'Feline'",
+                x_rand: 50, y_rand: 500, x_sem: 200, y_sem: 320,
+                vec_trained: [0.85, 0.10, -0.52, 0.32, 0.08]
+            },
+
+            // Dogs: Low dim 0, High dim 1
+            {
+                id: "img_dog", type: "image", src: "dog.jpg", label: "Image: Dog",
+                x_rand: 700, y_rand: 100, x_sem: 600, y_sem: 200,
+                vec_trained: [0.12, 0.89, 0.4, -0.2, 0.7]
+            },
+            {
+                id: "txt_dog", type: "text", text: "Dog", label: "Text: 'Dog'",
+                x_rand: 300, y_rand: 50, x_sem: 710, y_sem: 240,
+                vec_trained: [0.15, 0.92, 0.38, -0.22, 0.68]
+            },
+            {
+                id: "txt_can", type: "text", text: "Canine", label: "Text: 'Canine'",
+                x_rand: 400, y_rand: 550, x_sem: 620, y_sem: 320,
+                vec_trained: [0.10, 0.85, 0.42, -0.18, 0.72]
+            },
+
+            // Random / Other
+            {
+                id: "txt_rnd", type: "text", text: "Apple", label: "Text: 'Apple'",
+                x_rand: 350, y_rand: 300, x_sem: 400, y_sem: 500,
+                vec_trained: [-0.5, -0.5, 0.1, 0.9, -0.2]
+            },
+
+            // No Concept Image
+            {
+                id: "img_car", type: "image", src: "car.jpg", label: "Image: Car (No Concept)",
+                x_rand: 600, y_rand: 400, x_sem: 700, y_sem: 510,
+                vec_trained: [-0.2, 0.3, 0.8, -0.1, -0.8]
+            }
+        ];
+
+        data.forEach(d => { d.vec_random = Array.from({ length: 5 }, () => rand() * 2 - 1); });
+        // the untrained map is drawn from the random vectors themselves (their first two numbers), so it matches them
+        data.forEach(d => { d.x_rand = 400 + 320 * d.vec_random[0]; d.y_rand = 300 + 230 * d.vec_random[1]; });
+
+        let t = 0;              // training progress, 0 = random start, 1 = trained
+        let playing = null;     // animation frame id while training runs
+        let selected = null;    // the clicked item
+
+        const lerp = (a, b, k) => a + (b - a) * k;
+        const ease = k => k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+        const pos = d => [lerp(d.x_rand, d.x_sem, ease(t)), lerp(d.y_rand, d.y_sem, ease(t))];
+        const vec = d => d.vec_random.map((r, i) => lerp(r, d.vec_trained[i], t));
+        const cosine = (a, b) => { let s = 0, na = 0, nb = 0; a.forEach((x, i) => { s += x * b[i]; na += x * x; nb += b[i] * b[i]; }); return s / Math.sqrt(na * nb); };
+        const name = d => d.type === "image" ? d.label.replace("Image: ", "picture of a ").replace(" (No Concept)", "").toLowerCase() : `“${d.text}”`;
+
+        const linkLayer = svg.append("g");
+        const nodes = svg.append("g").selectAll(".node").data(data).enter().append("g")
+            .attr("class", "node").attr("tabindex", 0).attr("role", "button")
+            .attr("aria-label", d => d.label);
+        nodes.append("circle").attr("class", "ring").attr("r", 36).attr("fill", "none");
+        svg.append("defs").append("clipPath").attr("id", "round").append("circle").attr("r", 30);
+        nodes.filter(d => d.type === "image").append("image")
+            .attr("href", d => d.src).attr("x", -30).attr("y", -30).attr("width", 60).attr("height", 60)
+            .attr("preserveAspectRatio", "xMidYMid slice").attr("clip-path", "url(#round)");
+        nodes.filter(d => d.type === "text").append("circle").attr("r", 25).attr("fill", "#BC0031");
+        nodes.filter(d => d.type === "text").append("text").attr("dy", 5).attr("fill", "white").text(d => d.text);
+
+        nodes.on("mouseover", function (event, d) {
+            d3.select("#tooltip").style("opacity", 1)
+                .style("left", (event.pageX + 10) + "px").style("top", (event.pageY - 20) + "px")
+                .html(`<strong>${d.label}</strong> <span style="color:#BEC6D1;font-size:0.8em">(training ${Math.round(t * 100)}%)</span><br><div class="vector-preview">${fmt(vec(d))}</div>`);
+        }).on("mouseout", () => d3.select("#tooltip").style("opacity", 0))
+          .on("click", (event, d) => { selected = selected === d ? null : d; draw(); })
+          .on("keydown", (event, d) => { if (event.key === "Enter") { selected = selected === d ? null : d; draw(); } });
+
+        function draw() {
+            nodes.attr("transform", d => { const [x, y] = pos(d); return `translate(${x},${y})`; });
+            nodes.select(".ring").attr("stroke", d => d === selected ? "#1F1D21" : "none").attr("stroke-width", 3);
+            document.getElementById("progress").value = Math.round(t * 100);
+            document.getElementById("progress-val").textContent = Math.round(t * 100) + "%";
+            const box = document.getElementById("nn");
+            if (!selected) { linkLayer.selectAll("*").remove(); box.innerHTML = '<p class="hint">Click a word or a picture.</p>'; return; }
+            const v = vec(selected);
+            const ranked = data.filter(d => d !== selected).map(d => ({ d, s: cosine(v, vec(d)) })).sort((a, b) => b.s - a.s);
+            const top = ranked.slice(0, 3).filter(e => e.s > 0.2);   // lines only to real neighbours
+            const [sx, sy] = pos(selected);
+            const lines = linkLayer.selectAll("g.link").data(top, e => e.d.id);
+            lines.exit().remove();
+            const enter = lines.enter().append("g").attr("class", "link");
+            enter.append("line"); enter.append("text");
+            linkLayer.selectAll("g.link").each(function (e, k) {
+                const [x, y] = pos(e.d);
+                const g = d3.select(this);
+                g.select("line").attr("x1", sx).attr("y1", sy).attr("x2", x).attr("y2", y)
+                    .attr("stroke", k === 0 ? "#1F1D21" : "#5B7BA8").attr("stroke-width", 4 - k).attr("stroke-dasharray", k === 0 ? null : "6 4");
+                g.select("text").attr("x", (sx + x) / 2).attr("y", (sy + y) / 2 - 6).attr("text-anchor", "middle")
+                    .attr("class", "sim-label").text(e.s.toFixed(2));
+            });
+            box.innerHTML = `<p><b>Closest to the ${name(selected)}</b> at ${Math.round(t * 100)}% training:</p><ol>` +
+                ranked.map((e, k) => `<li class="${k < 3 ? "top" : ""}"><span>${name(e.d)}</span><span class="s">${e.s.toFixed(2)}</span></li>`).join("") + "</ol>";
+        }
+
+        function play() {
+            const btn = document.getElementById("train-btn");
+            if (playing) { cancelAnimationFrame(playing); playing = null; btn.innerHTML = "&#9654; Train"; return; }
+            if (t >= 1) t = 0;
+            btn.innerHTML = "&#10074;&#10074; Pause";
+            let last = null;
+            const frame = ts => {
+                if (last !== null) t = Math.min(1, t + (ts - last) / 4000);   // four seconds from random to trained
+                last = ts; draw();
+                if (t < 1) playing = requestAnimationFrame(frame);
+                else { playing = null; btn.innerHTML = "&#9654; Train"; }
+            };
+            playing = requestAnimationFrame(frame);
+        }
+        document.getElementById("train-btn").addEventListener("click", play);
+        document.getElementById("reset-btn").addEventListener("click", () => { if (playing) play(); t = 0; draw(); });
+        document.getElementById("progress").addEventListener("input", e => { if (playing) play(); t = e.target.value / 100; draw(); });
+
+        // ?trained=1 opens the trained space; ?select=Feline (a word) or ?select=cat (a picture) opens with that item selected
+        const q = new URLSearchParams(location.search);
+        if (q.get("trained") === "1") t = 1;
+        if (q.has("select")) {
+            const w = q.get("select").toLowerCase();
+            selected = data.find(d => (d.text || "").toLowerCase() === w) || data.find(d => d.type === "image" && d.id === "img_" + w) || null;
+        }
+        draw();
+    </script>
+<script src="../../assets/course.js" data-week="4" data-title="Multimodal embedding space"
+    data-note="Illustrative data" data-step="#train-btn" data-step-label="Train / pause" data-reset="#reset-btn"
+    data-help="Space plays the training (about four seconds); the slider moves through it by hand. R goes back to the random start.|Click a word or picture to draw lines to its three nearest neighbours; the list on the right ranks everything by similarity.|Links: <kbd>?trained=1</kbd>, <kbd>?select=Feline</kbd> or <kbd>?select=cat</kbd> for the picture."></script>
+</body>
+
+</html>

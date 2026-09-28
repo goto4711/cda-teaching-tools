@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From words to embeddings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
+<link rel="stylesheet" href="../../assets/guide.css">
+<link rel="stylesheet" href="../../assets/course.css">
+</head>
+<body>
+<div class="wrap">
+  <h1>From words to embeddings</h1>
+  <p class="sub">Three demonstrations for Week 4: how computers represent meaning</p>
+
+  <h2>1. <a href="../text/">Term frequency: counting words</a></h2>
+  <p>Type three short documents and turn them into rows of word counts: the bag of words. Start here. It shows
+  what a computer can do with text before any language model is involved. <a href="../text/guide.html">Guide</a></p>
+
+  <h2>2. <a href="https://cdai-nlp-to-embedding.streamlit.app/" target="_blank" rel="noopener">Term frequency vs. embeddings</a></h2>
+  <p>Enter your own sentences and compare two representations: counting words, and sentence embeddings from a real language
+  model. Both appear as similarity tables and a 2D map. “Dog” and “canine” share no words, yet end up close together as embeddings.
+  A search box compares keyword search with semantic search.</p>
+  <div class="box info"><p>Runs on Streamlit Community Cloud. If the app has been asleep, it takes about a minute to wake up,
+  so open it a few minutes before class.</p></div>
+
+  <h2>3. <a href="multimodal.html">Multimodal embedding space</a></h2>
+  <p>Images and words placed in one shared space. Press <i>Train</i> (or <kbd>Space</kbd>) and watch the space align over a few seconds,
+  or drag the slider through it by hand: the picture of a cat moves next to the words “Cat” and “Feline”, while the car and the word “Apple”,
+  which have no partner, end up on their own.</p>
+  <p>Click a word or a picture to draw lines to its three nearest neighbours; the panel ranks everything by similarity. Before training,
+  “Feline” is closest to “Dog”; after training, to the picture of a cat. That ranking is how semantic search works: search with a word, get the nearest pictures.</p>
+  <p><a class="try" href="multimodal.html?select=Feline">Random start, “Feline” selected</a> <a class="try" href="multimodal.html?trained=1&amp;select=Feline">Already trained</a></p>
+  <p class="muted">The vectors on this page are illustrative, not produced by a real model.</p>
+</div>
+<script src="../../assets/course.js" data-week="4" data-title="From words to embeddings"></script>
+</body>
+</html>

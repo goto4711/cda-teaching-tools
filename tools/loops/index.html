@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loop Implementations Across Languages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
+
+    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../../assets/course.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Loop Implementations Across Languages</h1>
+            <p class="subtitle">The same for loop in Assembly, Python, JavaScript and C++, stepping together</p>
+        </header>
+
+        <!-- Where we are in the loop -->
+        <div class="phase-card">
+            <div class="phase-bar" id="phase-bar" aria-label="Phases of the loop"></div>
+            <p class="narration" id="narration" aria-live="polite"></p>
+        </div>
+
+        <!-- Execution Controls -->
+        <div class="controls">
+            <button id="btn-execute" class="btn primary">
+                <i data-lucide="play"></i> Execute Loop
+            </button>
+            <button id="btn-step" class="btn secondary" title="One phase of the loop per click">
+                <i data-lucide="step-forward"></i> Step
+            </button>
+            <button id="btn-reset" class="btn secondary">
+                <i data-lucide="rotate-ccw"></i> Reset
+            </button>
+        </div>
+
+        <!-- The four languages, side by side -->
+        <div class="code-grid" id="code-grid"></div>
+
+        <div class="state-row">
+            <!-- Visual Iteration Display -->
+            <div id="iteration-container" class="iteration-card hidden">
+                <h3>Value of the counter</h3>
+                <div class="iteration-circles">
+                    <div class="circle" data-value="0">0</div>
+                    <div class="circle" data-value="1">1</div>
+                    <div class="circle" data-value="2">2</div>
+                </div>
+            </div>
+            <!-- Output Display -->
+            <div id="output-container" class="output-card hidden">
+                <h3>Output</h3>
+                <div class="output-log" id="output-log"></div>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="comparison-card">
+            <h3>Key Differences</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Assembly</th>
+                            <th>Python</th>
+                            <th>JavaScript</th>
+                            <th>C++</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-medium">Syntax Style</td>
+                            <td>Machine instructions</td>
+                            <td>Pythonic (range)</td>
+                            <td>C-style</td>
+                            <td>C-style</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium">Variable Declaration</td>
+                            <td>Registers</td>
+                            <td>Implicit</td>
+                            <td>let/var/const</td>
+                            <td>int/type required</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium">Indentation</td>
+                            <td>Optional (style)</td>
+                            <td>Required (syntax)</td>
+                            <td>Optional (style)</td>
+                            <td>Optional (style)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-medium">Loop Control</td>
+                            <td>Labels + jumps</td>
+                            <td>range() function</td>
+                            <td>for statement</td>
+                            <td>for statement</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+    <script src="../../assets/course.js" data-week="1" data-title="Loops in four languages"
+        data-step="#btn-step" data-step-label="Step: one phase of the loop, in all four languages" data-reset="#btn-reset" data-run="#btn-execute"
+        data-help="Each Step is one phase of the loop (set up, test, body, next), highlighted in all four languages at once. The counters show how many steps each language needs.|Put one language first: <kbd>?lang=python</kbd>, <kbd>assembly</kbd>, <kbd>javascript</kbd> or <kbd>cpp</kbd>. Start part-way: <kbd>?steps=4</kbd>."></script>
+</body>
+
+</html>

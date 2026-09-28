@@ -3,65 +3,117 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cultural Data Analysis: Code-Along Exercises</title>
+<title>Cultural Data Analysis: Teaching Tools</title>
+<meta name="description" content="Code-along exercises and interactive teaching tools for Cultural Data Analysis, University of Amsterdam.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
 <style>
-  body { margin: 0; background: #FFFFFF; color: #000000; font: 16px/1.5 Georgia, "Times New Roman", serif; }
-  .wrap { max-width: 760px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 48px; }
-  h1 { font-size: 28px; font-weight: normal; margin: 0 0 4px; }
-  .sub { color: #555555; margin: 0 0 16px; }
-  h2 { font-size: 20px; margin: 28px 0 8px; border-bottom: 1px solid #CCCCCC; padding-bottom: 2px; }
-  a { color: #0000EE; } a:visited { color: #551A8B; }
-  ul { padding-left: 24px; }
-  /* Course style: University of Amsterdam colours and fonts */
-  body {
-    font-family: "Source Sans 3", "Source Sans Pro", Arial, Helvetica, sans-serif;
-    font-size: 17px;
-    color: #1F1D21;
-    border-top: 6px solid #BC0031;
-  }
-  h1 { font-weight: 700; font-size: 30px; }
-  h2 { font-weight: 700; border-bottom-color: #BEC6D1; }
-  .sub { font-family: Faustina, Georgia, "Times New Roman", serif; font-style: italic; color: #555555; }
-  a { color: #BC0031; }
-  a:visited { color: #7E0021; }
+  body { margin: 0; background: #FFFFFF; color: #1F1D21; font: 17px/1.5 "Source Sans 3", "Source Sans Pro", Arial, Helvetica, sans-serif; border-top: 6px solid #BC0031; }
+  .wrap { max-width: 900px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 56px; }
+  h1 { font-size: 32px; font-weight: 700; margin: 0 0 4px; }
+  .sub { font-family: Faustina, Georgia, serif; font-style: italic; color: #555555; margin: 0 0 16px; }
+  h2 { font-size: 22px; font-weight: 700; margin: 36px 0 10px; border-bottom: 1px solid #BEC6D1; padding-bottom: 3px; }
+  a { color: #BC0031; } a:visited { color: #7E0021; }
   a:focus-visible { outline: 2px solid #BC0031; outline-offset: 2px; }
-  p > b:first-child { color: #BC0031; }
-  pre { font-family: "Courier New", Courier, monospace; background: #F9F9F9; border-color: #BEC6D1; }
-  details pre { background: #FFFFFF; border-color: #BEC6D1; }
-  blockquote { border-left-color: #BC0031; }
-  hr { border-top-color: #BEC6D1; }
-  summary { color: #1F1D21; }
+  ul { padding-left: 22px; margin: 6px 0; }
+  .week { margin: 14px 0; }
+  .week h3 { font-size: 18px; margin: 0 0 2px; }
+  .week p { margin: 2px 0; }
+  .small { font-size: 14.5px; color: #555555; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-top: 12px; }
+  .card { border: 1px solid #BEC6D1; border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; background: #FFFFFF; }
+  .card:hover { border-color: #BC0031; }
+  .card h3 { margin: 0; font-size: 18px; line-height: 1.25; }
+  .card h3 a { color: #1F1D21; text-decoration: none; }
+  .card h3 a:hover { color: #BC0031; text-decoration: underline; }
+  .card p { margin: 0; font-size: 15.5px; }
+  .tag { font-size: 13px; font-weight: 700; color: #BC0031; text-transform: uppercase; letter-spacing: .04em; }
+  .links { margin-top: auto; display: flex; gap: 8px; flex-wrap: wrap; padding-top: 4px; }
+  .btn { font-size: 14.5px; font-weight: 600; border: 1px solid #BC0031; border-radius: 6px; padding: 2px 10px; text-decoration: none; }
+  .btn.primary { background: #BC0031; color: #FFFFFF; }
+  a.btn.primary:visited { color: #FFFFFF; }
+  a.btn:visited { color: #BC0031; }
+  .btn:hover { background: #FBEEF1; }
+  .btn.primary:hover { background: #7E0021; }
+  .note { font-size: 13px; color: #7E0021; background: #FBEEF1; border: 1px solid #F0C4CE; border-radius: 10px; padding: 0 8px; align-self: flex-start; }
+  .keys { background: #F9F9F9; border: 1px solid #BEC6D1; border-radius: 6px; padding: 8px 14px; margin-top: 16px; font-size: 15.5px; }
+  kbd { font-family: "Courier New", monospace; font-weight: 700; font-size: 14px; background: #FFFFFF; border: 1px solid #BEC6D1; border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>Cultural Data Analysis</h1>
-  <p class="sub">Code-along exercises for the lectures &middot; Tobias Blanke, University of Amsterdam</p>
-  <p>Open the page for this week's lecture and code along with us.</p>
+  <p class="sub">Code-along exercises and interactive tools for the lectures &middot; Tobias Blanke, University of Amsterdam</p>
+  <p>Open the page for this week's lecture and code along with us. The interactive tools are the demonstrations from the slides:
+  try them again at home.</p>
 
-  <h2>Week 0: Python Bootcamp</h2>
-  <ul>
-    <li><a href="week0/">Getting set up</a>: Colab, Google Drive, the terminal, file paths, and checking an AI agent</li>
-  </ul>
+  <h2 id="weeks">Code along, week by week</h2>
+  <div class="week">
+    <h3>Week 0: Python Bootcamp</h3>
+    <p><a href="week0/">Getting set up</a>: Colab, Google Drive, the terminal, file paths, and checking an AI agent</p>
+  </div>
+  <div class="week">
+    <h3>Week 1: Python</h3>
+    <p><a href="week1/">Code along in Python Tutor</a>: calculator, variables, types, lists, dictionaries, if … else, loops, functions</p>
+    <p><a href="week1/spectrum.html">Computer Programming Spectrum</a>, with the agentic programming overlay</p>
+    <p class="small">Tools: <a href="tools/cpu/">CPU simulator</a> &middot; <a href="tools/loops/">Loops in four languages</a></p>
+  </div>
+  <div class="week">
+    <h3>Week 3: Structured Data and Machine Learning</h3>
+    <p><a href="week3/">Code along: machine learning</a>: linear regression, the k-means walkthrough by hand, the teens data</p>
+    <p class="small">Tools: <a href="tools/text/">Term frequency</a> &middot; <a href="tools/images/">How a computer sees an image</a> &middot; <a href="tools/neural-net/">Neural network training</a></p>
+  </div>
+  <div class="week">
+    <h3>Week 4: Cultural Data Forms: Text</h3>
+    <p><a href="week4/">Code along: text</a>: bag of words, TF-IDF, list comprehension, 230 years of State of the Union speeches, language models</p>
+    <p class="small">Tools: <a href="tools/text/">Term frequency</a> &middot; <a href="tools/embeddings/">From words to embeddings</a></p>
+  </div>
 
-  <h2>Week 1: Python</h2>
-  <ul>
-    <li><a href="week1/">Code along in Python Tutor</a>: calculator, variables, lists, dictionaries, loops</li>
-    <li><a href="week1/spectrum.html">Computer Programming Spectrum</a>, with the agentic programming overlay</li>
-  </ul>
+  <h2 id="tools">Interactive tools</h2>
+  <div class="grid">
+    <div class="card">
+      <span class="tag">Week 1</span>
+      <h3><a href="tools/cpu/">CPU simulator</a></h3>
+      <p>A small von Neumann computer. Step through fetch, decode and execute, and watch a loop run in machine code.</p>
+      <div class="links"><a class="btn primary" href="tools/cpu/">Open</a><a class="btn" href="tools/cpu/guide.html">Guide and walkthroughs</a></div>
+    </div>
+    <div class="card">
+      <span class="tag">Week 1</span>
+      <h3><a href="tools/loops/">Loops in four languages</a></h3>
+      <p>The same for loop in Assembly, Python, JavaScript and C++, side by side and stepping together: 24 machine instructions against 11 steps.</p>
+      <div class="links"><a class="btn primary" href="tools/loops/">Open</a></div>
+    </div>
+    <div class="card">
+      <span class="tag">Weeks 3 and 4</span>
+      <h3><a href="tools/text/">Term frequency</a></h3>
+      <p>Turn three documents of your own into a bag of words, weight it with TF-IDF, and see which documents come out alike.</p>
+      <div class="links"><a class="btn primary" href="tools/text/">Open</a><a class="btn" href="tools/text/guide.html">Guide and walkthroughs</a></div>
+    </div>
+    <div class="card">
+      <span class="tag">Week 3</span>
+      <h3><a href="tools/images/">How a computer sees an image</a></h3>
+      <p>A photo at 8, 16 or 32 pixels square, as three colour planes of numbers and as one row of features. Upload your own picture too.</p>
+      <div class="links"><a class="btn primary" href="tools/images/">Open</a></div>
+    </div>
+    <div class="card">
+      <span class="tag">Week 3</span>
+      <h3><a href="tools/neural-net/">Neural network training</a></h3>
+      <p>A network of 12 neurons learns cats from dogs by backpropagation. See which weights change most, and test it on animals it has never seen.</p>
+      <span class="note">Illustrative data</span>
+      <div class="links"><a class="btn primary" href="tools/neural-net/">Open</a><a class="btn" href="tools/neural-net/guide.html">Guide and walkthroughs</a></div>
+    </div>
+    <div class="card">
+      <span class="tag">Week 4</span>
+      <h3><a href="tools/embeddings/">From words to embeddings</a></h3>
+      <p>Term frequency against real sentence embeddings, and a multimodal space you can train, where words find their nearest pictures.</p>
+      <div class="links"><a class="btn primary" href="tools/embeddings/">Open</a><a class="btn" href="tools/embeddings/multimodal.html">Multimodal space</a></div>
+    </div>
+  </div>
+  <div class="keys">In every tool: <kbd>Space</kbd> step &middot; <kbd>R</kbd> reset &middot; <kbd>P</kbd> presentation mode &middot; <kbd>?</kbd> all shortcuts.</div>
 
-  <h2>Week 3: Structured Data and Machine Learning</h2>
-  <ul>
-    <li><a href="week3/">Code along: machine learning</a>: k-means by hand, linear regression, the teens data</li>
-  </ul>
-
-  <h2>Week 4: Cultural Data Forms: Text</h2>
-  <ul>
-    <li><a href="week4/">Code along: text</a>: bag of words, TF-IDF, 230 years of State of the Union speeches, language models</li>
-  </ul>
+  <h2>Elsewhere</h2>
+  <p><a href="https://goto4711.github.io/ai-ethics-histories/">A history of AI ethics</a>: the interactive map from the AI ethics lecture, kept in its own repository.</p>
 </div>
 </body>
 </html>

@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Term frequency: guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
+<link rel="stylesheet" href="../../assets/guide.css">
+<link rel="stylesheet" href="../../assets/course.css">
+</head>
+<body>
+<div class="wrap">
+<h1>Term frequency: guide</h1>
+<p class="sub">How a text becomes a row of numbers &middot; Week 3 (preview) and Week 4: Cultural Data Forms: Text</p>
+
+<p class="lead">Before a computer can compare, search or classify texts, it has to turn them into numbers. The simplest way
+is to count words: the <b>bag of words</b>. This tool does it for three short documents you can edit, weights the counts
+with <b>TF-IDF</b>, and measures how similar the documents then look. You can see exactly what survives the counting and what is lost.</p>
+<p><a class="try primary" href="./">Open the tool</a></p>
+
+<div class="toc"><b>On this page</b>
+<ol>
+  <li><a href="#screen">The screen, part by part</a></li>
+  <li><a href="#how">What the tool does with your text</a></li>
+  <li><a href="#w1">Walkthrough 1: two different sentences, one vector</a></li>
+  <li><a href="#w2">Walkthrough 2: who bites whom?</a></li>
+  <li><a href="#w3">Walkthrough 3: stopwords</a></li>
+  <li><a href="#w4">Walkthrough 4: TF-IDF</a></li>
+  <li><a href="#w5">Walkthrough 5: house and garden, as in the code-along</a></li>
+  <li><a href="#class">Questions for class</a></li>
+</ol></div>
+
+<h2 id="screen">1. The screen, part by part</h2>
+<img class="shot" src="img/text-tf.png" alt="The tool in TF-IDF mode: stopwords struck through, the TF-IDF table with df and idf rows, and the similarity table showing Doc 1 and Doc 3 identical." width="1100" height="1660" style="width:560px" loading="lazy">
+<p class="cap">The example documents in TF-IDF mode.</p>
+<div class="tablewrap"><table>
+<tr><th>Part</th><th>What it is</th></tr>
+<tr><td><b>Example</b></td><td>Three ready-made sets: the quick brown fox, who bites whom, and the house-and-garden documents from the Week 4 code-along. Typing in any box switches to <i>Your own text</i>.</td></tr>
+<tr><td><b>Documents</b></td><td>Three boxes of text. Everything below updates as you type.</td></tr>
+<tr><td><b>Stopwords</b></td><td>Words to leave out, separated by commas.</td></tr>
+<tr><td><b>Counts</b> / <b>TF-IDF</b></td><td>How to weight the words: plain counts, or counts &times; how rare the word is across the three documents. <kbd>Space</kbd> switches.</td></tr>
+<tr><td><b>1. What the computer keeps</b></td><td>Each document as the computer reads it: lower case, no punctuation, one word at a time. Kept words are highlighted; stopwords are <s>struck through</s>.</td></tr>
+<tr><td><b>2. The table</b></td><td>One row per document, one column per vocabulary word. In TF-IDF mode two extra rows show in how many documents each word occurs (df) and its weight (idf).</td></tr>
+<tr><td><b>3. Similarity</b></td><td>How alike each pair of rows is (cosine similarity): 1.00 = the same mix of words, 0.00 = nothing in common. Darker = more similar. The sentence below names identical documents, or the most and least similar pair.</td></tr>
+</table></div>
+<p><b>Links that open an example.</b> <code>?example=bites</code> or <code>?example=house</code>; your own text with
+<code>?d1=…&amp;d2=…&amp;d3=…&amp;stop=…</code>; add <code>&amp;mode=tfidf</code> to open in TF-IDF.
+Keys: <kbd>Space</kbd> counts/TF-IDF, <kbd>P</kbd> presentation mode, <kbd>?</kbd> help, <kbd>G</kbd> this guide.</p>
+
+<h2 id="how">2. What the tool does with your text</h2>
+<ol>
+  <li><b>Lower case.</b> “The” and “the” become the same word.</li>
+  <li><b>Split into words.</b> Anything that is not a letter, digit or underscore separates words, so punctuation disappears and
+  “don't” becomes two words, “don” and “t”.</li>
+  <li><b>Remove stopwords.</b> Every word in the stopword list is dropped.</li>
+  <li><b>Build the vocabulary.</b> All remaining words from all three documents, each once, sorted.</li>
+  <li><b>Count.</b> For each document, how often each vocabulary word occurs.</li>
+  <li><b>Weight (TF-IDF mode).</b> count &times; ln(3 / df), where df is the number of documents that contain the word. This is the
+  “usual textbook version” from the Week 4 code-along. scikit-learn's <code>TfidfVectorizer</code> uses a smoothed variant, so its numbers differ slightly.</li>
+  <li><b>Compare.</b> Cosine similarity between every pair of rows.</li>
+</ol>
+<p>There is no stemming: “jump” and “jumps” are different words. In Python, steps 1–5 are what <code>CountVectorizer</code> does.</p>
+
+<h2 id="w1">3. Walkthrough 1: two different sentences, one vector</h2>
+<p><a class="try primary" href="./">Open with the example documents</a></p>
+<div class="tablewrap"><table>
+<tr><th></th><th>brown</th><th>dog</th><th>fox</th><th>jump</th><th>jumps</th><th>lazy</th><th>never</th><th>quick</th></tr>
+<tr><td>Doc 1 <span class="muted">The quick brown fox jumps over the lazy dog.</span></td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+<tr><td>Doc 2 <span class="muted">Never jump over the lazy dog.</span></td><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+<tr><td>Doc 3 <span class="muted">A quick brown dog jumps over the lazy fox.</span></td><td>1</td><td>1</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+</table></div>
+<ol>
+  <li>Ask the room to compare rows 1 and 3 before you point it out. They are identical, although in one the fox jumps over the dog and in the other the dog jumps over the fox.</li>
+  <li>Scroll to the similarity table: Doc 1 and Doc 3 score <b>1.00</b>; each scores 0.41 with Doc 2.</li>
+  <li>Find “jump” and “jumps”: the computer sees two unrelated words.</li>
+  <li>“over” is struck through as a stopword. Is it really meaningless here?</li>
+</ol>
+
+<h2 id="w2">4. Walkthrough 2: who bites whom?</h2>
+<p><a class="try primary" href="./?example=bites">Open with the example</a></p>
+<div class="tablewrap"><table>
+<tr><th></th><th>bites</th><th>bitten</th><th>by</th><th>dog</th><th>man</th><th>was</th></tr>
+<tr><td>Dog bites man.</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+<tr><td>Man bites dog.</td><td>1</td><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+<tr><td>The man was bitten by the dog.</td><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+</table></div>
+<p>The two sentences that mean opposite things get the same vector (similarity 1.00). The two that mean the same thing (“dog bites man” and
+“the man was bitten by the dog”) share only two words. Counting words keeps <i>what</i> a text is about and loses <i>who does what</i>.</p>
+
+<h2 id="w3">5. Walkthrough 3: stopwords</h2>
+<ol>
+  <li>With the fox example, empty the stopword box. The struck-through words come back: the vocabulary grows from 8 to 11 words, and “the” counts 2 in Document 1.</li>
+  <li>Now add <code>dog</code> to the stopwords. The one word all three documents share disappears.</li>
+  <li>Ask: who decides what counts as a stopword? For a corpus of legal texts, would “shall” be one? For poetry, would “the”?</li>
+</ol>
+
+<h2 id="w4">6. Walkthrough 4: TF-IDF</h2>
+<p><a class="try primary" href="./?mode=tfidf">Open the fox example in TF-IDF</a> &nbsp;press <kbd>Space</kbd> to switch back and forth</p>
+<ol>
+  <li>Look at the two extra rows. “dog” and “lazy” are in all three documents, so df = 3 and idf = ln(3/3) = 0: they vanish, however often they occur.</li>
+  <li>“jump” and “never” are only in Doc 2 (df = 1), so they get the highest weight, 1.10.</li>
+  <li>Look at the similarity table. Doc 2 was 0.41 similar to the others with counts; with TF-IDF it drops to <b>0.00</b>, because the words it shared were exactly the common ones.</li>
+  <li>Doc 1 and Doc 3 are still identical. Weighting changes <i>how much</i> each word counts, not the fact that word order is gone.</li>
+</ol>
+<div class="box info"><p>TF-IDF rewards words that are frequent in one document and rare in the others: the words that make a document distinctive. That is why the State of the Union exercise uses TF-IDF to find each speech's top words: words that every speech uses score low.</p></div>
+
+<h2 id="w5">7. Walkthrough 5: house and garden, as in the code-along</h2>
+<p><a class="try primary" href="./?example=house">Open with the Week 4 documents</a></p>
+<p>These are the three documents and the stopword list from the <a href="../../week4/">Week 4 code-along</a>, so students can check their Python output against the tool.</p>
+<ol>
+  <li>With counts, Doc 1 (the beautiful garden) is most like Doc 3 (the green garden): 0.41. Doc 2 (the red roof) is least like Doc 3: 0.17.</li>
+  <li>Switch to TF-IDF. “house” is in all three documents and drops to 0, and all three similarities fall to 0.05 or below.</li>
+  <li>Ask: all three documents are about a house. Is a weighting that removes “house” a good one here? What changes when there are 230 speeches instead of 3 documents?</li>
+</ol>
+
+<h2 id="class">8. Questions for class</h2>
+<div class="ask"><ol>
+  <li>What does a bag of words keep, and what does it throw away? Name one research question for which that is fine, and one for which it is not.</li>
+  <li>The State of the Union corpus in the code-along has thousands of different words. How many columns would its table have? How many of the cells would be 0?</li>
+  <li>Why might a historian not want to remove stopwords?</li>
+  <li>“Dog” and “canine” never count as similar here. What would a representation need to know to see that they are? (Try the <a href="../embeddings/">embeddings demonstration</a>.)</li>
+</ol></div>
+<p class="muted">Used in the Week 3 and Week 4 lectures. Source: <a href="https://github.com/goto4711/cda-teaching-tools/tree/main/tools/text">tools/text</a>.</p>
+</div>
+<script src="../../assets/course.js" data-week="4" data-title="Term frequency: guide" data-guide-page="1"></script>
+</body>
+</html>

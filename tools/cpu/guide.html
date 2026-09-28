@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CPU simulator: guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
+<link rel="stylesheet" href="../../assets/guide.css">
+<link rel="stylesheet" href="../../assets/course.css">
+</head>
+<body>
+<div class="wrap">
+<h1>CPU simulator: guide</h1>
+<p class="sub">How a computer runs a program, one step at a time &middot; Week 1: Python</p>
+
+<p class="lead">The simulator is a small computer in the style of John von Neumann's 1945 design. The program and its data sit
+side by side in the same memory. The processor repeats one cycle for every instruction: <b>fetch</b> it from memory,
+<b>decode</b> it, <b>execute</b> it. Every line of Python you write in this course ends up as long runs of instructions like these.</p>
+
+<p><a class="try primary" href="./">Open the simulator</a> <a class="try" href="./?program=add">Open it with Simple Add loaded</a></p>
+
+<div class="toc"><b>On this page</b>
+<ol>
+  <li><a href="#screen">The screen, part by part</a></li>
+  <li><a href="#controls">Controls and shortcuts</a></li>
+  <li><a href="#instructions">Instructions: how a number becomes a command</a></li>
+  <li><a href="#add">Walkthrough 1: Simple Add (15 + 27)</a></li>
+  <li><a href="#loop">Walkthrough 2: Countdown loop (5, 4, 3, 2, 1)</a></li>
+  <li><a href="#io">Walkthrough 3: Input and output</a></li>
+  <li><a href="#class">Questions for class</a></li>
+  <li><a href="#limits">What the simulator leaves out</a></li>
+</ol></div>
+
+<h2 id="screen">1. The screen, part by part</h2>
+<img class="shot" src="img/cpu-add.png" alt="The simulator after six steps of Simple Add: the accumulator holds 42 and all three buses are highlighted." width="1280" height="720" loading="lazy">
+<p class="cap">Simple Add after six steps: the ADD instruction has just run, so the accumulator holds 42. Each memory cell shows its bits and, below them, what they mean.</p>
+
+<div class="tablewrap"><table>
+<tr><th>Part</th><th>What it is</th><th>What to watch</th></tr>
+<tr><td><b>Memory (RAM)</b>, left</td><td>100 numbered cells. Each shows its address (8 bits, and #0 to #99), its content (16 bits, split into the 4-bit opcode and the 12-bit operand), and what the bits mean: <b>→ LOAD 90</b> for a cell of the program, <b>= 15</b> for a data cell. Hover over a cell to see both readings of the same bits. Cells 0 onwards hold the program; cells 90–92 hold the data.</td><td>The <span style="color:#BC0031;font-weight:700">crimson</span> border marks the next instruction (the cell the PC points to). A blue glow marks the cell just read; a blue fill marks the cell just written.</td></tr>
+<tr><td><b>Program Counter (PC)</b></td><td>The address of the next instruction.</td><td>It goes up by one at every fetch. Jumps (JMP, JZ) overwrite it: that is how loops happen.</td></tr>
+<tr><td><b>MAR</b> (memory address register)</td><td>The address the processor is about to read or write.</td><td>During fetch it copies the PC; during LOAD/ADD/SUB/STO it holds the data address (90, 91, 92).</td></tr>
+<tr><td><b>MDR</b> (memory data register)</td><td>The value that has just come from memory.</td><td>During fetch it holds the instruction; the IR then copies it.</td></tr>
+<tr><td><b>Instruction Register (IR)</b></td><td>The instruction being worked on, in 16 bits.</td><td>The line below the bits spells it out, for example <code>LOAD 90</code>.</td></tr>
+<tr><td><b>Accumulator (ACC)</b></td><td>The one working register. Every calculation starts and ends here.</td><td>The result of ADD and SUB appears here; STO copies it to memory.</td></tr>
+<tr><td><b>ALU</b></td><td>The arithmetic logic unit, which does the sums.</td><td>Shows the instruction name while an instruction executes, otherwise <i>Idle</i>.</td></tr>
+<tr><td><b>Control Unit</b></td><td>Runs the cycle.</td><td>Shows the phase coming next: FETCH, DECODE or EXECUTE (or HALTED, WAIT_INPUT).</td></tr>
+<tr><td><b>Buses</b></td><td>The wires between processor and memory. The <b>address bus</b> carries where, the <b>data bus</b> carries what, the <b>control bus</b> carries commands.</td><td>The buses used in the last step light up in crimson. A fetch uses address and data; a decode only control; LOAD/ADD/SUB/STO use all three.</td></tr>
+<tr><td><b>Input</b>, right</td><td>A box that becomes active when the program asks for a value (IN).</td><td>Type a number and press Enter or <i>Send</i>.</td></tr>
+<tr><td><b>Output</b></td><td>Values the program has sent out with OUT, in binary and decimal.</td><td>Countdown writes 5, 4, 3, 2, 1 here.</td></tr>
+<tr><td><b>Execution Log</b></td><td>One sentence per step, saying what just happened.</td><td>Read it aloud while stepping: it is the script for the walkthroughs below.</td></tr>
+</table></div>
+
+<h2 id="controls">2. Controls and shortcuts</h2>
+<div class="tablewrap"><table>
+<tr><th>Control</th><th>Key</th><th>What it does</th></tr>
+<tr><td>Program menu + <b>Load</b></td><td></td><td>Puts one of three example programs and its data into memory and resets the processor.</td></tr>
+<tr><td><b>Step</b></td><td><kbd>Space</kbd></td><td>Runs one phase: fetch, decode <i>or</i> execute. One instruction takes three steps.</td></tr>
+<tr><td><b>Run</b> / <b>Pause</b></td><td><kbd>Enter</kbd></td><td>Steps automatically. The <b>Speed</b> slider sets the pace (right is faster).</td></tr>
+<tr><td><b>Reset</b></td><td><kbd>R</kbd></td><td>Reloads the current program and sets every register to 0.</td></tr>
+<tr><td><b>Opcodes</b></td><td></td><td>Shows the instruction set (the table in section 3).</td></tr>
+<tr><td>Presentation mode</td><td><kbd>P</kbd>, then <kbd>+</kbd> / <kbd>&minus;</kbd></td><td>Enlarges the page for the lecture hall and shows its address in the top bar.</td></tr>
+<tr><td>Help</td><td><kbd>?</kbd></td><td>Lists the shortcuts.</td></tr>
+</table></div>
+<p><b>Links that open in a given state.</b> Add these to the address to prepare a slide or a class exercise:</p>
+<ul>
+  <li><code>?program=add</code>, <code>?program=loop</code>, <code>?program=input</code>: load that program.</li>
+  <li><code>&amp;steps=N</code>: press Step N times, for example <a href="./?program=loop&amp;steps=15"><code>?program=loop&amp;steps=15</code></a> stops just after the first number is output.</li>
+  <li><code>&amp;present=1</code>: open in presentation mode.</li>
+</ul>
+
+<h2 id="instructions">3. Instructions: how a number becomes a command</h2>
+<p>Every memory cell holds 16 bits. When the processor fetches a cell as an instruction, it reads the first 4 bits as
+the <b>opcode</b> (which command) and the other 12 bits as the <b>operand</b> (usually a memory address):</p>
+<pre>0001 000001011010
+└──┘ └──────────┘
+LOAD      90</pre>
+<p>The same 16 bits could just as well be read as the number 4186. Nothing in the cell says whether it is an instruction or data:
+it depends only on whether the PC points at it. That is the heart of the von Neumann design. The simulator labels the cells of the loaded program as instructions (<b>→ LOAD 90</b>) and the others as numbers (<b>= 15</b>); hover over any cell to see both readings.</p>
+<div class="tablewrap"><table>
+<tr><th class="mono">Opcode</th><th>Name</th><th>What it does</th><th>Memory?</th></tr>
+<tr><td class="mono">0000</td><td>NOP</td><td>Nothing.</td><td></td></tr>
+<tr><td class="mono">0001</td><td>LOAD a</td><td>ACC = memory[a]</td><td>read</td></tr>
+<tr><td class="mono">0010</td><td>ADD a</td><td>ACC = ACC + memory[a]</td><td>read</td></tr>
+<tr><td class="mono">0011</td><td>SUB a</td><td>ACC = ACC &minus; memory[a]</td><td>read</td></tr>
+<tr><td class="mono">0100</td><td>STO a</td><td>memory[a] = ACC</td><td>write</td></tr>
+<tr><td class="mono">0101</td><td>JMP a</td><td>PC = a: continue at address a</td><td></td></tr>
+<tr><td class="mono">0110</td><td>JZ a</td><td>If ACC is 0, PC = a; otherwise carry on</td><td></td></tr>
+<tr><td class="mono">0111</td><td>IN</td><td>Wait for a number in the Input box, put it in ACC</td><td></td></tr>
+<tr><td class="mono">1000</td><td>OUT</td><td>Send ACC to the Output box</td><td></td></tr>
+<tr><td class="mono">1111</td><td>HALT</td><td>Stop</td><td></td></tr>
+</table></div>
+
+<h2 id="add">4. Walkthrough 1: Simple Add (15 + 27)</h2>
+<p><a class="try primary" href="./?program=add">Open with Simple Add loaded</a> &nbsp;12 steps &middot; about 5 minutes</p>
+<pre>addr  bits                 instruction
+ 0    0001 000001011010    LOAD 90     ACC = 15
+ 1    0010 000001011011    ADD 91      ACC = 15 + 27
+ 2    0100 000001011100    STO 92      memory[92] = 42
+ 3    1111 000000000000    HALT
+ ...
+90    0000000000001111     data: 15
+91    0000000000011011     data: 27
+92    0000000000000000     result goes here</pre>
+
+<div class="tablewrap"><table>
+<tr><th>Step</th><th>Phase</th><th>What happens</th><th>Point out</th></tr>
+<tr><td class="step-no">1</td><td class="phase">FETCH</td><td>PC 0 → MAR; memory[0] → MDR → IR; PC becomes 1</td><td>Address and data buses light up. The PC already points at the <i>next</i> instruction.</td></tr>
+<tr><td class="step-no">2</td><td class="phase">DECODE</td><td>opcode 0001 = LOAD, operand 90</td><td>Only the control bus: decoding happens inside the processor.</td></tr>
+<tr><td class="step-no">3</td><td class="phase">EXECUTE</td><td>ACC = memory[90] = 15</td><td>Cell 90 glows: the processor goes back to memory, this time for data.</td></tr>
+<tr><td class="step-no">4–6</td><td class="phase">F · D · E</td><td>ADD 91: ACC = 15 + 27 = 42</td><td>The ALU shows ADD. The result exists only inside the processor so far.</td></tr>
+<tr><td class="step-no">7–9</td><td class="phase">F · D · E</td><td>STO 92: memory[92] = 42</td><td>Cell 92 turns blue: the first <i>write</i>. It now holds <code>0000000000101010</code>, which is 42.</td></tr>
+<tr><td class="step-no">10–12</td><td class="phase">F · D · E</td><td>HALT</td><td>The Control Unit shows HALTED. Four instructions took twelve steps.</td></tr>
+</table></div>
+<div class="ask"><b>Ask the room.</b>
+<ul>
+  <li>Before step 3: which cell will light up, and why is it not cell 1?</li>
+  <li>After step 9: change cell 91 to 100 in your head. What single thing would be different?</li>
+  <li>How would you write <code>x = 15 + 27 - 2</code>? (Add one SUB and a cell holding 2.)</li>
+</ul></div>
+
+<h2 id="loop">5. Walkthrough 2: Countdown loop (5, 4, 3, 2, 1)</h2>
+<p><a class="try primary" href="./?program=loop">Open with Countdown loaded</a> &nbsp;105 steps in total &middot; step through the first round, then press Run</p>
+<pre>addr  instruction    meaning
+ 0    LOAD 90        ACC = 5 (start value)
+ 1    STO 91         counter = ACC
+ 2    LOAD 91        ACC = counter          ◄─ loop starts here
+ 3    JZ 8           if ACC is 0: go to 8 (HALT)
+ 4    OUT            show the counter
+ 5    SUB 92         ACC = ACC − 1
+ 6    STO 91         counter = ACC
+ 7    JMP 2          back to address 2      ─┘
+ 8    HALT
+90: 5   91: counter   92: 1</pre>
+<p>In Python this is</p>
+<pre>counter = 5
+while counter != 0:
+    print(counter)
+    counter = counter - 1</pre>
+<div class="tablewrap"><table>
+<tr><th>Steps</th><th>What happens</th><th>Point out</th></tr>
+<tr><td class="step-no">1–6</td><td>LOAD 90, STO 91: counter = 5</td><td>Set-up, done once.</td></tr>
+<tr><td class="step-no">7–12</td><td>LOAD 91, then JZ 8 with ACC = 5</td><td>The log says <i>ACC is 5, not 0, so carry on</i>: this is the test of the <code>while</code>.</td></tr>
+<tr><td class="step-no">13–15</td><td>OUT</td><td>5 appears in Output. <a href="./?program=loop&amp;steps=15">Link to this state</a></td></tr>
+<tr><td class="step-no">16–21</td><td>SUB 92, STO 91</td><td>counter becomes 4; cell 91 turns blue.</td></tr>
+<tr><td class="step-no">22–24</td><td>JMP 2</td><td>Watch the PC: it jumps back from 8 to 2. The crimson border moves back up the memory. <a href="./?program=loop&amp;steps=24">Link to this state</a></td></tr>
+<tr><td class="step-no">25–102</td><td>Four more rounds, 21 steps each</td><td>Press <b>Run</b> and turn up the speed.</td></tr>
+<tr><td class="step-no">103–105</td><td>ACC is 0: JZ jumps to 8, HALT</td><td>Output shows 5, 4, 3, 2, 1. <a href="./?program=loop&amp;steps=105">Link to the end</a></td></tr>
+</table></div>
+<div class="ask"><b>Ask the room.</b>
+<ul>
+  <li>Which single instruction makes this a loop? Which one makes it stop?</li>
+  <li>What happens if cell 92 holds 2 instead of 1? (It outputs 5, 3, 1 and then skips past 0. The 16-bit memory wraps round to 65535, so the loop never ends: press Reset.)</li>
+  <li>Why does the loop start at address 2 and not 0?</li>
+</ul></div>
+
+<h2 id="io">6. Walkthrough 3: Input and output</h2>
+<p><a class="try primary" href="./?program=input">Open with Input/Output loaded</a></p>
+<pre>0  IN        wait for a number
+1  OUT       show it
+2  JMP 0     and again</pre>
+<ol>
+  <li>Step three times. At the third step the Control Unit shows <b>WAIT_INPUT</b> and the Input box becomes active.</li>
+  <li>Type a number, press Enter. The number arrives in the accumulator.</li>
+  <li>Step six more times: OUT shows it, JMP goes back to 0 and the processor waits again.</li>
+</ol>
+<p>This program never halts; press Reset to stop. It is the pattern of every interactive program: wait for input, react, wait again.</p>
+
+<h2 id="class">7. Questions for class</h2>
+<div class="ask"><ol>
+  <li>A program with 4 instructions took 12 steps. Why do computers need billions of steps per second?</li>
+  <li>Memory cell 0 holds <code>0001000001011010</code>. Is that an instruction or the number 4186? Who decides?</li>
+  <li>The processor can only do one of a handful of things. Where does all the complexity of Python come from?</li>
+  <li>Find the line in the Countdown that corresponds to Python's <code>while counter != 0</code>.</li>
+</ol></div>
+
+<h2 id="limits">8. What the simulator leaves out</h2>
+<p>Real processors have many registers rather than one accumulator, work on several instructions at once (pipelining),
+keep copies of memory close by (caches), and use far larger instruction sets. The phases here are also simplified: a fetch
+is shown as one step, while real hardware spends several clock ticks on it. None of this changes the basic idea the simulator
+shows: a program is data in memory, and a processor runs it by fetching, decoding and executing one instruction after the other.</p>
+<p class="muted">Used in the Week 1 lecture. Source: <a href="https://github.com/goto4711/cda-teaching-tools/tree/main/tools/cpu">tools/cpu</a>.</p>
+</div>
+<script src="../../assets/course.js" data-week="1" data-title="CPU simulator: guide" data-guide-page="1"></script>
+</body>
+</html>
