@@ -13,6 +13,7 @@ assets/guide.css            style for the guide pages
 
 code-along/week0/ week1/ week3/ week4/   code-along exercises
 code-along/week1/spectrum.html     Computer Programming Spectrum with agentic overlay
+code-along/week0/stable-diffusion-demo.ipynb   Stable Diffusion demo for Colab (T4 GPU), opened from step 4
 
 tools/cpu/          CPU simulator (Week 1)                 + guide.html
 tools/loops/        Loops in four languages (Week 1)
