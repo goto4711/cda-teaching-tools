@@ -38,9 +38,6 @@
   .btn.primary:hover { background: #7E0021; }
   .note { font-size: 13px; color: #7E0021; background: #FBEEF1; border: 1px solid #F0C4CE; border-radius: 10px; padding: 0 8px; align-self: flex-start; }
   .keys { background: #F9F9F9; border: 1px solid #BEC6D1; border-radius: 6px; padding: 8px 14px; margin-top: 16px; font-size: 15.5px; }
-  .save { background: #FBEEF1; border: 1px solid #F0C4CE; border-left: 4px solid #BC0031; border-radius: 6px; padding: 8px 14px; margin: 10px 0 14px; }
-  .nb { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin: 6px 0; }
-  .nb .btn { white-space: nowrap; }
   kbd { font-family: "Courier New", monospace; font-weight: 700; font-size: 14px; background: #FFFFFF; border: 1px solid #BEC6D1; border-bottom-width: 2px; border-radius: 4px; padding: 0 5px; }
 </style>
 </head>
@@ -48,8 +45,8 @@
 <div class="wrap">
   <h1>Cultural Data Analysis</h1>
   <p class="sub">Code-along exercises and interactive tools for the lectures &middot; Tobias Blanke, University of Amsterdam</p>
-  <p>Open the page for this week's lecture and code along with us. The <a href="#notebooks">workshop notebooks</a> open in Colab.
-  The interactive tools are the demonstrations from the slides: try them again at home.</p>
+  <p>Open the page for this week's lecture and code along with us. Each week's workshop has a page with the instructions
+  and a link that opens the notebook in Colab. The interactive tools are the demonstrations from the slides: try them again at home.</p>
 
   <h2 id="weeks">Code along, week by week</h2>
   <div class="week">
@@ -60,42 +57,20 @@
     <h3>Week 1: Python</h3>
     <p><a href="code-along/week1/">Code along in Python Tutor</a>: calculator, variables, types, lists, dictionaries, if … else, loops, functions</p>
     <p><a href="code-along/week1/spectrum.html">Computer Programming Spectrum</a>, with the agentic programming overlay</p>
+    <p><a href="workshops/week1/">Workshop: Python</a>: the notebook environment, lists and arrays, sequential and event-driven programs, a first real-life dataset</p>
     <p class="small">Tools: <a href="tools/cpu/">CPU simulator</a> &middot; <a href="tools/loops/">Loops in four languages</a></p>
-    <p class="small">Workshop: <a href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week1/Week1_Workshop.ipynb" target="_blank" rel="noopener">Python workshop in Colab</a></p>
   </div>
   <div class="week">
     <h3>Week 3: Structured Data and Machine Learning</h3>
     <p><a href="code-along/week3/">Code along: machine learning</a>: linear regression, the k-means walkthrough by hand, the teens data</p>
+    <p><a href="workshops/week3/">Workshop: data critique and machine learning</a>: the <a href="workshops/week3/#critique">data critique</a> of a donations dataset in groups, then k-means for the US Senate and decision trees for danceability</p>
     <p class="small">Tools: <a href="tools/text/">Term frequency</a> &middot; <a href="tools/images/">How a computer sees an image</a> &middot; <a href="tools/neural-net/">Neural network training</a></p>
-    <p class="small">Workshop: <a href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week3/Week3_Workshop.ipynb" target="_blank" rel="noopener">machine learning workshop in Colab</a> &middot; <a href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week3/Week3_Data_Critique.ipynb" target="_blank" rel="noopener">data critique</a></p>
   </div>
   <div class="week">
     <h3>Week 4: Cultural Data Forms: Text</h3>
     <p><a href="code-along/week4/">Code along: text</a>: bag of words, TF-IDF, list comprehension, 230 years of State of the Union speeches, language models</p>
+    <p><a href="workshops/week4/">Workshop: text and language models</a>: transformers with Hugging Face, and a <a href="workshops/week4/#group">group exercise</a> on language models through their APIs (two notebooks to choose from)</p>
     <p class="small">Tools: <a href="tools/text/">Term frequency</a> &middot; <a href="tools/embeddings/">From words to embeddings</a></p>
-    <p class="small">Workshop: <a href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week4/Week4_Workshop.ipynb" target="_blank" rel="noopener">text workshop in Colab</a> &middot; group exercise: <a href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week4/Week4_Prompting.ipynb" target="_blank" rel="noopener">Are all LLMs the same?</a> or <a href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week4/Week4_Forecasting.ipynb" target="_blank" rel="noopener">Frozen in time</a></p>
-  </div>
-
-  <h2 id="notebooks">Workshop notebooks</h2>
-  <p>Each button opens the workshop notebook in Google Colab, straight from this website.</p>
-  <div class="save"><strong>First: save your own copy.</strong> Colab does not keep your changes to the notebook from this website.
-  Before you run anything, go to <strong>File &rarr; Save a copy in Drive</strong>, then work in the copy that opens in a new tab.
-  You find it later in Google Drive, in the folder <em>Colab Notebooks</em>. The same note is at the top of every notebook.</div>
-  <div class="week">
-    <h3>Week 1: Python</h3>
-    <div class="nb"><a class="btn primary" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week1/Week1_Workshop.ipynb" target="_blank" rel="noopener">Open in Colab</a><span>Python introduction workshop</span></div>
-  </div>
-  <div class="week">
-    <h3>Week 3: Structured Data and Machine Learning</h3>
-    <div class="nb"><a class="btn primary" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week3/Week3_Workshop.ipynb" target="_blank" rel="noopener">Open in Colab</a><span>Machine learning workshop: regression, clustering, classification</span></div>
-    <div class="nb"><a class="btn primary" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week3/Week3_Data_Critique.ipynb" target="_blank" rel="noopener">Open in Colab</a><span>Data critique: the Global Aid Alliance donations (with the checklist handout)</span></div>
-  </div>
-  <div class="week">
-    <h3>Week 4: Cultural Data Forms: Text</h3>
-    <div class="nb"><a class="btn primary" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week4/Week4_Workshop.ipynb" target="_blank" rel="noopener">Open in Colab</a><span>Text workshop (needs a T4 GPU runtime)</span></div>
-    <p class="small">Group exercise: each group chooses <strong>one</strong> of the two.</p>
-    <div class="nb"><a class="btn primary" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week4/Week4_Prompting.ipynb" target="_blank" rel="noopener">Open in Colab</a><span>Are all LLMs the same? Prompting through APIs</span></div>
-    <div class="nb"><a class="btn primary" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week4/Week4_Forecasting.ipynb" target="_blank" rel="noopener">Open in Colab</a><span>Frozen in time: can LLMs forecast world events?</span></div>
   </div>
 
   <h2 id="tools">Interactive tools</h2>
