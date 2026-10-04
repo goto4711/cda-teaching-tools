@@ -12,6 +12,7 @@ assets/course.js            course bar, keyboard shortcuts, ?steps= and ?present
 assets/guide.css            style for the guide pages
 
 code-along/week0/ week1/ week3/ week4/   code-along exercises
+notebooks/week1/ week3/ week4/   student workshop notebooks, opened in Colab from the home page
 code-along/week1/spectrum.html     Computer Programming Spectrum with agentic overlay
 code-along/week0/stable-diffusion-demo.ipynb   Stable Diffusion demo for Colab (T4 GPU), opened from step 4
 
@@ -25,6 +26,14 @@ tools/embeddings/   From words to embeddings (Week 4): landing page and multimod
 
 The Streamlit app "Term frequency vs. embeddings" stays in the `nlp-to-embedding` repository,
 because Streamlit Community Cloud deploys from there. The AI ethics map stays in `ai-ethics-histories`.
+
+## Workshop notebooks
+
+The home page links to the student versions in `notebooks/` through Colab
+(`https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/...`).
+Every notebook starts with a box telling students to use **File → Save a copy in Drive** first,
+because Colab does not keep changes to a notebook opened from GitHub. Solutions are never put here.
+The notebooks download their data and checks from the `cdai` repository.
 
 ## Shortcuts and links (all tools)
 
