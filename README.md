@@ -12,7 +12,8 @@ assets/course.js            course bar, keyboard shortcuts, ?steps= and ?present
 assets/guide.css            style for the guide pages
 
 code-along/week0/ week1/ week3/ week4/   code-along exercises
-notebooks/week1/ week3/ week4/   student workshop notebooks, opened in Colab from the home page
+workshops/week1/ week3/ week4/   student instructions for the workshops (Week 3: the full data critique)
+notebooks/week1/ week3/ week4/   student workshop notebooks, opened in Colab from the workshop pages
 code-along/week1/spectrum.html     Computer Programming Spectrum with agentic overlay
 code-along/week0/stable-diffusion-demo.ipynb   Stable Diffusion demo for Colab (T4 GPU), opened from step 4
 
@@ -29,7 +30,7 @@ because Streamlit Community Cloud deploys from there. The AI ethics map stays in
 
 ## Workshop notebooks
 
-The home page links to the student versions in `notebooks/` through Colab
+The workshop pages (`workshops/`) link to the student versions in `notebooks/` through Colab
 (`https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/...`).
 Every notebook starts with a box telling students to use **File → Save a copy in Drive** first,
 because Colab does not keep changes to a notebook opened from GitHub. Solutions are never put here.
