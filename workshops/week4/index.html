@@ -64,12 +64,12 @@ check the HTML file, and upload it to Canvas.</p>
   <div class="nbrow noprint"><a class="try primary" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week4/Week4_Prompting.ipynb" target="_blank" rel="noopener">Open in Colab</a><span class="muted"><code>Week4_Prompting.ipynb</code></span></div>
   <div class="tablewrap"><table>
     <tr><th>Part</th><th>What you do</th><th>Minutes</th></tr>
-    <tr><td>1. Talking to a model through its API</td><td>build a request, read the answer, count tokens and costs</td><td>15</td></tr>
-    <tr><td>2. The data and how we measure it</td><td>150 answers from five models in three languages</td><td>6</td></tr>
+    <tr><td>1. Talking to a model through its API</td><td>build a request, read the answer, count tokens and costs</td><td>12</td></tr>
+    <tr><td>2. The data and how we measure it</td><td>150 answers from five models in three languages</td><td>5</td></tr>
     <tr><td>3. Are all LLMs the same?</td><td>compare the lists with the Jaccard index and tf-idf</td><td>10</td></tr>
-    <tr><td>4. What is missing?</td><td>check an LLM's coding by hand, count regions, find places with spaCy</td><td>15</td></tr>
-    <tr><td>5. Your own prompt</td><td>change one thing in the prompt</td><td>2</td></tr>
-    <tr><td>Reflection</td><td>three short answers</td><td>2</td></tr>
+    <tr><td>4. What is missing?</td><td>check an LLM's coding by hand, measure the agreement, count regions</td><td>15</td></tr>
+    <tr><td>5. Your own prompt</td><td>change one thing in the prompt, and save the answers</td><td>5</td></tr>
+    <tr><td>Reflection</td><td>three short answers</td><td>3</td></tr>
   </table></div>
 
   <h3>Option B: Frozen in time. Can LLMs forecast world events?</h3>
@@ -78,7 +78,7 @@ check the HTML file, and upload it to Canvas.</p>
   <div class="nbrow noprint"><a class="try primary" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week4/Week4_Forecasting.ipynb" target="_blank" rel="noopener">Open in Colab</a><span class="muted"><code>Week4_Forecasting.ipynb</code></span></div>
   <div class="tablewrap"><table>
     <tr><th>Part</th><th>What you do</th><th>Minutes</th></tr>
-    <tr><td>1. Talking to a model through its API</td><td>as in option A</td><td>15</td></tr>
+    <tr><td>1. Talking to a model through its API</td><td>as in option A</td><td>12</td></tr>
     <tr><td>2. Where does a model's knowledge stop?</td><td>probe the models with dated questions</td><td>8</td></tr>
     <tr><td>3. The forecasts</td><td>the models' probabilities next to what happened</td><td>4</td></tr>
     <tr><td>4. Scoring the forecasts</td><td>Brier scores against two baselines; leaks</td><td>10</td></tr>
@@ -86,6 +86,12 @@ check the HTML file, and upload it to Canvas.</p>
     <tr><td>6. One answer is one sample</td><td>the spread over ten runs</td><td>4</td></tr>
     <tr><td>Reflection</td><td>three short answers</td><td>3</td></tr>
   </table></div>
+
+  <h3>For your group project: the toolkit and a template</h3>
+  <p>Both notebooks use <code>llm_tools.py</code>, a small toolkit for research with language models: ask a model, collect many
+  answers with their details in a CSV file, let a model code texts, check the coding by hand, and compare. The template runs this
+  workflow on your own prompts. Without a key it runs on the data of option A, so you can try it first.</p>
+  <div class="nbrow noprint"><a class="try" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/templates/LLM_Project_Template.ipynb" target="_blank" rel="noopener">Open the template in Colab</a><span class="muted"><code>LLM_Project_Template.ipynb</code></span></div>
 
   <h3>An API key (optional, one per group is enough)</h3>
   <p>Both notebooks work without a key: they use answers we collected beforehand. With a free key you send the requests yourself.</p>
