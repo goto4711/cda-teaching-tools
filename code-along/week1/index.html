@@ -126,7 +126,7 @@
     var names = p.sections.map(function (s) { return '<i>' + esc(s) + '</i>'; }).join(' and ');
     return '<div class="nb" id="' + p.id + '-notebook"><p><b>Now in the notebook:</b> ' + names +
       '. <a href="' + url + '" target="_blank" rel="noopener">Open the lecture notebook at this section</a>' +
-      ' (in your own copy, scroll to the heading).</p></div>';
+      '. If you saved your own copy, open that one instead and scroll to the heading.</p></div>';
   }
 
   PARTS.forEach(function (p, k) {
