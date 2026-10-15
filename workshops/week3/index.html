@@ -45,7 +45,7 @@ You find it later in Google Drive, in <em>Colab Notebooks</em>.</p></div>
   <strong>label</strong> (what a model predicts) and <strong>features</strong> (what it predicts from).</p>
   <p>Use the ten questions below on <strong>every</strong> table of data you work with: the Senate votes and Spotify songs in
   the next hour, and the tables in your group project. Today we practise them on one case, the donation records of a
-  (fictional) NGO. Next week is about text, where some of the questions change.</p>
+  (fictional) NGO. The questions also help with text corpora, though some will need adapting.</p>
 
   <div class="box info"><p><strong>Mostly thinking, not coding.</strong> Most questions are answered by reading the data sheet,
   looking at the rows and discussing. For each answer, say what it rests on: <em>the data sheet says …</em>,
@@ -55,11 +55,16 @@ You find it later in Google Drive, in <em>Colab Notebooks</em>.</p></div>
   <div class="tablewrap"><table>
     <tr><th>Minutes</th><th>What</th></tr>
     <tr><td>0&ndash;5</td><td>Read the case and the data sheet below; look at the first rows of the data</td></tr>
-    <tr><td>5&ndash;20</td><td>In your group, work through the ten questions. Write a sentence or two per question</td></tr>
+    <tr><td>5&ndash;20</td><td>In your group, work through the ten questions. Write a sentence or two per question in the data critique template (below)</td></tr>
     <tr><td>20&ndash;30</td><td>All together: each group brings its strongest point, then question 10: can this data answer the NGO's question?</td></tr>
   </table></div>
 
   <h3>The ten questions</h3>
+  <p>Write your answers in the <strong>data critique template</strong>, a Markdown file with the ten questions, room for your
+  answers, and after each answer what it rests on. It is a short version of
+  <a href="https://arxiv.org/abs/1803.09010" target="_blank" rel="noopener">Datasheets for Datasets</a> (Gebru et al.).
+  Download it, fill it in for today's case, and use a copy for every table in your group project.</p>
+  <div class="nbrow noprint"><a class="try primary" href="https://github.com/goto4711/cda-teaching-tools/blob/main/notebooks/templates/data_critique_template.md" target="_blank" rel="noopener">The data critique template</a><span class="muted"><code>data_critique_template.md</code> &middot; use the download button on that page</span></div>
   <p>The right-hand column says where to look in today's case.</p>
   <div class="tablewrap"><table class="ten">
     <tr><th>#</th><th>Question (for any table of data)</th><th>In the donor case, look at …</th></tr>
@@ -86,7 +91,7 @@ You find it later in Google Drive, in <em>Colab Notebooks</em>.</p></div>
   <p><em>Global Aid Alliance is a fictional organisation; the data are made up for teaching. Read the data sheet as if it were real:
   it is the organisation's own account of its data, and like any such account it may be incomplete or wrong.</em></p>
   <div class="nbrow noprint"><a class="try primary" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week3/Week3_Data_Critique.ipynb" target="_blank" rel="noopener">Look at the data in Colab</a><span class="muted"><code>Week3_Data_Critique.ipynb</code></span></div>
-  <p class="small">The notebook loads <code>donor_records_export.csv</code> and helps with the questions about the label and the features: it makes a label in three ways, shows whom each favours, where the features come from, and whether a column gives away a sensitive one. It works on any table: use it again for the data of your group project.</p>
+  <p class="small">The notebook loads <code>donor_records_export.csv</code> and helps you test what you write about the label and the features: it makes a label in three ways, shows whom each favours, where the features come from, and whether a column gives away a sensitive one. It works on any table: use it again for the data of your group project.</p>
 
   <h3>Data sheet for <code>donor_records_export.csv</code></h3>
   <p><strong>From:</strong> Fundraising &amp; Development, Global Aid Alliance<br>
