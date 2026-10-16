@@ -63,6 +63,13 @@
   summary { color: #1F1D21; }
   code { font-family: "Courier New", Courier, monospace; font-size: 15px; }
   blockquote { overflow-wrap: anywhere; }
+
+pre.py .k { color: #A3002B; font-weight: bold; }   /* keywords */
+pre.py .b { color: #5B2A86; }                      /* built-in functions */
+pre.py .s { color: #2B6B3A; }                      /* strings */
+pre.py .n { color: #1D5A99; }                      /* numbers */
+pre.py .c { color: #6B6B6B; font-style: italic; }  /* comments */
+pre.py .sh { color: #6B6B6B; }                     /* !pip and %magic lines */
 </style>
 </head>
 <body>
@@ -119,6 +126,27 @@ uv pip install -r https://raw.githubusercontent.com/goto4711/cdai/refs/heads/mai
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
+  var PY_KW = 'and as assert break class continue def del elif else except False finally for from global if import in is lambda None nonlocal not or pass raise return True try while with yield'.split(' ');
+  var PY_BI = 'abs all any dict enumerate filter float input int isinstance len list map max min open print range round set sorted str sum tuple type zip'.split(' ');
+  var PY_RE = /(^[ \t]*[!%][^\n]*)|(#[^\n]*)|([rRbBfFuU]{0,2}(?:"{3}[\s\S]*?"{3}|'{3}[\s\S]*?'{3}|"(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*'))|(\b\d+(?:\.\d+)?\b)|([A-Za-z_][A-Za-z0-9_]*)/gm;
+  function py(code) {
+    var out = '', last = 0, m;
+    PY_RE.lastIndex = 0;
+    while ((m = PY_RE.exec(code)) !== null) {
+      out += esc(code.slice(last, m.index));
+      var t = m[0], cls = '';
+      if (m[1]) cls = 'sh';
+      else if (m[2]) cls = 'c';
+      else if (m[3]) cls = 's';
+      else if (m[4]) cls = 'n';
+      else if (PY_KW.indexOf(t) >= 0) cls = 'k';
+      else if (PY_BI.indexOf(t) >= 0 && code.charAt(PY_RE.lastIndex) === '(') cls = 'b';
+      out += cls ? '<span class="' + cls + '">' + esc(t) + '</span>' : esc(t);
+      last = PY_RE.lastIndex;
+    }
+    return out + esc(code.slice(last));
+  }
+
   var list = document.getElementById('list');
   var toc = document.getElementById('toc');
 
@@ -133,14 +161,14 @@ uv pip install -r https://raw.githubusercontent.com/goto4711/cdai/refs/heads/mai
     sec.innerHTML =
       '<h2>' + (i + 1) + '. ' + esc(st.title) + '</h2>' +
       '<p>' + esc(st.do) + '</p>' +
-      (st.code ? '<p class="where">' + esc(st.where) + (st.mode === 'copy' ? ' (copy and paste this one)' : st.mode === 'type' ? ' (type it yourself)' : '') + ':</p><pre>' + esc(st.code) + '</pre>' : '') +
+      (st.code ? '<p class="where">' + esc(st.where) + (st.mode === 'copy' ? ' (copy and paste this one)' : st.mode === 'type' ? ' (type it yourself)' : '') + ':</p>' + (/code cell/i.test(st.where) ? '<pre class="py">' + py(st.code) : '<pre>' + esc(st.code)) + '</pre>' : '') +
       (st.prompt ? '<p class="where">Your request to the agent:</p><blockquote>' + esc(st.prompt) + '</blockquote>' : '') +
       (st.out ? '<details><summary>Show what you should see</summary><pre>' + esc(st.out) + '</pre></details>' : '') +
       '<p><b>Check:</b> ' + esc(st.check) + '</p>' +
       (st.note ? '<p class="note">' + esc(st.note) + '</p>' : '') +
       (st.demo ? '<div class="demo"><h3>' + esc(st.demo.title) + '</h3><p>' + esc(st.demo.text) + '</p>' +
         '<p><a href="' + st.demo.link + '" target="_blank" rel="noopener">' + esc(st.demo.linkText) + '</a></p>' +
-        '<details><summary>The code in short</summary><pre>' + esc(st.demo.code) + '</pre></details></div>' : '');
+        '<details><summary>The code in short</summary><pre class="py">' + py(st.demo.code) + '</pre></details></div>' : '');
     list.appendChild(sec);
   });
 </script>

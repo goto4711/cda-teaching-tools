@@ -61,6 +61,13 @@
   .nb { border: 1px solid #BEC6D1; border-left: 4px solid #BC0031; padding: 4px 12px; margin: 20px 0 8px; }
   #toc > li { margin-bottom: 6px; }
   #toc ol { margin: 4px 0; }
+
+pre.py .k { color: #A3002B; font-weight: bold; }   /* keywords */
+pre.py .b { color: #5B2A86; }                      /* built-in functions */
+pre.py .s { color: #2B6B3A; }                      /* strings */
+pre.py .n { color: #1D5A99; }                      /* numbers */
+pre.py .c { color: #6B6B6B; font-style: italic; }  /* comments */
+pre.py .sh { color: #6B6B6B; }                     /* !pip and %magic lines */
 </style>
 </head>
 <body>
@@ -108,6 +115,27 @@
 
   function esc(s) {
     return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  var PY_KW = 'and as assert break class continue def del elif else except False finally for from global if import in is lambda None nonlocal not or pass raise return True try while with yield'.split(' ');
+  var PY_BI = 'abs all any dict enumerate filter float input int isinstance len list map max min open print range round set sorted str sum tuple type zip'.split(' ');
+  var PY_RE = /(^[ \t]*[!%][^\n]*)|(#[^\n]*)|([rRbBfFuU]{0,2}(?:"{3}[\s\S]*?"{3}|'{3}[\s\S]*?'{3}|"(?:\\.|[^"\\\n])*"|'(?:\\.|[^'\\\n])*'))|(\b\d+(?:\.\d+)?\b)|([A-Za-z_][A-Za-z0-9_]*)/gm;
+  function py(code) {
+    var out = '', last = 0, m;
+    PY_RE.lastIndex = 0;
+    while ((m = PY_RE.exec(code)) !== null) {
+      out += esc(code.slice(last, m.index));
+      var t = m[0], cls = '';
+      if (m[1]) cls = 'sh';
+      else if (m[2]) cls = 'c';
+      else if (m[3]) cls = 's';
+      else if (m[4]) cls = 'n';
+      else if (PY_KW.indexOf(t) >= 0) cls = 'k';
+      else if (PY_BI.indexOf(t) >= 0 && code.charAt(PY_RE.lastIndex) === '(') cls = 'b';
+      out += cls ? '<span class="' + cls + '">' + esc(t) + '</span>' : esc(t);
+      last = PY_RE.lastIndex;
+    }
+    return out + esc(code.slice(last));
   }
 
   function tutorUrl(code) {
@@ -177,7 +205,7 @@
         '<p><b>Predict:</b> ' + esc(ex.predict) + '</p>' +
         (ex.prompt ? '<p>' + PROMPT_INTRO + '</p><blockquote>' + esc(ex.prompt) + '</blockquote><p>' + PROMPT_OUTRO + '</p>' : '') +
         (ex.new ? '<p class="new"><b>New:</b> ' + esc(ex.new) + '</p>' : '') +
-        '<pre>' + esc(ex.shown || ex.code) + '</pre>' +
+        '<pre class="py">' + py(ex.shown || ex.code) + '</pre>' +
         '<p>' + open + '</p>' +
         '<details><summary>Show expected output</summary><pre>' + esc(ex.out) + '</pre>' +
           (ex.note ? '<p class="small">' + esc(ex.note) + '</p>' : '') +
