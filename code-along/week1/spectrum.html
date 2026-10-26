@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="The Computer Programming Spectrum slide, with an agentic programming overlay that builds up click by click.">
+<meta name="description" content="The Computer Programming Spectrum slide, with an agent overlay that builds up click by click.">
 <title>Programming Spectrum Overlay</title>
 <style>
   :root {
-    --page: #E7E6EB;
+    --page: #ECEAEA;
     --ink: #1D1B22;
     --muted: #5C5866;
     --ctl: #FFFFFF;
-    --ctl-line: #C9C6D1;
-    --accent: #5B2A86;
-    --accent-soft: #E9DEF3;
+    --ctl-line: #D3CBCD;
+    --accent: #BC0031;
+    --accent-soft: #FBEEF1;
     --accent-ink: #FFFFFF;
     --shadow: rgba(35, 20, 55, 0.18);
   }
@@ -25,8 +25,8 @@
       --muted: #A39FAE;
       --ctl: #211E28;
       --ctl-line: #3B3746;
-      --accent: #A97DD8;
-      --accent-soft: #3A2A4D;
+      --accent: #F06A86;
+      --accent-soft: #4A1C28;
       --accent-ink: #141318;
       --shadow: rgba(0, 0, 0, 0.55);
     }
@@ -38,8 +38,8 @@
     --muted: #A39FAE;
     --ctl: #211E28;
     --ctl-line: #3B3746;
-    --accent: #A97DD8;
-    --accent-soft: #3A2A4D;
+    --accent: #F06A86;
+    --accent-soft: #4A1C28;
     --accent-ink: #141318;
     --shadow: rgba(0, 0, 0, 0.55);
   }
@@ -78,7 +78,7 @@
 
   .slide text { font-family: Arial, Helvetica, "Liberation Sans", sans-serif; fill: #111; }
   .slide .lang { fill: #E5322A; }
-  .slide .ag { fill: #5B2A86; }
+  .slide .ag { fill: #BC0031; }
   .slide .wt { fill: #fff; }
 
   .ov {
@@ -153,7 +153,7 @@
       <title id="slideTitle">Computer Programming Spectrum, with an agentic programming overlay</title>
       <defs>
         <filter id="lift" x="-5%" y="-30%" width="110%" height="180%">
-          <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#2A1640" flood-opacity="0.28"/>
+          <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#4A0013" flood-opacity="0.28"/>
         </filter>
       </defs>
 
@@ -239,30 +239,28 @@
 
       <!-- Step 1: the agent layer across every level -->
       <g class="ov" data-step="1">
-        <rect x="10" y="580" width="1171" height="58" rx="10" fill="#5B2A86" filter="url(#lift)"/>
-        <path d="M130 636 l12 14 l12 -14 z" fill="#5B2A86"/>
-        <path d="M422 636 l12 14 l12 -14 z" fill="#5B2A86"/>
-        <path d="M696 636 l12 14 l12 -14 z" fill="#5B2A86"/>
-        <path d="M1008 636 l12 14 l12 -14 z" fill="#5B2A86"/>
+        <rect x="10" y="580" width="1171" height="58" rx="10" fill="#BC0031" filter="url(#lift)"/>
+        <path d="M130 636 l12 14 l12 -14 z" fill="#BC0031"/>
+        <path d="M422 636 l12 14 l12 -14 z" fill="#BC0031"/>
+        <path d="M696 636 l12 14 l12 -14 z" fill="#BC0031"/>
+        <path d="M1008 636 l12 14 l12 -14 z" fill="#BC0031"/>
         <rect x="26" y="594" width="192" height="30" rx="15" fill="#fff"/>
         <text class="lang" x="122" y="616" font-size="19" text-anchor="middle">Natural language</text>
-        <text class="wt" x="236" y="617" font-size="20"><tspan font-size="22" font-weight="700">Agentic programming</tspan><tspan dx="14">·</tspan><tspan dx="14">you describe</tspan><tspan dx="10">→</tspan><tspan dx="10">an agent writes code at any level</tspan><tspan dx="10">→</tspan><tspan dx="10">you verify</tspan></text>
+        <text class="wt" x="700" y="617" font-size="22" text-anchor="middle"><tspan font-weight="700">Agents</tspan><tspan dx="18">describe</tspan><tspan dx="12">→</tspan><tspan dx="12">agent codes</tspan><tspan dx="12">→</tspan><tspan dx="12">you check</tspan></text>
       </g>
 
       <!-- Step 2: does the Programming bracket stretch? -->
       <g class="ov" data-step="2">
-        <path d="M843 864 H878" fill="none" stroke="#5B2A86" stroke-width="4" stroke-dasharray="9 7"/>
-        <path d="M1142 864 H1166 Q1173 864 1173 857 V836" fill="none" stroke="#5B2A86" stroke-width="4" stroke-dasharray="9 7"/>
-        <text class="ag" x="1010" y="871" font-size="20" font-style="italic" text-anchor="middle">Vibe coding: programming?</text>
+        <path d="M843 864 H925" fill="none" stroke="#BC0031" stroke-width="4" stroke-dasharray="9 7"/>
+        <path d="M1095 864 H1166 Q1173 864 1173 857 V836" fill="none" stroke="#BC0031" stroke-width="4" stroke-dasharray="9 7"/>
+        <text class="ag" x="1010" y="871" font-size="22" font-style="italic" font-weight="700" text-anchor="middle">Vibe coding?</text>
       </g>
 
       <!-- Step 3: what changes -->
       <g class="ov" data-step="3">
-        <rect x="250" y="204" width="745" height="138" rx="12" fill="#fff" stroke="#5B2A86" stroke-width="3" filter="url(#lift)"/>
-        <text class="ag" x="276" y="240" font-size="24" font-weight="700">With agents, power and skill come apart</text>
-        <text x="276" y="270" font-size="20">A plain-language request can now reach every level of the spectrum.</text>
-        <text x="276" y="297" font-size="20">But you can only trust code you understand well enough to check,</text>
-        <text x="276" y="324" font-size="20">so the skill shifts from writing code to specifying and testing it.</text>
+        <rect x="330" y="212" width="585" height="112" rx="12" fill="#fff" stroke="#BC0031" stroke-width="3" filter="url(#lift)"/>
+        <text class="ag" x="622" y="256" font-size="28" font-weight="700" text-anchor="middle">Power and skill come apart</text>
+        <text x="622" y="298" font-size="22" text-anchor="middle">Anyone can ask – checking needs understanding.</text>
       </g>
     </svg>
   </div>
