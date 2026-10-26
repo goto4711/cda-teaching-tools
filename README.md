@@ -81,9 +81,11 @@ The requirements file lives in the goto4711/cdai repository, next to the course 
 
 ```
 pip install -r https://raw.githubusercontent.com/goto4711/cdai/refs/heads/main/requirements.txt
-pip install --no-build-isolation git+https://github.com/Kaggle/learntools.git
+pip install git+https://github.com/goto4711/learntools.git
 ```
 
-`learntools` is installed separately because it can only be built once pandas is installed.
+`learntools` comes from our fork [goto4711/learntools](https://github.com/goto4711/learntools) of
+[Kaggle/learntools](https://github.com/Kaggle/learntools); the fork only changes the packaging, so that it
+installs with current pip and uv (see FORK.md there). It is installed second, after pandas.
 Tesseract (Week 5) and Graphviz (Week 3) are separate programs. The notebooks were written for
 pandas 2 and transformers 4, so both are capped below their next major version.
