@@ -41,6 +41,7 @@
                     <label for="speed-range">Speed</label>
                     <input type="range" id="speed-range" min="100" max="2000" step="100" value="1000">
                 </div>
+                <button id="btn-view" class="btn secondary small" aria-pressed="false" title="Show the registers, buses and control unit inside the CPU">Show details</button>
                 <button id="btn-opcodes" class="btn secondary small">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -102,7 +103,32 @@
                 </div>
             </section>
 
-            <!-- Center Column: CPU Internals -->
+            <!-- Center Column, simple view: what the CPU does, in words -->
+            <section class="cpu-simple" id="cpu-simple" aria-live="polite">
+                <div class="cycle" id="cycle">
+                    <span class="phase" data-phase="FETCH">Fetch</span><span class="arrow">→</span>
+                    <span class="phase" data-phase="DECODE">Decode</span><span class="arrow">→</span>
+                    <span class="phase" data-phase="EXECUTE">Execute</span>
+                </div>
+                <div class="s-card" id="s-pc">
+                    <div class="s-label">Next instruction <span class="s-abbr">program counter (PC)</span></div>
+                    <div class="s-big font-mono" id="s-pc-val">#0</div>
+                    <div class="s-note">the address in memory the CPU reads next</div>
+                </div>
+                <div class="s-card" id="s-instr">
+                    <div class="s-label">Instruction just carried out</div>
+                    <div class="s-big font-mono" id="s-instr-val">–</div>
+                    <div class="s-note" id="s-instr-say">Press Step to run the first instruction.</div>
+                </div>
+                <div class="s-card s-acc" id="s-acc">
+                    <div class="s-label">Working number <span class="s-abbr">accumulator (ACC)</span></div>
+                    <div class="s-big font-mono" id="s-acc-val">0</div>
+                    <div class="s-note" id="s-acc-calc">&nbsp;</div>
+                </div>
+                <div class="s-memory" id="s-mem"><span class="s-mem-arrow">⇄</span> <span id="s-mem-say">Memory: nothing read or written yet</span></div>
+            </section>
+
+            <!-- Center Column, detailed view: CPU Internals -->
             <section class="cpu-core">
                 <div class="bus-system">
                     <div class="bus data-bus" id="data-bus">Data Bus</div>
@@ -177,8 +203,8 @@
     <script src="js/cpu.js"></script>
     <script src="js/app.js"></script>
     <script src="../../assets/course.js" data-week="1" data-title="CPU simulator" data-guide="guide.html"
-        data-step="#btn-step" data-step-label="Step: one phase (fetch, decode or execute)" data-reset="#btn-reset" data-run="#btn-run" data-fit="height" data-min-size="1000x690"
-        data-help="Each press of Step does one phase of the cycle: fetch, decode or execute. One instruction takes three steps.|Start a program from a link: <kbd>?program=add</kbd>, <kbd>loop</kbd> or <kbd>input</kbd>, for example <kbd>?program=loop&amp;steps=12</kbd>."></script>
+        data-step="#btn-step" data-step-label="Step: one instruction (in the detailed view: one phase)" data-reset="#btn-reset" data-run="#btn-run" data-fit="height" data-min-size="1000x690"
+        data-help="Each press of Step runs one instruction. With <b>Show details</b> on, Step does one phase of the cycle instead: fetch, decode or execute.|Start a program from a link: <kbd>?program=add</kbd>, <kbd>loop</kbd> or <kbd>input</kbd>, for example <kbd>?program=loop&amp;steps=5</kbd>. Add <kbd>&amp;view=full</kbd> for the detailed view."></script>
 </body>
 
 </html>

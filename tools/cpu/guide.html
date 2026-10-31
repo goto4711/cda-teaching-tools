@@ -34,32 +34,44 @@ side by side in the same memory. The processor repeats one cycle for every instr
 </ol></div>
 
 <h2 id="screen">1. The screen, part by part</h2>
-<img class="shot" src="img/cpu-add.png" alt="The simulator after six steps of Simple Add: the accumulator holds 42 and all three buses are highlighted." width="1280" height="720" loading="lazy">
-<p class="cap">Simple Add after six steps: the ADD instruction has just run, so the accumulator holds 42. Each memory cell shows its bits and, below them, what they mean.</p>
+<p>The simulator opens in a <b>simple view</b> for beginners: the processor is reduced to the three things you need to follow a program. <b>Show details</b> switches to the full view with all registers and buses (see <a href="#details">below</a>).</p>
+<img class="shot" src="img/cpu-simple.png" alt="The simple view after two steps of Simple Add: next instruction #2, instruction ADD 91, working number 42 with the calculation 15 + 27 = 42." width="1280" height="720" loading="lazy">
+<p class="cap">Simple Add after two steps: ADD 91 has just run, so the working number is 42. Each memory cell shows its bits and, below them, what they mean.</p>
 
 <div class="tablewrap"><table>
 <tr><th>Part</th><th>What it is</th><th>What to watch</th></tr>
-<tr><td><b>Memory (RAM)</b>, left</td><td>100 numbered cells. Each shows its address (8 bits, and #0 to #99), its content (16 bits, split into the 4-bit opcode and the 12-bit operand), and what the bits mean: <b>→ LOAD 90</b> for a cell of the program, <b>= 15</b> for a data cell. Hover over a cell to see both readings of the same bits. Cells 0 onwards hold the program; cells 90–92 hold the data.</td><td>The <span style="color:#BC0031;font-weight:700">crimson</span> border marks the next instruction (the cell the PC points to). A blue glow marks the cell just read; a blue fill marks the cell just written.</td></tr>
-<tr><td><b>Program Counter (PC)</b></td><td>The address of the next instruction.</td><td>It goes up by one at every fetch. Jumps (JMP, JZ) overwrite it: that is how loops happen.</td></tr>
+<tr><td><b>Memory (RAM)</b>, left</td><td>100 numbered cells. Each shows its address (8 bits, and #0 to #99), its content (16 bits, split into the 4-bit opcode and the 12-bit operand), and what the bits mean: <b>→ LOAD 90</b> for a cell of the program, <b>= 15</b> for a data cell. Hover over a cell to see both readings of the same bits. Cells 0 onwards hold the program; cells 90–92 hold the data.</td><td>The <span style="color:#BC0031;font-weight:700">crimson</span> border marks the next instruction. A blue glow marks the cell just read; a blue fill marks the cell just written.</td></tr>
+<tr><td><b>Fetch → Decode → Execute</b></td><td>The cycle every instruction goes through: read it from memory, work out what it means, carry it out.</td><td>The three labels light up in turn at every step.</td></tr>
+<tr><td><b>Next instruction</b> (program counter, PC)</td><td>The address of the instruction the processor reads next.</td><td>It goes up by one at every step. Jumps (JMP, JZ) overwrite it: that is how loops happen.</td></tr>
+<tr><td><b>Instruction just carried out</b></td><td>The command, for example <code>ADD 91</code>, and what it means in words.</td><td>Read the sentence aloud while stepping.</td></tr>
+<tr><td><b>Working number</b> (accumulator, ACC)</td><td>The one number the processor works with. Every calculation starts and ends here.</td><td>The line below shows the calculation, for example <i>15 + 27 = 42</i>; STO copies the number to memory.</td></tr>
+<tr><td><b>Memory line</b></td><td>What the last instruction did with memory.</td><td><i>read 27 from #91</i>, <i>wrote 42 to #92</i>, or only <i>read the instruction</i>.</td></tr>
+<tr><td><b>Input</b>, right</td><td>A box that becomes active when the program asks for a value (IN).</td><td>Type a number and press Enter or <i>Send</i>.</td></tr>
+<tr><td><b>Output</b></td><td>Values the program has sent out with OUT, in binary and decimal.</td><td>Countdown writes 5, 4, 3, 2, 1 here.</td></tr>
+<tr><td><b>Execution Log</b></td><td>One line per step, saying what just happened.</td><td>Read it aloud while stepping: it is the script for the walkthroughs below.</td></tr>
+</table></div>
+
+<h3 id="details">Show details: the full processor</h3>
+<p>For students who want to see more, <b>Show details</b> opens the full view (or add <code>&amp;view=full</code> to the address). There <b>Step</b> runs one phase at a time, so one instruction takes three steps, and you see how the processor talks to memory.</p>
+<img class="shot" src="img/cpu-add.png" alt="The detailed view after six steps of Simple Add: the accumulator holds 42 and all three buses are highlighted." width="1280" height="720" loading="lazy">
+<div class="tablewrap"><table>
+<tr><th>Part</th><th>What it is</th><th>What to watch</th></tr>
 <tr><td><b>MAR</b> (memory address register)</td><td>The address the processor is about to read or write.</td><td>During fetch it copies the PC; during LOAD/ADD/SUB/STO it holds the data address (90, 91, 92).</td></tr>
 <tr><td><b>MDR</b> (memory data register)</td><td>The value that has just come from memory.</td><td>During fetch it holds the instruction; the IR then copies it.</td></tr>
 <tr><td><b>Instruction Register (IR)</b></td><td>The instruction being worked on, in 16 bits.</td><td>The line below the bits spells it out, for example <code>LOAD 90</code>.</td></tr>
-<tr><td><b>Accumulator (ACC)</b></td><td>The one working register. Every calculation starts and ends here.</td><td>The result of ADD and SUB appears here; STO copies it to memory.</td></tr>
 <tr><td><b>ALU</b></td><td>The arithmetic logic unit, which does the sums.</td><td>Shows the instruction name while an instruction executes, otherwise <i>Idle</i>.</td></tr>
 <tr><td><b>Control Unit</b></td><td>Runs the cycle.</td><td>Shows the phase coming next: FETCH, DECODE or EXECUTE (or HALTED, WAIT_INPUT).</td></tr>
 <tr><td><b>Buses</b></td><td>The wires between processor and memory. The <b>address bus</b> carries where, the <b>data bus</b> carries what, the <b>control bus</b> carries commands.</td><td>The buses used in the last step light up in crimson. A fetch uses address and data; a decode only control; LOAD/ADD/SUB/STO use all three.</td></tr>
-<tr><td><b>Input</b>, right</td><td>A box that becomes active when the program asks for a value (IN).</td><td>Type a number and press Enter or <i>Send</i>.</td></tr>
-<tr><td><b>Output</b></td><td>Values the program has sent out with OUT, in binary and decimal.</td><td>Countdown writes 5, 4, 3, 2, 1 here.</td></tr>
-<tr><td><b>Execution Log</b></td><td>One sentence per step, saying what just happened.</td><td>Read it aloud while stepping: it is the script for the walkthroughs below.</td></tr>
 </table></div>
 
 <h2 id="controls">2. Controls and shortcuts</h2>
 <div class="tablewrap"><table>
 <tr><th>Control</th><th>Key</th><th>What it does</th></tr>
 <tr><td>Program menu + <b>Load</b></td><td></td><td>Puts one of three example programs and its data into memory and resets the processor.</td></tr>
-<tr><td><b>Step</b></td><td><kbd>Space</kbd></td><td>Runs one phase: fetch, decode <i>or</i> execute. One instruction takes three steps.</td></tr>
+<tr><td><b>Step</b></td><td><kbd>Space</kbd></td><td>Runs one whole instruction (fetch, decode and execute). In the detailed view: one phase, so one instruction takes three steps.</td></tr>
 <tr><td><b>Run</b> / <b>Pause</b></td><td><kbd>Enter</kbd></td><td>Steps automatically. The <b>Speed</b> slider sets the pace (right is faster).</td></tr>
 <tr><td><b>Reset</b></td><td><kbd>R</kbd></td><td>Reloads the current program and sets every register to 0.</td></tr>
+<tr><td><b>Show details</b> / <b>Simple view</b></td><td></td><td>Switches between the simple view and the full processor with all registers and buses.</td></tr>
 <tr><td><b>Opcodes</b></td><td></td><td>Shows the instruction set (the table in section 3).</td></tr>
 <tr><td>Presentation mode</td><td><kbd>P</kbd>, then <kbd>+</kbd> / <kbd>&minus;</kbd></td><td>Enlarges the page for the lecture hall and shows its address in the top bar.</td></tr>
 <tr><td>Help</td><td><kbd>?</kbd></td><td>Lists the shortcuts.</td></tr>
@@ -67,7 +79,8 @@ side by side in the same memory. The processor repeats one cycle for every instr
 <p><b>Links that open in a given state.</b> Add these to the address to prepare a slide or a class exercise:</p>
 <ul>
   <li><code>?program=add</code>, <code>?program=loop</code>, <code>?program=input</code>: load that program.</li>
-  <li><code>&amp;steps=N</code>: press Step N times, for example <a href="./?program=loop&amp;steps=15"><code>?program=loop&amp;steps=15</code></a> stops just after the first number is output.</li>
+  <li><code>&amp;steps=N</code>: press Step N times, for example <a href="./?program=loop&amp;steps=5"><code>?program=loop&amp;steps=5</code></a> stops just after the first number is output.</li>
+  <li><code>&amp;view=full</code>: open the detailed view. Steps then count phases: <a href="./?program=loop&amp;view=full&amp;steps=15"><code>?program=loop&amp;view=full&amp;steps=15</code></a> is the same moment.</li>
   <li><code>&amp;present=1</code>: open in presentation mode.</li>
 </ul>
 
@@ -94,7 +107,7 @@ it depends only on whether the PC points at it. That is the heart of the von Neu
 </table></div>
 
 <h2 id="add">4. Walkthrough 1: Simple Add (15 + 27)</h2>
-<p><a class="try primary" href="./?program=add">Open with Simple Add loaded</a> &nbsp;12 steps &middot; about 5 minutes</p>
+<p><a class="try primary" href="./?program=add">Open with Simple Add loaded</a> &nbsp;4 steps &middot; about 5 minutes</p>
 <pre>addr  bits                 instruction
  0    0001 000001011010    LOAD 90     ACC = 15
  1    0010 000001011011    ADD 91      ACC = 15 + 27
@@ -106,23 +119,21 @@ it depends only on whether the PC points at it. That is the heart of the von Neu
 92    0000000000000000     result goes here</pre>
 
 <div class="tablewrap"><table>
-<tr><th>Step</th><th>Phase</th><th>What happens</th><th>Point out</th></tr>
-<tr><td class="step-no">1</td><td class="phase">FETCH</td><td>PC 0 → MAR; memory[0] → MDR → IR; PC becomes 1</td><td>Address and data buses light up. The PC already points at the <i>next</i> instruction.</td></tr>
-<tr><td class="step-no">2</td><td class="phase">DECODE</td><td>opcode 0001 = LOAD, operand 90</td><td>Only the control bus: decoding happens inside the processor.</td></tr>
-<tr><td class="step-no">3</td><td class="phase">EXECUTE</td><td>ACC = memory[90] = 15</td><td>Cell 90 glows: the processor goes back to memory, this time for data.</td></tr>
-<tr><td class="step-no">4–6</td><td class="phase">F · D · E</td><td>ADD 91: ACC = 15 + 27 = 42</td><td>The ALU shows ADD. The result exists only inside the processor so far.</td></tr>
-<tr><td class="step-no">7–9</td><td class="phase">F · D · E</td><td>STO 92: memory[92] = 42</td><td>Cell 92 turns blue: the first <i>write</i>. It now holds <code>0000000000101010</code>, which is 42.</td></tr>
-<tr><td class="step-no">10–12</td><td class="phase">F · D · E</td><td>HALT</td><td>The Control Unit shows HALTED. Four instructions took twelve steps.</td></tr>
+<tr><th>Step</th><th>Instruction</th><th>What happens</th><th>Point out</th></tr>
+<tr><td class="step-no">1</td><td class="phase">LOAD 90</td><td>Working number = 15, copied from #90</td><td>Cell 0 is read as an instruction, then cell 90 as data: the processor goes to memory twice. Next instruction is now #1.</td></tr>
+<tr><td class="step-no">2</td><td class="phase">ADD 91</td><td>15 + 27 = 42</td><td>The result exists only inside the processor so far.</td></tr>
+<tr><td class="step-no">3</td><td class="phase">STO 92</td><td>42 is written to #92</td><td>Cell 92 turns blue: the first <i>write</i>. It now holds <code>0000000000101010</code>, which is 42.</td></tr>
+<tr><td class="step-no">4</td><td class="phase">HALT</td><td>Stop</td><td>Four instructions, four steps. In the detailed view the same program takes twelve: three phases each.</td></tr>
 </table></div>
 <div class="ask"><b>Ask the room.</b>
 <ul>
-  <li>Before step 3: which cell will light up, and why is it not cell 1?</li>
-  <li>After step 9: change cell 91 to 100 in your head. What single thing would be different?</li>
+  <li>Before step 1: which cells will the processor read, and why is the second one not cell 1?</li>
+  <li>After step 3: change cell 91 to 100 in your head. What single thing would be different?</li>
   <li>How would you write <code>x = 15 + 27 - 2</code>? (Add one SUB and a cell holding 2.)</li>
 </ul></div>
 
 <h2 id="loop">5. Walkthrough 2: Countdown loop (5, 4, 3, 2, 1)</h2>
-<p><a class="try primary" href="./?program=loop">Open with Countdown loaded</a> &nbsp;105 steps in total &middot; step through the first round, then press Run</p>
+<p><a class="try primary" href="./?program=loop">Open with Countdown loaded</a> &nbsp;35 steps in total &middot; step through the first round, then press Run</p>
 <pre>addr  instruction    meaning
  0    LOAD 90        ACC = 5 (start value)
  1    STO 91         counter = ACC
@@ -141,13 +152,13 @@ while counter != 0:
     counter = counter - 1</pre>
 <div class="tablewrap"><table>
 <tr><th>Steps</th><th>What happens</th><th>Point out</th></tr>
-<tr><td class="step-no">1–6</td><td>LOAD 90, STO 91: counter = 5</td><td>Set-up, done once.</td></tr>
-<tr><td class="step-no">7–12</td><td>LOAD 91, then JZ 8 with ACC = 5</td><td>The log says <i>ACC is 5, not 0, so carry on</i>: this is the test of the <code>while</code>.</td></tr>
-<tr><td class="step-no">13–15</td><td>OUT</td><td>5 appears in Output. <a href="./?program=loop&amp;steps=15">Link to this state</a></td></tr>
-<tr><td class="step-no">16–21</td><td>SUB 92, STO 91</td><td>counter becomes 4; cell 91 turns blue.</td></tr>
-<tr><td class="step-no">22–24</td><td>JMP 2</td><td>Watch the PC: it jumps back from 8 to 2. The crimson border moves back up the memory. <a href="./?program=loop&amp;steps=24">Link to this state</a></td></tr>
-<tr><td class="step-no">25–102</td><td>Four more rounds, 21 steps each</td><td>Press <b>Run</b> and turn up the speed.</td></tr>
-<tr><td class="step-no">103–105</td><td>ACC is 0: JZ jumps to 8, HALT</td><td>Output shows 5, 4, 3, 2, 1. <a href="./?program=loop&amp;steps=105">Link to the end</a></td></tr>
+<tr><td class="step-no">1–2</td><td>LOAD 90, STO 91: counter = 5</td><td>Set-up, done once.</td></tr>
+<tr><td class="step-no">3–4</td><td>LOAD 91, then JZ 8 with the working number 5</td><td>5 is not 0, so carry on: this is the test of the <code>while</code>.</td></tr>
+<tr><td class="step-no">5</td><td>OUT</td><td>5 appears in Output. <a href="./?program=loop&amp;steps=5">Link to this state</a></td></tr>
+<tr><td class="step-no">6–7</td><td>SUB 92, STO 91</td><td>counter becomes 4; cell 91 turns blue.</td></tr>
+<tr><td class="step-no">8</td><td>JMP 2</td><td>Watch the next instruction: it jumps back from #8 to #2. The crimson border moves back up the memory. <a href="./?program=loop&amp;steps=8">Link to this state</a></td></tr>
+<tr><td class="step-no">9–32</td><td>Four more rounds, 6 steps each</td><td>Press <b>Run</b> and turn up the speed.</td></tr>
+<tr><td class="step-no">33–35</td><td>The working number is 0: JZ jumps to 8, HALT</td><td>Output shows 5, 4, 3, 2, 1. <a href="./?program=loop&amp;steps=35">Link to the end</a></td></tr>
 </table></div>
 <div class="ask"><b>Ask the room.</b>
 <ul>
@@ -162,15 +173,15 @@ while counter != 0:
 1  OUT       show it
 2  JMP 0     and again</pre>
 <ol>
-  <li>Step three times. At the third step the Control Unit shows <b>WAIT_INPUT</b> and the Input box becomes active.</li>
-  <li>Type a number, press Enter. The number arrives in the accumulator.</li>
-  <li>Step six more times: OUT shows it, JMP goes back to 0 and the processor waits again.</li>
+  <li>Step once. The processor reaches IN and waits: the Input box becomes active.</li>
+  <li>Type a number, press Enter. The number arrives in the working number.</li>
+  <li>Step twice more: OUT shows it, JMP goes back to 0 and the processor waits again.</li>
 </ol>
 <p>This program never halts; press Reset to stop. It is the pattern of every interactive program: wait for input, react, wait again.</p>
 
 <h2 id="class">7. Questions for class</h2>
 <div class="ask"><ol>
-  <li>A program with 4 instructions took 12 steps. Why do computers need billions of steps per second?</li>
+  <li>In the detailed view, a program with 4 instructions took 12 steps. Why do computers need billions of steps per second?</li>
   <li>Memory cell 0 holds <code>0001000001011010</code>. Is that an instruction or the number 4186? Who decides?</li>
   <li>The processor can only do one of a handful of things. Where does all the complexity of Python come from?</li>
   <li>Find the line in the Countdown that corresponds to Python's <code>while counter != 0</code>.</li>
