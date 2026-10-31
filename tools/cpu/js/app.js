@@ -36,6 +36,18 @@ const els = {
         addr: document.getElementById('address-bus'),
         control: document.getElementById('control-bus')
     },
+    simple: {
+        root: document.getElementById('cpu-simple'),
+        cycle: document.getElementById('cycle'),
+        pc: document.getElementById('s-pc-val'),
+        instr: document.getElementById('s-instr-val'),
+        say: document.getElementById('s-instr-say'),
+        acc: document.getElementById('s-acc-val'),
+        accCard: document.getElementById('s-acc'),
+        calc: document.getElementById('s-acc-calc'),
+        mem: document.getElementById('s-mem-say')
+    },
+    btnView: document.getElementById('btn-view'),
     components: {
         pc: document.getElementById('comp-pc'),
         mar: document.getElementById('comp-mar'),
@@ -50,6 +62,43 @@ const els = {
 let isRunning = false;
 let runInterval = null;
 let speed = 1000;
+
+// Two views: the simple view (default) shows the program counter, the instruction in words and the accumulator,
+// and Step runs one whole instruction; the detailed view (Show details, or ?view=full) shows the registers,
+// buses and control unit, and Step runs one phase of the fetch-decode-execute cycle.
+let detailed = new URLSearchParams(location.search).get('view') === 'full';
+let simpleStarted = false;       // has an instruction run yet (for the 'Press Step' hint)
+let lastCalc = '';               // the calculation of the last instruction, in the accumulator card
+let lastMem = '';                // what the last instruction did with memory
+let haltLogged = false;          // 'CPU Halted.' goes into the log once
+
+function explain(val) {
+    const instr = OpcodeMap[(val >> 12) & 0xF];
+    const a = val & 0xFFF;
+    if (!instr) return 'not an instruction: the CPU stops';
+    switch (instr.name) {
+        case 'NOP': return 'do nothing';
+        case 'LOAD': return `copy the number at address #${a} into the working number`;
+        case 'ADD': return `add the number at address #${a} to the working number`;
+        case 'SUB': return `subtract the number at address #${a} from the working number`;
+        case 'STO': return `store the working number at address #${a}`;
+        case 'JMP': return `jump: continue with the instruction at address #${a}`;
+        case 'JZ': return `if the working number is 0, jump to address #${a}`;
+        case 'IN': return 'wait for a number from the Input box';
+        case 'OUT': return 'send the working number to the Output box';
+        case 'HALT': return 'stop the program';
+    }
+    return '';
+}
+
+function setView(full) {
+    detailed = full;
+    document.body.classList.toggle('view-full', full);
+    els.btnView.textContent = full ? 'Simple view' : 'Show details';
+    els.btnView.setAttribute('aria-pressed', String(full));
+    els.btnView.title = full ? 'Back to the simple view: next instruction, instruction in words, working number'
+                             : 'Show the registers, buses and control unit inside the CPU';
+}
 
 // Helper: Convert to Binary String
 function toBinary(num, bits) {
@@ -127,6 +176,20 @@ function updateUI() {
         cell.title = `Address ${i}. As an instruction: ${asInstr}. As a number: ${asNumber}. The same bits; the PC decides which.`;
     });
 
+    // Simple view
+    els.simple.pc.textContent = '#' + cpu.pc;
+    if (simpleStarted || cpu.ir) {
+        els.simple.instr.textContent = describeWord(cpu.ir);
+        els.simple.say.textContent = explain(cpu.ir);
+    } else {
+        els.simple.instr.textContent = '–';
+        els.simple.say.textContent = 'Press Step to run the first instruction.';
+    }
+    els.simple.acc.textContent = String(cpu.acc);
+    els.simple.calc.innerHTML = lastCalc || '&nbsp;';
+    els.simple.mem.textContent = lastMem || 'Memory: nothing read or written yet';
+    els.simple.cycle.querySelectorAll('.phase').forEach(ph => ph.classList.toggle('now', detailed && ph.dataset.phase === cpu.state));
+
     // Output Log
     els.outputLog.innerHTML = cpu.outputBuffer.map(v => `> ${toBinary(v, 16)} (${v})`).join('<br>');
     els.outputLog.scrollTop = els.outputLog.scrollHeight;
@@ -145,7 +208,10 @@ function updateUI() {
     // Halted State
     if (cpu.halted) {
         stopRun();
-        log("CPU Halted.");
+        if (!haltLogged) log("CPU Halted.");
+        haltLogged = true;
+    } else {
+        haltLogged = false;
     }
 }
 
@@ -210,8 +276,33 @@ function loadProgramData(name) {
 // Event Listeners
 function stepOnce() {
     if (cpu.halted || cpu.waitingForInput) return;
-    cpu.step();
-    if (cpu.lastAction) log(cpu.lastAction);
+    if (detailed) {
+        cpu.step();
+        if (cpu.lastAction) log(cpu.lastAction);
+        updateUI();
+        return;
+    }
+    // simple view: run the rest of the cycle, so that one Step is one whole instruction
+    const fromFetch = cpu.state === 'FETCH';
+    const at = cpu.pc, before = cpu.acc;
+    do { cpu.step(); } while (!cpu.halted && !cpu.waitingForInput && cpu.state !== 'FETCH');
+    simpleStarted = true;
+    const instr = OpcodeMap[(cpu.ir >> 12) & 0xF];
+    const a = cpu.ir & 0xFFF, m = memory.data[a];
+    lastCalc = ''; lastMem = fromFetch ? `Memory: read the instruction from #${at}` : '';
+    if (instr) {
+        switch (instr.name) {
+            case 'LOAD': lastCalc = `${cpu.acc}, copied from #${a}`; lastMem = `Memory: read ${m} from #${a}`; break;
+            case 'ADD': lastCalc = `${before} + ${m} = ${cpu.acc}`; lastMem = `Memory: read ${m} from #${a}`; break;
+            case 'SUB': lastCalc = `${before} − ${m} = ${cpu.acc}`; lastMem = `Memory: read ${m} from #${a}`; break;
+            case 'STO': lastCalc = `${cpu.acc}, now also at #${a}`; lastMem = `Memory: wrote ${cpu.acc} to #${a}`; break;
+            case 'JZ': lastCalc = before === 0 ? 'is 0, so the CPU jumps' : 'is not 0, so the CPU carries on'; break;
+            case 'OUT': lastCalc = `${cpu.acc}, sent to Output`; break;
+        }
+    }
+    log(`#${at}  ` + (cpu.lastAction || '').replace(/^EXECUTE /, ''));
+    els.simple.accCard.classList.toggle('changed', cpu.acc !== before);
+    els.simple.cycle.classList.remove('flash'); void els.simple.cycle.offsetWidth; els.simple.cycle.classList.add('flash');
     updateUI();
 }
 els.btnStep.addEventListener('click', stepOnce);
@@ -237,6 +328,7 @@ els.btnReset.addEventListener('click', () => {
     }
     els.executionLog.innerHTML = '';
     log("System Reset.");
+    simpleStarted = false; lastCalc = ''; lastMem = '';
     updateUI();
 });
 
@@ -250,6 +342,7 @@ els.btnLoad.addEventListener('click', () => {
         loadProgramData(progName);
         programLength = Programs[progName].length;
         log(`Loaded program: ${progName}`);
+    simpleStarted = false; lastCalc = ''; lastMem = '';
     }
     updateUI();
 });
@@ -258,6 +351,7 @@ els.btnSubmitInput.addEventListener('click', () => {
     const val = els.inputBuffer.value;
     if (val !== '') {
         cpu.provideInput(val);
+        lastCalc = `${cpu.acc}, from the Input box`;
         els.inputBuffer.value = '';
         log(`Input provided: ${val}`);
         updateUI();
@@ -330,7 +424,10 @@ els.inputBuffer.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') { e.preventDefault(); els.btnSubmitInput.click(); }
 });
 
+els.btnView.addEventListener('click', () => { setView(!detailed); updateUI(); });
+
 // Init
+setView(detailed);
 initMemoryGrid();
 initOpcodeList();
 updateUI();

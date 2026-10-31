@@ -538,3 +538,36 @@ input[type=range] { accent-color: #BC0031; }
 .cell-meaning { font-family: var(--font-main); font-size: 0.8rem; min-height: 1.1em; margin-top: 1px; }
 .cell-meaning.is-code { color: var(--accent); font-weight: 700; }
 .cell-meaning.is-data { color: var(--text-muted); }
+
+/* ---------- simple view (default): the CPU in words; .view-full on <body> shows the detailed view ---------- */
+.cpu-simple {
+    background: #FFFFFF;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    min-width: 0;
+}
+body:not(.view-full) .cpu-core { display: none; }
+body.view-full .cpu-simple { display: none; }
+.cycle { display: flex; align-items: center; justify-content: center; gap: 0.5rem; font-weight: 700; font-size: 0.95rem; color: var(--text-muted); }
+.cycle .phase { padding: 0.25rem 0.7rem; border: 1px solid var(--border); border-radius: 999px; background: #FFFFFF; }
+.cycle .phase.now { border-color: var(--primary); color: var(--primary); }
+.cycle .arrow { color: var(--border); }
+.cycle.flash .phase { animation: phase-flash 0.9s ease both; }
+.cycle.flash .phase[data-phase="DECODE"] { animation-delay: 0.3s; }
+.cycle.flash .phase[data-phase="EXECUTE"] { animation-delay: 0.6s; }
+@keyframes phase-flash { 0% { background: #FFFFFF; color: var(--text-muted); } 30% { background: var(--primary); color: #FFFFFF; border-color: var(--primary); } 100% { background: #FFFFFF; color: var(--text-muted); } }
+.s-card { border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 1rem; text-align: center; background: #FFFFFF; }
+.s-label { font-size: 0.9rem; font-weight: 700; color: var(--text-main); }
+.s-abbr { font-weight: 400; color: var(--text-muted); font-size: 0.8rem; }
+.s-big { font-size: 1.9rem; font-weight: 700; color: var(--primary); margin: 0.2rem 0; }
+.s-note { font-size: 0.95rem; color: var(--text-muted); min-height: 1.3em; }
+.s-acc .s-big { color: var(--accent); }
+.s-acc.changed { border-color: var(--accent); box-shadow: 0 0 12px var(--accent-glow); }
+.s-memory { text-align: center; font-size: 0.95rem; color: var(--text-main); background: #F4F6F8; border-radius: 8px; padding: 0.5rem 0.75rem; }
+.s-mem-arrow { color: var(--accent); font-weight: 700; }
+@media (max-width: 980px) { .cpu-simple { min-height: 0; } }
