@@ -27,35 +27,35 @@
 
   <p class="lead">This week has the <a href="#text">text workshop</a> with transformer models, and a
   <a href="#group">group exercise</a> on language models and their APIs, with a choice of two notebooks.</p>
-  <div class="box"><p><strong>First: save your own copy.</strong> Unless the notebook is already in your own Google Drive, Colab does not keep your changes.
+  <div class="box"><p><strong>First, save your own copy.</strong> Colab keeps your changes only if the notebook is in your own Google Drive.
 Go to <strong>File &rarr; Save a copy in Drive</strong> and work in the copy that opens in a new tab.
 You find it later in Google Drive, in <em>Colab Notebooks</em>.</p></div>
 
 
   <h2 id="text">1. Text workshop: transformers</h2>
-  <p>Sentiment analysis of social media with Hugging Face: datasets, tokenisation (characters, words, sub-words), a baseline,
-  fine-tuning a transformer model, and a second case study (do two sentences mean the same thing?). Then the steps of the lecture's
-  traditional NLP again, with language models and without any training: sentiment, topics, entities and a chat model.</p>
-  <p><strong>To submit:</strong> run the whole notebook and complete every cell marked <code>#Complete cell</code>. Sections and cells marked <em>optional</em> you can skip.</p>
+  <p>Sentiment analysis of social media with Hugging Face: datasets, tokenisation into characters, words or sub-words, a baseline,
+  fine-tuning a transformer model, and a second case study on whether two sentences mean the same thing. Then you redo the lecture's
+  traditional NLP steps with language models and no training: sentiment, topics, entities and a chat model.</p>
+  <p><strong>To submit,</strong> run the whole notebook and complete every cell marked <code>#Complete cell</code>. You can skip sections and cells marked <em>optional</em>.</p>
   <div class="nbrow noprint"><a class="try primary" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week4/Week4_Workshop.ipynb" target="_blank" rel="noopener">Open in Colab</a><span class="muted"><code>Week4_Workshop.ipynb</code></span></div>
   <div class="box info"><p><strong>Before you run anything:</strong></p>
   <ol class="steps">
     <li>In the top menu, go to <strong>Runtime &rarr; Change runtime type</strong> and choose <strong>Python 3</strong> with hardware accelerator <strong>T4 GPU</strong>.</li>
-    <li>When asked, <strong>allow the notebook access to Google Drive</strong>: choose the same Google account you use for Colab and tick all the permissions. The notebook reads the models from the shared course cache (the <em>CDA-CACHE</em> shortcut you set up following the instructions on Canvas).</li>
+    <li>When asked, <strong>allow the notebook access to Google Drive</strong>. Choose the Google account you use for Colab and tick all the permissions. The notebook reads the models from the shared course cache, the <em>CDA-CACHE</em> shortcut you set up as described on Canvas.</li>
     <li>Run the first code cell. It takes a while.</li>
   </ol></div>
   <h3>Hand it in</h3>
-<p>The last cell of the notebook makes an HTML file of your notebook and downloads it. Save the notebook first, run the cell,
-check the HTML file, and upload it to Canvas.</p>
+<p>The last cell makes an HTML file of your notebook and downloads it. Save the notebook first, run the cell,
+check the HTML file and upload it to Canvas.</p>
 
 
   <h2 id="group">2. Group exercise: language models through their APIs</h2>
-  <p>Work in groups of three or four. Your group chooses <strong>one</strong> of the two notebooks. Both start with the same
-  part on APIs: how researchers talk to a language model with a program instead of the chat window.</p>
+  <p>Work in groups of three or four. Each group chooses <strong>one</strong> of the two notebooks. Both start with the same
+  part on APIs, which researchers use to talk to a language model with a program instead of the chat window.</p>
   <ul>
     <li>Everyone runs the notebook on their own laptop, but you work through it <strong>together</strong>.</li>
     <li>Stop at the <strong>💬 Discuss</strong> boxes and talk before you go on.</li>
-    <li>Each member keeps their own notebook, with the names of the group members at the top. You don't hand it in.</li>
+    <li>Each member keeps their own notebook, with the group members' names at the top. You do not hand it in.</li>
   </ul>
 
   <h3>Option A, Prompting 1: Are all LLMs the same? Whose history do language models tell?</h3>
@@ -81,27 +81,27 @@ check the HTML file, and upload it to Canvas.</p>
     <tr><td>1. Talking to a model through its API</td><td>as in option A</td></tr>
     <tr><td>2. Where does a model's knowledge stop?</td><td>probe the models with dated questions</td></tr>
     <tr><td>3. The forecasts</td><td>the models' probabilities next to what happened</td></tr>
-    <tr><td>4. Scoring the forecasts</td><td>Brier scores against two baselines; contamination</td></tr>
+    <tr><td>4. Scoring the forecasts</td><td>Brier scores against two baselines, and contamination</td></tr>
     <tr><td>5. How do the models explain themselves?</td><td>a dictionary of continuity words and tf-idf</td></tr>
     <tr><td>6. One answer is one sample</td><td>the spread over ten runs</td></tr>
     <tr><td>Reflection</td><td>three short answers</td></tr>
   </table></div>
 
   <h3>For your group project: the toolkit and a template</h3>
-  <p>Both notebooks use <code>llm_tools.py</code>, a small toolkit for research with language models: ask a model, collect many
-  answers with their details in a CSV file, let a model code texts, check the coding by hand, and compare. The template runs this
-  workflow on your own prompts. Without a key it runs on the data of option A, so you can try it first.</p>
+  <p>Both notebooks use <code>llm_tools.py</code>, a small toolkit for research with language models. It lets you ask a model, collect many
+  answers with their details in a CSV file, let a model code texts, check the coding by hand and compare. The template runs this
+  workflow on your own prompts. Without a key it uses the data of option A, so you can try it first.</p>
   <div class="nbrow noprint"><a class="try" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/templates/LLM_Project_Template.ipynb" target="_blank" rel="noopener">Open the template in Colab</a><span class="muted"><code>LLM_Project_Template.ipynb</code></span></div>
 
   <h3>An API key (optional, one per group is enough)</h3>
-  <p>Both notebooks work without a key: they use answers we collected beforehand. With a free key you send the requests yourself.</p>
+  <p>Both notebooks work without a key, using answers we collected beforehand. With a free key you send the requests yourself.</p>
   <ol class="steps">
     <li>Go to <a href="https://aistudio.google.com" target="_blank" rel="noopener">aistudio.google.com</a> &rarr; <em>Get API key</em> &rarr; <em>Create API key</em>.</li>
     <li>In Colab, click the <strong>key symbol</strong> on the left &rarr; <em>Add new secret</em>.</li>
     <li>Name it <code>GEMINI_API_KEY</code>, paste the key as its value, and switch on <em>Notebook access</em>.</li>
   </ol>
-  <div class="box"><p><strong>Never paste an API key into your code.</strong> Anyone who sees the notebook can then use it, at your
-  cost, and notebooks are shared all the time. Read the terms of the free tier: Google may use what you send to improve its
+  <div class="box"><p><strong>Never paste an API key into your code.</strong> Anyone who sees the notebook can use it at your
+  cost, and notebooks are shared all the time. Read the terms of the free tier. Google may use what you send to improve its
   products, so never send personal data.</p></div>
   
 
