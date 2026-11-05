@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 1 Workshop: Build an app with UvA AI Chat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
+<link rel="stylesheet" href="../../assets/guide.css">
+<style>
+  body { border-top: 6px solid #BC0031; }
+  ol.steps > li { margin: 6px 0; }
+  .time { font-weight: 400; font-size: 15px; color: #555555; }
+  .spec { white-space: pre-wrap; }
+  .copyrow { display: flex; gap: 10px; align-items: center; margin: 6px 0 14px; }
+  .copyrow button { font: inherit; font-size: 15px; font-weight: 600; color: #FFFFFF; background: #BC0031; border: 1px solid #BC0031; border-radius: 6px; padding: 4px 12px; cursor: pointer; }
+  .copyrow button:hover { background: #7E0021; }
+  .copyrow span { font-size: 14px; color: #555555; }
+  table.patterns td:first-child { font-weight: 700; white-space: nowrap; }
+  .box { border: 1px solid #BEC6D1; border-left: 4px solid #BC0031; padding: 8px 14px; margin: 12px 0; }
+  .grid8 { display: inline-grid; grid-template-columns: repeat(8, 14px); gap: 2px; vertical-align: middle; margin-right: 10px; }
+  .grid8 span { width: 14px; height: 14px; border: 1px solid #BEC6D1; background: #FFFFFF; }
+  .grid8 span.b { background: #1F1D21; border-color: #1F1D21; }
+  @media print { .noprint { display: none; } body { border-top: 0; } a { color: #1F1D21; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="small noprint"><a href="./">&larr; Week 1 workshop</a></p>
+  <h1>Build an app with UvA AI Chat</h1>
+  <p class="sub">Cultural Data Analysis &middot; Week 1: Python &middot; a group exercise, about 30 minutes</p>
+
+  <p class="lead">In the lecture you saw that an image is an array of numbers. Today your group builds a small app that shows exactly that:
+  you draw a picture on a grid, and the app shows the picture as a list of lists of 0s and 1s. You don't write the code yourselves.
+  You write the <b>specification</b>, UvA AI Chat writes the code, and you <b>test</b> whether the app does what you asked.</p>
+
+  <p><span class="grid8" aria-hidden="true"><span></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="b"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="b"></span><span></span><span></span><span></span><span></span><span class="b"></span><span class="b"></span><span class="b"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="b"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="b"></span><span></span><span></span><span></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
+  <span class="small">A 3 on the grid. Its top row as numbers: [0, 1, 1, 1, 1, 0, 0, 0]</span></p>
+
+  <p class="small">You need: one laptop per group, logged in to <a href="https://aichat.uva.nl/chat" target="_blank" rel="noopener">UvA AI Chat</a> with your UvAnetID. It is free.</p>
+
+  <h2>1. Write the specification <span class="time">· 5 minutes</span></h2>
+  <p>A specification says what the app must do, as precisely as you can. Start from ours below, then change it as a group: add one thing you would like the app to do, and say how it should look.</p>
+  <pre class="spec" id="spec">Make me a small web app as one HTML page, so that I can try it here in the chat.
+
+- An 8 by 8 grid of squares, all white at the start.
+- Clicking a square switches it between white and black.
+- Below the grid, show the grid as a Python list of lists: 0 for white, 1 for black, one row per line. It changes with every click.
+- A button "Count black pixels" that shows how many squares are black.
+- A button "Clear" that makes all squares white again.
+
+Keep the code short and put a comment above each part, so that a beginner can read it.</pre>
+  <div class="copyrow noprint"><button id="copy">Copy the specification</button><span id="copied"></span></div>
+
+  <h2>2. Build it <span class="time">· 10 minutes</span></h2>
+  <ol class="steps">
+    <li>Paste your specification into UvA AI Chat. The app appears as an artifact next to the chat: try it there.</li>
+    <li>Something is wrong or missing? Don't edit the code. Describe the problem to the chatbot, as precisely as in your specification: <i>"When I click a square twice, it stays black. It should turn white again."</i></li>
+    <li>Note down every change you had to ask for. You will need the list in step 4.</li>
+  </ol>
+
+  <h2>3. Test it, and read the code <span class="time">· 5 minutes</span></h2>
+  <p><b>Test, don't trust.</b> Check each point by hand, and tick it only when it works:</p>
+  <ol>
+    <li>Click the square in the top-left corner. Does the <i>first</i> number of the <i>first</i> row become 1?</li>
+    <li>Click the same square again. Is it back to 0?</li>
+    <li>Draw a digit, for example a 3, like the one on the NumPy slide of the lecture. Count the black squares yourself: does the button give the same number?</li>
+    <li>Are there 8 rows of 8 numbers, in the right order (the top row of the grid first)?</li>
+    <li>Click <i>Clear</i>. Are all numbers 0, and is the count 0?</li>
+  </ol>
+  <p>Then open the code behind the artifact. It is JavaScript, not Python, but you know the ideas from the lecture
+  (remember the <a href="../../tools/loops/">loops in four languages</a>). Find the four programming patterns:</p>
+  <table class="patterns">
+    <tr><td>Data structure</td><td>Where is the grid kept? Look for a list of lists (in JavaScript: an <i>array</i> of arrays, written with <code>[ ]</code>).</td></tr>
+    <tr><td>Sequential: a loop</td><td>Where are the 64 squares made? Look for <code>for</code>.</td></tr>
+    <tr><td>Event driven</td><td>What happens when you click? Look for <code>click</code> or <code>addEventListener</code>.</td></tr>
+    <tr><td>A decision</td><td>How does a square know whether to turn black or white? Look for <code>if</code>, or for <code>? :</code>, a short way to write if-else.</td></tr>
+  </table>
+
+  <h2>4. Together <span class="time">· 10 minutes</span></h2>
+  <ol class="steps">
+    <li>Two or three groups show their app on the projector, and say which changes they had to ask for. Same specification, different apps: what differs?</li>
+    <li>The class agrees on <b>one new feature</b>, and every group asks for it in the same words. For example:
+      <ul>
+        <li>a 16 by 16 grid;</li>
+        <li>a button that mirrors the picture from left to right;</li>
+        <li>shades of grey from 0 to 16 instead of black and white, as in the digits of the lecture.</li>
+      </ul></li>
+    <li>Test the new feature with the checklist. Did every group get the same thing? What does that tell you about code written by a chatbot?</li>
+  </ol>
+
+  <div class="box"><b>Why we do this.</b> An app is made of the same few building blocks you met this week: a list of lists, a loop, an event and an if. A chatbot can write them for you, but only you can say what you want, and only you can check that the result is right.
+  That is the point of this course too: the computer does the counting, you do the asking and the checking.</div>
+
+  <p class="small">The code-along for this week's lecture: <a href="../../code-along/week1/">Python Tutor exercises</a>. The workshop notebook: <a href="./">Week 1 workshop</a>.</p>
+</div>
+<script>
+document.getElementById('copy').addEventListener('click', function () {
+  var t = document.getElementById('spec').textContent, s = document.getElementById('copied');
+  var ok = function () { s.textContent = 'Copied.'; setTimeout(function () { s.textContent = ''; }, 2500); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(ok, function () { s.textContent = 'Select the text and copy it by hand.'; });
+  else s.textContent = 'Select the text and copy it by hand.';
+});
+</script>
+</body>
+</html>
