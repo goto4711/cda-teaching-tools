@@ -37,11 +37,11 @@
   <p><span class="grid8" aria-hidden="true"><span></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="b"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="b"></span><span></span><span></span><span></span><span></span><span class="b"></span><span class="b"></span><span class="b"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="b"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="b"></span><span></span><span></span><span></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
   <span class="small">Top row: [0, 1, 1, 1, 1, 0, 0, 0]</span></p>
 
-  <p class="small">One laptop per group, logged in to <a href="https://aichat.uva.nl/chat" target="_blank" rel="noopener">UvA AI Chat</a> (free, with your UvAnetID).</p>
+  <p class="small">One laptop per group, logged in to <a href="https://aichat.uva.nl/chat" target="_blank" rel="noopener">UvA AI Chat</a> (free, with your UvAnetID). Choose <b>Claude Sonnet</b> in the model menu.</p>
 
   <h2>1. Write the specification <span class="time">· 5 minutes</span></h2>
   <p>Say exactly what the app must do. Start from ours and add one thing of your own.</p>
-  <pre class="spec" id="spec">Make me a small web app as one HTML page, so that I can try it here in the chat.
+  <pre class="spec" id="spec">Make me a small web app that I can try here in the chat.
 
 - An 8 by 8 grid of squares, all white at the start.
 - Clicking a square switches it between white and black.
@@ -54,7 +54,7 @@ Keep the code short and put a comment above each part, so that a beginner can re
 
   <h2>2. Build it <span class="time">· 10 minutes</span></h2>
   <ol class="steps">
-    <li>Paste the specification into UvA AI Chat and try the app next to the chat.</li>
+    <li>Paste the specification into UvA AI Chat and try the app next to the chat. UvA AI Chat writes such apps in React, a JavaScript library.</li>
     <li>If something is wrong, do not edit the code. Describe the problem: <i>"A square clicked twice stays black. It should turn white."</i></li>
     <li>Note every change you asked for.</li>
   </ol>
@@ -67,18 +67,20 @@ Keep the code short and put a comment above each part, so that a beginner can re
     <li>Draw a 3, as on the NumPy slide. Does the count match yours?</li>
     <li>Are there 8 rows of 8 numbers, top row first?</li>
     <li>Does <i>Clear</i> set all squares and the count to 0?</li>
+    <li>Press <i>Count black pixels</i>, then click a square. Is the count still right?</li>
+    <li>Read the chatbot's answer. What did it decide that you did not ask for?</li>
   </ol>
-  <p>Then open the code. It is JavaScript, but the ideas are this week's (see <a href="../../tools/loops/">loops in four languages</a>). Find the four patterns:</p>
+  <p>Then open the code. It is JavaScript with React, but the ideas are this week's (see <a href="../../tools/loops/">loops in four languages</a>). Find the four patterns:</p>
   <table class="patterns">
-    <tr><td>Data structure</td><td>The grid as a list of lists, <code>[ ]</code> inside <code>[ ]</code>.</td></tr>
-    <tr><td>Sequential</td><td>The <code>for</code> loop that makes the 64 squares.</td></tr>
-    <tr><td>Event driven</td><td><code>addEventListener("click", …)</code> says what a click does.</td></tr>
+    <tr><td>Data structure</td><td>The grid as a list of lists, <code>[ ]</code> inside <code>[ ]</code>, often kept with <code>useState</code>.</td></tr>
+    <tr><td>Sequential</td><td>The loop that makes the 64 squares. In React it is often <code>.map(…)</code>, which runs the same code for every item of a list.</td></tr>
+    <tr><td>Event driven</td><td><code>onClick</code> says what a click does.</td></tr>
     <tr><td>A decision</td><td><code>if</code> chooses black or white (or <code>? :</code>, a short if-else).</td></tr>
   </table>
 
   <h2>4. Together <span class="time">· 10 minutes</span></h2>
   <ol class="steps">
-    <li>Two or three groups show their app and the changes they asked for. Did the same specification give different apps?</li>
+    <li>Two or three groups show their app, the changes they asked for and what the chatbot decided on its own. Did the same specification give different apps?</li>
     <li>The class picks <b>one new feature</b>. Every group asks for it in the same words, for example:
       <ul>
         <li>a 16 by 16 grid,</li>
