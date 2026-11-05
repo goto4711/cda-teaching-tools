@@ -31,8 +31,8 @@
   <h1>Build an app with UvA AI Chat</h1>
   <p class="sub">Cultural Data Analysis &middot; Week 1: Python &middot; a group exercise, about 30 minutes</p>
 
-  <p class="lead">An image is an array of numbers. Your group builds an app that shows this: draw on a grid, see the grid as 0s and 1s.
-  You write the <b>specification</b>, UvA AI Chat writes the code, you <b>test</b> it.</p>
+  <p class="lead">An image is an array of numbers. Your group builds an app that shows this. You draw on a grid and see the grid as 0s and 1s.
+  You write the <b>specification</b>, UvA AI Chat writes the code, and you <b>test</b> it.</p>
 
   <p><span class="grid8" aria-hidden="true"><span></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="b"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="b"></span><span></span><span></span><span></span><span></span><span class="b"></span><span class="b"></span><span class="b"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="b"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="b"></span><span></span><span></span><span></span><span class="b"></span><span class="b"></span><span class="b"></span><span class="b"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span>
   <span class="small">Top row: [0, 1, 1, 1, 1, 0, 0, 0]</span></p>
@@ -55,40 +55,40 @@ Keep the code short and put a comment above each part, so that a beginner can re
   <h2>2. Build it <span class="time">· 10 minutes</span></h2>
   <ol class="steps">
     <li>Paste the specification into UvA AI Chat and try the app next to the chat.</li>
-    <li>Something wrong? Don't edit the code. Describe the problem: <i>"A square clicked twice stays black. It should turn white."</i></li>
+    <li>If something is wrong, do not edit the code. Describe the problem: <i>"A square clicked twice stays black. It should turn white."</i></li>
     <li>Note every change you asked for.</li>
   </ol>
 
   <h2>3. Test it, and read the code <span class="time">· 5 minutes</span></h2>
-  <p><b>Test, don't trust.</b> Check by hand:</p>
+  <p><b>Test, do not trust.</b> Check by hand:</p>
   <ol>
     <li>Click the top-left square. Does the first number of the first row become 1?</li>
-    <li>Click it again. Back to 0?</li>
+    <li>Click it again. Does it go back to 0?</li>
     <li>Draw a 3, as on the NumPy slide. Does the count match yours?</li>
-    <li>8 rows of 8 numbers, top row first?</li>
-    <li><i>Clear</i>: all 0, count 0?</li>
+    <li>Are there 8 rows of 8 numbers, top row first?</li>
+    <li>Does <i>Clear</i> set all squares and the count to 0?</li>
   </ol>
   <p>Then open the code. It is JavaScript, but the ideas are this week's (see <a href="../../tools/loops/">loops in four languages</a>). Find the four patterns:</p>
   <table class="patterns">
-    <tr><td>Data structure</td><td>The grid as a list of lists: <code>[ ]</code> inside <code>[ ]</code>.</td></tr>
-    <tr><td>Sequential</td><td>The loop that makes the 64 squares: <code>for</code>.</td></tr>
-    <tr><td>Event driven</td><td>What a click does: <code>addEventListener("click", …)</code>.</td></tr>
-    <tr><td>A decision</td><td>Black or white: <code>if</code> (or <code>? :</code>, a short if-else).</td></tr>
+    <tr><td>Data structure</td><td>The grid as a list of lists, <code>[ ]</code> inside <code>[ ]</code>.</td></tr>
+    <tr><td>Sequential</td><td>The <code>for</code> loop that makes the 64 squares.</td></tr>
+    <tr><td>Event driven</td><td><code>addEventListener("click", …)</code> says what a click does.</td></tr>
+    <tr><td>A decision</td><td><code>if</code> chooses black or white (or <code>? :</code>, a short if-else).</td></tr>
   </table>
 
   <h2>4. Together <span class="time">· 10 minutes</span></h2>
   <ol class="steps">
-    <li>Two or three groups show their app and the changes they asked for. Same specification, different apps?</li>
-    <li>The class picks <b>one new feature</b>; every group asks for it in the same words, for example:
+    <li>Two or three groups show their app and the changes they asked for. Did the same specification give different apps?</li>
+    <li>The class picks <b>one new feature</b>. Every group asks for it in the same words, for example:
       <ul>
-        <li>a 16 by 16 grid;</li>
-        <li>a button that mirrors the picture from left to right;</li>
+        <li>a 16 by 16 grid,</li>
+        <li>a button that mirrors the picture from left to right,</li>
         <li>greys from 0 to 16, as in the lecture's digits.</li>
       </ul></li>
     <li>Test it. Did every group get the same thing?</li>
   </ol>
 
-  <div class="box"><b>Why.</b> An app is this week's building blocks: a list, a loop, an event, an if. The chatbot writes them; you say what you want and check the result.</div>
+  <div class="box"><b>Why.</b> An app is made of this week's building blocks: a list, a loop, an event, an if. The chatbot writes them. You say what you want and check the result.</div>
 
   <p class="small"><a href="../../code-along/week1/">Week 1 code-along</a> &middot; <a href="./">Week 1 workshop</a></p>
 </div>
