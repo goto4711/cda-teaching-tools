@@ -27,7 +27,7 @@
 
   <p class="lead">This week's workshop has two parts: a 30-minute <a href="#critique">data critique</a> in groups, and the
   <a href="#ml">machine learning workshop</a> with clustering and decision trees.</p>
-  <div class="box"><p><strong>First: save your own copy.</strong> Unless the notebook is already in your own Google Drive, Colab does not keep your changes.
+  <div class="box"><p><strong>First, save your own copy.</strong> Colab keeps your changes only if the notebook is in your own Google Drive.
 Go to <strong>File &rarr; Save a copy in Drive</strong> and work in the copy that opens in a new tab.
 You find it later in Google Drive, in <em>Colab Notebooks</em>.</p></div>
 
@@ -39,29 +39,29 @@ You find it later in Google Drive, in <em>Colab Notebooks</em>.</p></div>
   </ol></div>
 
   <h2 id="critique">1. Data critique: ten questions for structured data</h2>
-  <p>Every dataset was made by someone, for some purpose, about some people. This week is about <strong>structured data</strong>:
-  tables of rows and columns, as in a spreadsheet or a database. Before we analyse such a table, and before a machine
-  learns from it, we ask what it is, who made it, who is in it and who is left out, and what happens when its columns become a
-  <strong>label</strong> (what a model predicts) and <strong>features</strong> (what it predicts from).</p>
-  <p>Use the ten questions below on <strong>every</strong> table of data you work with: the Senate votes and Spotify songs in
-  the next hour, and the tables in your group project. Today we practise them on one case, the donation records of a
-  (fictional) NGO. The questions also help with text corpora, though some will need adapting.</p>
+  <p>Every dataset was made by someone, for some purpose, about some people. This week is about <strong>structured data</strong>,
+  tables of rows and columns as in a spreadsheet or a database. Before you analyse such a table, or a machine
+  learns from it, ask what it is, who made it, who is in it and who is left out, and what happens when its columns become a
+  <strong>label</strong> and <strong>features</strong>. A model predicts the label from the features.</p>
+  <p>Use the ten questions below on <strong>every</strong> table you work with: the Senate votes and Spotify songs in
+  the next hour and the tables in your group project. Today you practise them on the donation records of a
+  fictional NGO. They also work for text corpora, though some need adapting.</p>
 
-  <div class="box info"><p><strong>Mostly thinking, not coding.</strong> Most questions are answered by reading the data sheet,
+  <div class="box info"><p><strong>Mostly thinking, not coding.</strong> You can answer most questions by reading the data sheet,
   looking at the rows and discussing. For each answer, say what it rests on: <em>the data sheet says …</em>,
-  <em>we saw in the data …</em>, or <em>we assume …</em>. Code is there if you want to check a suspicion.</p></div>
+  <em>we saw in the data …</em> or <em>we assume …</em>. Use code if you want to check a suspicion.</p></div>
 
   <h3>The 30 minutes</h3>
   <div class="tablewrap"><table>
     <tr><th>Minutes</th><th>What</th></tr>
-    <tr><td>0&ndash;5</td><td>Read the case and the data sheet below; look at the first rows of the data</td></tr>
-    <tr><td>5&ndash;20</td><td>In your group, work through the ten questions. Write a sentence or two per question in the data critique template (below)</td></tr>
-    <tr><td>20&ndash;30</td><td>All together: each group brings its strongest point, then question 10: can this data answer the NGO's question?</td></tr>
+    <tr><td>0&ndash;5</td><td>Read the case and the data sheet below, and look at the first rows</td></tr>
+    <tr><td>5&ndash;20</td><td>In your group, answer the ten questions in a sentence or two each, in the data critique template (below)</td></tr>
+    <tr><td>20&ndash;30</td><td>All together, each group brings its strongest point. Then question 10: can this data answer the NGO's question?</td></tr>
   </table></div>
 
   <h3>The ten questions</h3>
-  <p>Write your answers in the <strong>data critique template</strong>, a Markdown file with the ten questions, room for your
-  answers, and after each answer what it rests on. It is a short version of
+  <p>The <strong>data critique template</strong> is a Markdown file with the ten questions, room for your
+  answers and what each answer rests on. It is a short version of
   <a href="https://arxiv.org/abs/1803.09010" target="_blank" rel="noopener">Datasheets for Datasets</a> (Gebru et al.).
   Download it, fill it in for today's case, and use a copy for every table in your group project.</p>
   <div class="nbrow noprint"><a class="try primary" href="https://github.com/goto4711/cda-teaching-tools/blob/main/notebooks/templates/data_critique_template.md" target="_blank" rel="noopener">The data critique template</a><span class="muted"><code>data_critique_template.md</code> &middot; use the download button on that page</span></div>
@@ -79,19 +79,19 @@ You find it later in Google Drive, in <em>Colab Notebooks</em>.</p></div>
     <tr><th colspan="3" class="sec">The people: who is in it and who is affected</th></tr>
     <tr><td class="n">7</td><td>Who are the people in the data? Did they know, did they agree, and did they agree to <em>this</em> use?</td><td class="hint">The last line of the data sheet, and what "donor retention" means for the donors.</td></tr>
     <tr><td class="n">8</td><td>Which attributes are <strong>personal or sensitive</strong>, or could reveal something sensitive in combination? Could someone be identified?</td><td class="hint">Names, and what name, region, age band and a gift to a particular appeal say together.</td></tr>
-    <tr><td class="n">9</td><td>Who could <strong>benefit</strong>, and who could be <strong>harmed</strong> or left out, if the analysis is used?</td><td class="hint">Donors who give little, or by cheque; and the people the NGO is supposed to help.</td></tr>
+    <tr><td class="n">9</td><td>Who could <strong>benefit</strong>, and who could be <strong>harmed</strong> or left out, if the analysis is used?</td><td class="hint">Donors who give little or by cheque, and the people the NGO is supposed to help.</td></tr>
     <tr><th colspan="3" class="sec">Together</th></tr>
     <tr><td class="n">10</td><td>Can this data answer the question at all? What would you need to know, or whom would you need to ask, before trusting it?</td><td class="hint">The NGO's question: understand donation patterns, improve fundraising, keep donors.</td></tr>
   </table></div>
 
   <h2 id="datasheet">2. The practice case: Global Aid Alliance</h2>
   <p>A disaster relief NGO, <em>Global Aid Alliance</em>, has exported five years of donation records. It wants to understand
-  donation patterns, improve fundraising efficiency and increase <strong>donor retention</strong>: keeping donors giving.
+  donation patterns, improve fundraising efficiency and increase <strong>donor retention</strong> (keeping donors giving).
   Can the data do this, and should it be used this way?</p>
-  <p><em>Global Aid Alliance is a fictional organisation; the data are made up for teaching. Read the data sheet as if it were real:
-  it is the organisation's own account of its data, and like any such account it may be incomplete or wrong.</em></p>
+  <p><em>Global Aid Alliance and its data are made up for teaching. Read the data sheet as if it were real.
+  It is the organisation's own account of its data, and like any such account it may be incomplete or wrong.</em></p>
   <div class="nbrow noprint"><a class="try primary" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week3/Week3_Data_Critique.ipynb" target="_blank" rel="noopener">Look at the data in Colab</a><span class="muted"><code>Week3_Data_Critique.ipynb</code></span></div>
-  <p class="small">The notebook loads <code>donor_records_export.csv</code> and helps you test what you write about the label and the features: it makes a label in three ways, shows whom each favours, where the features come from, and whether a column gives away a sensitive one. It works on any table: use it again for the data of your group project.</p>
+  <p class="small">The notebook loads <code>donor_records_export.csv</code>. It makes a label in three ways and shows whom each favours, where the features come from and whether a column gives away a sensitive one. Use it to test your answers on the label and the features, and again on your group project, as it works on any table.</p>
 
   <h3>Data sheet for <code>donor_records_export.csv</code></h3>
   <p><strong>From:</strong> Fundraising &amp; Development, Global Aid Alliance<br>
@@ -116,7 +116,7 @@ You find it later in Google Drive, in <em>Colab Notebooks</em>.</p></div>
       <tr><td class="mono"><code>donor_name</code></td><td>Name as given by the donor</td></tr>
       <tr><td class="mono"><code>donation_date</code></td><td>Date the gift was received</td></tr>
       <tr><td class="mono"><code>donation_amount</code></td><td>Amount of the gift</td></tr>
-      <tr><td class="mono"><code>currency</code></td><td>Currency of the gift; all gifts are converted to USD</td></tr>
+      <tr><td class="mono"><code>currency</code></td><td>Currency of the gift. All gifts are converted to USD</td></tr>
       <tr><td class="mono"><code>channel</code></td><td>How the gift was made: Online, Mail or Event</td></tr>
       <tr><td class="mono"><code>campaign</code></td><td>The appeal the gift responded to, or General Fund if the donor did not choose one</td></tr>
       <tr><td class="mono"><code>region</code></td><td>Region (continent) of the donor's address</td></tr>
@@ -128,32 +128,32 @@ You find it later in Google Drive, in <em>Colab Notebooks</em>.</p></div>
 
   <h2 id="ml">3. Machine learning workshop</h2>
   <p>Clustering and classification with scikit-learn: k-means finds voting blocs among US senators, and decision trees and a
-  random forest predict whether a song is danceable. Take the ten questions with you: who made the Senate and Spotify data,
-  what are the label and the features, who decided the categories, and who is in the data?</p>
+  random forest predict whether a song is danceable. Take the ten questions with you and ask who made the Senate and Spotify data,
+  what the label and the features are, who decided the categories and who is in the data.</p>
   <div class="nbrow noprint"><a class="try primary" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week3/Week3_Workshop.ipynb" target="_blank" rel="noopener">Open in Colab</a><span class="muted"><code>Week3_Workshop.ipynb</code></span></div>
   <ul>
     <li><strong>Unsupervised machine learning with clustering:</strong> data preparation, k-means, visualisation, and how many "parties" k-means finds in the Senate</li>
-    <li><strong>Supervised machine learning:</strong> one split by hand, scikit-learn's decision trees, random forest and feature importances; how a tree finds the best split (optional)</li>
+    <li><strong>Supervised machine learning:</strong> one split by hand, scikit-learn's decision trees, random forest and feature importances, and how a tree finds the best split (optional)</li>
   </ul>
-  <p><strong>To submit:</strong> run the whole notebook and complete every cell marked <code>#Complete cell</code>. Sections and cells marked <em>optional</em> you can skip.</p>
+  <p><strong>To submit,</strong> run the whole notebook and complete every cell marked <code>#Complete cell</code>. You can skip sections and cells marked <em>optional</em>.</p>
   <p>Run the first code cell to set up the checks. Below an exercise, <code>q1.check()</code> checks your answer, <code>q1.hint()</code>
-  gives a hint and <code>q1.solution()</code> the solution: try first.</p>
+  gives a hint and <code>q1.solution()</code> the solution. Try first.</p>
   <h3>Hand it in</h3>
-<p>The last cell of the notebook makes an HTML file of your notebook and downloads it. Save the notebook first, run the cell,
-check the HTML file, and upload it to Canvas.</p>
+<p>The last cell makes an HTML file of your notebook and downloads it. Save the notebook first, run the cell,
+check the HTML file and upload it to Canvas.</p>
 
   <p class="small">The code-along for this week's lecture: <a href="../../code-along/week3/">machine learning</a>.</p>
 
   <h2 id="reference">4. The full audit checklist for your group project</h2>
-  <p>The ten questions are the core. This is the full <em>Structured Data Audit Checklist</em> from the lecture: use it for the
-  data your group collects, before any analysis or modelling.</p>
+  <p>The ten questions are the core. Below is the full <em>Structured Data Audit Checklist</em> from the lecture. Use it for your group's
+  data before any analysis or modelling.</p>
   <h3>Context &amp; provenance</h3>
   <ul>
     <li>What is the data source (database, API, manual entry, sensors, survey, scraping …)?</li>
     <li>Who owns or maintains the dataset?</li>
     <li>What process or system generates the data?</li>
     <li>What does each row represent (granularity)?</li>
-    <li>What period does the data cover? For internet data: when exactly was it collected?</li>
+    <li>What period does the data cover? For internet data, when exactly was it collected?</li>
     <li>How was the data collected? Are there known biases or gaps?</li>
     <li>Was software used to collect the data? If so, with which settings?</li>
     <li>What is the goal or question behind the dataset, and whose question is it?</li>
