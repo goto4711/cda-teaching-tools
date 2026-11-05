@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rule or chatbot?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
+<link rel="stylesheet" href="../../assets/course.css">
+<style>
+:root { --crimson:#BC0031; --crimson-dark:#7E0021; --ink:#1F1D21; --muted:#555555; --line:#BEC6D1; --tint:#FBEEF1; --blue:#3F6391; --blue-tint:#EAF0F7; --ok:#2E7D4F; --ok-tint:#E7F3EC; }
+* { box-sizing:border-box; }
+body { margin:0; background:#FFFFFF; color:var(--ink); font:17px/1.5 "Source Sans 3","Source Sans Pro",Arial,sans-serif; border-top:6px solid var(--crimson); }
+.wrap { max-width:1080px; margin:0 auto; padding:20px 16px 56px; }
+h1 { font-size:30px; margin:0 0 2px; }
+.sub { font-family:Faustina,Georgia,serif; font-style:italic; color:var(--muted); margin:0 0 14px; }
+h2 { font-size:20px; margin:28px 0 8px; border-bottom:1px solid var(--line); padding-bottom:2px; }
+h2 .n { display:inline-block; min-width:26px; height:26px; line-height:26px; text-align:center; border-radius:13px; background:var(--crimson); color:#fff; font-size:15px; margin-right:8px; }
+a { color:var(--crimson); }
+.task { background:var(--tint); border-left:4px solid var(--crimson); padding:10px 14px; margin:8px 0 4px; }
+.small { font-size:14.5px; color:var(--muted); }
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.grid2 > * { min-width:0; }
+@media (max-width:820px) { .grid2 { grid-template-columns:1fr; } }
+label { font-weight:700; display:block; margin:10px 0 4px; }
+input[type=text], textarea { width:100%; font:15px/1.45 "Courier New",Courier,monospace; border:1px solid var(--line); border-radius:4px; padding:8px 10px; background:#FFFFFF; color:var(--ink); }
+textarea { min-height:130px; resize:vertical; }
+input:focus, textarea:focus, button:focus-visible { outline:2px solid var(--crimson); outline-offset:1px; }
+pre { background:#F9F9F9; border:1px solid var(--line); padding:10px 12px; overflow-x:auto; font:14px/1.45 "Courier New",Courier,monospace; margin:8px 0; white-space:pre; }
+.kw { color:var(--crimson); font-weight:700; }
+button { font:inherit; font-size:15px; font-weight:600; border:1px solid var(--line); background:#FFFFFF; color:var(--ink); border-radius:6px; padding:6px 14px; cursor:pointer; }
+button:hover { background:var(--tint); border-color:#F0C4CE; color:var(--crimson); }
+button.primary { background:var(--crimson); border-color:var(--crimson); color:#FFFFFF; }
+button.primary:hover { background:var(--crimson-dark); color:#FFFFFF; }
+button:disabled { opacity:.45; cursor:default; }
+.row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:8px 0; }
+table.items { width:100%; border-collapse:collapse; font-size:16px; }
+table.items th { text-align:left; font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); border-bottom:2px solid var(--line); padding:4px 6px; }
+table.items td { border-bottom:1px solid #EBEBEC; padding:6px; vertical-align:top; }
+table.items td.no { width:34px; color:var(--muted); font-weight:700; text-align:right; }
+table.items td.lab { width:92px; text-align:center; font-weight:700; white-space:nowrap; }
+.pill { display:inline-block; min-width:44px; border-radius:10px; padding:0 8px; font-size:14px; }
+.yes { background:var(--tint); color:var(--crimson-dark); }
+.nope { background:#F2F2F2; color:#555; }
+.miss { color:#999; font-weight:400; }
+td.wrong { background:#FFF4D6; }
+td.right .pill::after { content:" ✓"; color:var(--ok); }
+td.wrong .pill::after { content:" ✗"; color:#A15C00; }
+.hit { background:#FFE3EA; border-radius:3px; padding:0 2px; }
+.lang { font-size:12px; color:var(--blue); border:1px solid #C9D6E6; border-radius:8px; padding:0 5px; margin-left:6px; white-space:nowrap; }
+.contested { font-size:12px; color:#8A5A00; border:1px solid #E8D29B; background:#FFF8E5; border-radius:8px; padding:0 5px; margin-left:6px; white-space:nowrap; }
+.score { display:flex; gap:16px; flex-wrap:wrap; margin:12px 0; }
+.score div { border:1px solid var(--line); border-radius:8px; padding:8px 16px; min-width:170px; }
+.score b { font-size:30px; display:block; line-height:1.1; }
+.score .r b { color:var(--crimson); } .score .c b { color:var(--blue); }
+.status { font-size:15px; margin:4px 0; }
+.status.bad { color:#A15C00; }
+.code { font:700 15px "Courier New",monospace; word-break:break-all; background:#F9F9F9; border:1px dashed var(--line); padding:8px 10px; border-radius:4px; }
+.ask { border:1px solid var(--line); border-left:4px solid var(--blue); padding:8px 14px; margin:12px 0; }
+.ask ol { margin:4px 0; padding-left:22px; }
+.hidden { display:none !important; }
+.bar { height:14px; background:#EEF0F3; border-radius:3px; position:relative; min-width:120px; }
+.bar span { position:absolute; left:0; top:0; bottom:0; border-radius:3px; }
+.bar.r span { background:var(--crimson); } .bar.c span { background:var(--blue); }
+.tabs { display:flex; gap:6px; margin:4px 0 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============ GROUP VIEW ============ -->
+<div id="group-view">
+<h1>Rule or chatbot?</h1>
+<p class="sub">A group exercise for Week 1: write an if-rule, ask UvA AI Chat, and compare both with a human reading.</p>
+
+<div class="task"><b>The question.</b> Does the headline present the protest as <b>violent</b>? For each of the 20 headlines below the answer is <i>yes</i> or <i>no</i>.</div>
+<p class="small">Work in your group of four. About 20 minutes: 5 for the rule, 10 for the chatbot, 5 to compare. The headlines are made up for this exercise; some are in Dutch.</p>
+
+<label for="group">Your group name</label>
+<input type="text" id="group" maxlength="20" placeholder="for example: Table 3" style="max-width:320px">
+
+<h2><span class="n">1</span>Write a rule</h2>
+<div class="grid2">
+  <div>
+    <label for="yes-words">Words that mean <i>yes</i> (separate them with commas)</label>
+    <input type="text" id="yes-words" placeholder="riot, violence, police">
+    <label for="unless-words">… unless the headline also contains one of these words (optional)</label>
+    <input type="text" id="unless-words" placeholder="peaceful">
+    <p class="small">The rule looks for each word anywhere in the headline, ignoring capitals. So <i>riot</i> also finds <i>riots</i>, and <i>patriot</i>.</p>
+  </div>
+  <div>
+    <label>Your rule in Python</label>
+    <pre id="py"></pre>
+  </div>
+</div>
+<p class="status" id="rule-status"></p>
+
+<h2><span class="n">2</span>Ask UvA AI Chat</h2>
+<ol>
+  <li>Copy the prompt and open <a href="https://aichat.uva.nl/chat" target="_blank" rel="noopener">UvA AI Chat</a> in a new tab. You may change the instruction in the prompt, for example to say what you count as violent. Keep the answer format.</li>
+  <li>Paste the chatbot's whole answer into the box below. The page reads lines like <code>1: yes</code> or <code>1. nee</code>.</li>
+</ol>
+<div class="row"><button class="primary" id="btn-copy">Copy the prompt</button><span class="small" id="copy-status"></span></div>
+<details><summary class="small">Show the prompt</summary><pre id="prompt" style="white-space:pre-wrap"></pre></details>
+<label for="answer">The chatbot's answer</label>
+<textarea id="answer" placeholder="1: yes&#10;2: no&#10;…"></textarea>
+<p class="status" id="chat-status"></p>
+
+<h2><span class="n">3</span>The headlines</h2>
+<div class="row">
+  <button class="primary" id="btn-reveal" disabled>Show our reading</button>
+  <span class="small" id="reveal-hint">Write a rule and paste the chatbot's answer first.</span>
+</div>
+<div id="scores" class="score hidden">
+  <div class="r"><span class="small">Your rule</span><b id="s-rule">–</b><span class="small">of 20 agree with our reading</span></div>
+  <div class="c"><span class="small">UvA AI Chat</span><b id="s-chat">–</b><span class="small">of 20 agree with our reading</span></div>
+</div>
+<table class="items" id="items">
+  <thead><tr><th>#</th><th>Headline</th><th>Your rule</th><th>Chatbot</th><th class="ours hidden">Our reading</th></tr></thead>
+  <tbody></tbody>
+</table>
+
+<div id="after" class="hidden">
+  <div class="ask"><b>Talk about it in your group</b>
+    <ol>
+      <li>Which headlines did your rule get wrong, and why? Could another word fix them without breaking others?</li>
+      <li>Which did the chatbot get wrong? Ask it why, and check whether its explanation holds.</li>
+      <li>Look at the headlines marked <span class="contested">we argued about this</span>. Do you agree with our reading? Who decides what counts as violent?</li>
+    </ol>
+  </div>
+  <h2><span class="n">4</span>Hand your result to the class</h2>
+  <p>Copy your group code and post it where your teacher asks (for example the workshop's Canvas discussion). It contains your group name, your words and the answers of your rule and the chatbot, nothing else.</p>
+  <div class="row"><button class="primary" id="btn-code">Copy group code</button><span class="small" id="code-status"></span></div>
+  <div class="code" id="code"></div>
+</div>
+<p class="small" style="margin-top:28px">For the teacher: <a href="?class=1">class view</a> to paste the group codes and show the results on the projector.</p>
+</div>
+
+<!-- ============ CLASS VIEW ============ -->
+<div id="class-view" class="hidden">
+<h1>Rule or chatbot? The class</h1>
+<p class="sub">Paste the group codes, one per line. Nothing is sent anywhere: the codes are read in this page only.</p>
+<textarea id="codes" placeholder="ROC1.…"></textarea>
+<div class="row"><button class="primary" id="btn-show">Show the class</button><span class="small" id="class-status"></span><a class="small" href="./" style="margin-left:auto">Back to the group view</a></div>
+<div id="class-out" class="hidden">
+  <h2>The groups</h2>
+  <table class="items" id="groups"><thead><tr><th>Group</th><th>Words (… unless)</th><th>Rule</th><th>Chatbot</th></tr></thead><tbody></tbody></table>
+  <h2>Which headlines were hard?</h2>
+  <p class="small">For each headline: how many groups' rules and chatbots disagreed with our reading.</p>
+  <table class="items" id="hard"><thead><tr><th>#</th><th>Headline</th><th>Our reading</th><th>Rules wrong</th><th>Chatbots wrong</th></tr></thead><tbody></tbody></table>
+  <div class="ask"><b>For the whole class</b>
+    <ol>
+      <li>Which headlines beat almost every rule? What do they have in common: negation, quotes, metaphors, another language, no tell-tale word?</li>
+      <li>Did the chatbots agree with each other? Same model, different prompts, different answers.</li>
+      <li>The rules are easy to check: you can read them. How would you check the chatbot on 20,000 headlines?</li>
+    </ol>
+  </div>
+</div>
+</div>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+  // The 20 headlines. Made up for this exercise (no real outlets). y = our reading: does it present the protest as violent?
+  // c = we argued about this one ourselves.
+  var ITEMS = [
+    { t: 'Riot police clash with protesters outside parliament, dozens arrested', y: 1 },
+    { t: 'Thousands march peacefully for affordable housing in Amsterdam', y: 0 },
+    { t: "Farmers' protest ends without violence, police thank organisers", y: 0 },
+    { t: 'Mob storms town hall as council meeting is abandoned', y: 1 },
+    { t: '"Riot? It was a picnic," say organisers of climate march', y: 0 },
+    { t: 'Windows smashed and cars set alight after housing demonstration', y: 1 },
+    { t: 'Students take the streets by storm with silent sit-in', y: 0 },
+    { t: 'Rellen in Den Haag: politie zet waterkanon in tegen demonstranten', y: 1, nl: 1 },
+    { t: 'Vreedzame mars door Utrecht trekt duizenden mensen', y: 0, nl: 1 },
+    { t: 'Price riot: shoppers rush to Black Friday sale', y: 0 },
+    { t: 'Protesters and police trade blows as tempers flare at climate camp', y: 1 },
+    { t: "Police warn of violence ahead of Saturday's demonstration", y: 1, c: 1 },
+    { t: 'Organisers say violent images circulating online are fake', y: 0, c: 1 },
+    { t: 'Chaos in city centre as protest turns ugly', y: 1 },
+    { t: 'Pensioners hold candlelight vigil for local bus routes', y: 0 },
+    { t: 'Hooligans hijack peaceful march, say witnesses', y: 1 },
+    { t: 'Demonstrators "fight" for climate justice with songs and banners', y: 0 },
+    { t: 'Taxi drivers block motorway in protest against new app rules', y: 0, c: 1 },
+    { t: 'Stones thrown, three officers injured at anti-lockdown protest', y: 1 },
+    { t: 'Studenten bezetten universiteitsgebouw uit protest tegen bezuinigingen', y: 0, nl: 1 }
+  ];
+  var N = ITEMS.length;
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var params = new URLSearchParams(location.search);
+  var store = {
+    get: function (k) { try { return localStorage.getItem('roc-' + k); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem('roc-' + k, v); } catch (e) {} }
+  };
+
+  function words(s) {
+    return s.split(',').map(function (w) { return w.trim().toLowerCase(); }).filter(Boolean);
+  }
+  function ruleLabels(yes, unless) {
+    return ITEMS.map(function (it) {
+      var text = it.t.toLowerCase(), label = 0;
+      yes.forEach(function (w) { if (text.indexOf(w) !== -1) label = 1; });
+      unless.forEach(function (w) { if (text.indexOf(w) !== -1) label = 0; });
+      return label;
+    });
+  }
+  function highlight(text, ws) {
+    if (!ws.length) return esc(text);
+    var lower = text.toLowerCase(), marks = new Array(text.length).fill(false);
+    ws.forEach(function (w) {
+      var i = lower.indexOf(w);
+      while (w && i !== -1) { for (var k = i; k < i + w.length; k++) marks[k] = true; i = lower.indexOf(w, i + 1); }
+    });
+    var out = '', open = false;
+    for (var i = 0; i < text.length; i++) {
+      if (marks[i] && !open) { out += '<span class="hit">'; open = true; }
+      if (!marks[i] && open) { out += '</span>'; open = false; }
+      out += esc(text[i]);
+    }
+    return out + (open ? '</span>' : '');
+  }
+  function pyList(ws) { return '[' + ws.map(function (w) { return '"' + w.replace(/"/g, '\\"') + '"'; }).join(', ') + ']'; }
+  function python(yes, unless) {
+    var k = function (s) { return '<span class="kw">' + s + '</span>'; };
+    var s = 'yes_words = ' + esc(pyList(yes)) + '\nunless_words = ' + esc(pyList(unless)) + '\n\n' +
+      k('for') + ' headline ' + k('in') + ' headlines:\n' +
+      '    text = headline.lower()\n' +
+      '    label = "no"\n' +
+      '    ' + k('for') + ' word ' + k('in') + ' yes_words:\n' +
+      '        ' + k('if') + ' word ' + k('in') + ' text:\n' +
+      '            label = "yes"\n' +
+      '    ' + k('for') + ' word ' + k('in') + ' unless_words:\n' +
+      '        ' + k('if') + ' word ' + k('in') + ' text:\n' +
+      '            label = "no"\n' +
+      '    print(label, headline)';
+    return s;
+  }
+  function prompt() {
+    return 'Here are 20 news headlines about protests. For each headline, answer "yes" if it presents the protest as violent, otherwise "no".\n' +
+      'Answer with one line per headline, in this form and nothing else:\n1: yes\n2: no\n\n' +
+      ITEMS.map(function (it, i) { return (i + 1) + '. ' + it.t; }).join('\n');
+  }
+  function parseAnswer(s) {
+    var got = new Array(N).fill(null), re = /^\D{0,4}?(\d{1,2})\s*[\.:\)\-–]?\s*\**\s*(yes|no|ja|nee|y|n)\b/i;
+    s.split(/\r?\n/).forEach(function (line) {
+      var m = line.trim().match(re);
+      if (!m) return;
+      var i = parseInt(m[1], 10) - 1;
+      if (i >= 0 && i < N && got[i] === null) got[i] = /^(yes|ja|y)$/i.test(m[2]) ? 1 : 0;
+    });
+    return got;
+  }
+  function pill(v) {
+    if (v === null || v === undefined) return '<span class="pill miss">–</span>';
+    return v ? '<span class="pill yes">yes</span>' : '<span class="pill nope">no</span>';
+  }
+
+  // ---------------------------------------------------------------- group view
+  var revealed = false, state = {};
+  function update() {
+    var yes = words($('yes-words').value), unless = words($('unless-words').value);
+    var rule = ruleLabels(yes, unless), chat = parseAnswer($('answer').value);
+    var nChat = chat.filter(function (v) { return v !== null; }).length;
+    state = { yes: yes, unless: unless, rule: rule, chat: chat };
+    $('py').innerHTML = python(yes, unless);
+    $('rule-status').textContent = yes.length ? 'Your rule says yes to ' + rule.reduce(function (a, b) { return a + b; }, 0) + ' of the 20 headlines.' : 'Type at least one word.';
+    var cs = $('chat-status');
+    cs.textContent = $('answer').value.trim() ? (nChat === N ? 'All 20 answers read.' : 'Read ' + nChat + ' of 20 answers. Ask the chatbot for the missing ones, in the form "1: yes".') : '';
+    cs.className = 'status' + (nChat && nChat < N ? ' bad' : '');
+    var ready = yes.length && nChat >= N - 2;
+    $('btn-reveal').disabled = !ready;
+    $('reveal-hint').textContent = ready ? (revealed ? '' : 'Before you click: how many do you think your rule and the chatbot get right?') : 'Write a rule and paste the chatbot\'s answer first.';
+    var rows = ITEMS.map(function (it, i) {
+      var mark = function (v) { return revealed && v !== null ? (v === it.y ? ' right' : ' wrong') : ''; };
+      return '<tr><td class="no">' + (i + 1) + '</td><td>' + highlight(it.t, yes.concat(unless)) +
+        (it.nl ? '<span class="lang">Dutch</span>' : '') + (revealed && it.c ? '<span class="contested">we argued about this</span>' : '') + '</td>' +
+        '<td class="lab' + mark(rule[i]) + '">' + (yes.length ? pill(rule[i]) : pill(null)) + '</td>' +
+        '<td class="lab' + mark(chat[i]) + '">' + pill(chat[i]) + '</td>' +
+        '<td class="lab ours' + (revealed ? '' : ' hidden') + '">' + pill(it.y) + '</td></tr>';
+    });
+    document.querySelector('#items tbody').innerHTML = rows.join('');
+    document.querySelectorAll('.ours').forEach(function (e) { e.classList.toggle('hidden', !revealed); });
+    if (revealed) {
+      var agree = function (arr) { return arr.reduce(function (a, v, i) { return a + (v === ITEMS[i].y ? 1 : 0); }, 0); };
+      $('s-rule').textContent = agree(rule); $('s-chat').textContent = agree(chat);
+      $('code').textContent = groupCode();
+    }
+    store.set('group', $('group').value); store.set('yes', $('yes-words').value); store.set('unless', $('unless-words').value); store.set('answer', $('answer').value);
+  }
+  function bits(arr) { return arr.map(function (v) { return v === null ? '-' : String(v); }).join(''); }
+  function groupCode() {
+    var d = { g: $('group').value.trim() || 'Group', w: state.yes.join(','), u: state.unless.join(','), r: bits(state.rule), c: bits(state.chat) };
+    var b = btoa(unescape(encodeURIComponent(JSON.stringify(d)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    return 'ROC1.' + b;
+  }
+  function copy(text, statusEl) {
+    var done = function () { statusEl.textContent = 'Copied.'; setTimeout(function () { statusEl.textContent = ''; }, 2500); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function () { statusEl.textContent = 'Select the text and copy it by hand.'; });
+    else statusEl.textContent = 'Select the text and copy it by hand.';
+  }
+
+  // ---------------------------------------------------------------- class view
+  function readCode(s) {
+    var m = s.trim().match(/^ROC1\.([A-Za-z0-9_-]+)$/);
+    if (!m) return null;
+    try {
+      var b = m[1].replace(/-/g, '+').replace(/_/g, '/'); while (b.length % 4) b += '=';
+      var d = JSON.parse(decodeURIComponent(escape(atob(b))));
+      if (typeof d.r !== 'string' || d.r.length !== N || typeof d.c !== 'string' || d.c.length !== N) return null;
+      var arr = function (x) { return x.split('').map(function (ch) { return ch === '-' ? null : +ch; }); };
+      return { g: String(d.g || 'Group').slice(0, 20), w: String(d.w || ''), u: String(d.u || ''), r: arr(d.r), c: arr(d.c) };
+    } catch (e) { return null; }
+  }
+  function showClass() {
+    var lines = $('codes').value.split(/\s+/).filter(Boolean), groups = [], bad = 0;
+    lines.forEach(function (l) { var g = readCode(l); if (g) groups.push(g); else bad++; });
+    $('class-status').textContent = groups.length + ' group' + (groups.length === 1 ? '' : 's') + ' read' + (bad ? ', ' + bad + ' code' + (bad === 1 ? '' : 's') + ' not readable' : '') + '.';
+    if (!groups.length) { $('class-out').classList.add('hidden'); return; }
+    var agree = function (arr) { return arr.reduce(function (a, v, i) { return a + (v === ITEMS[i].y ? 1 : 0); }, 0); };
+    var bar = function (cls, v) { return '<div class="bar ' + cls + '"><span style="width:' + (100 * v / N) + '%"></span></div><span class="small">' + v + ' of ' + N + '</span>'; };
+    document.querySelector('#groups tbody').innerHTML = groups.map(function (g) {
+      return '<tr><td><b>' + esc(g.g) + '</b></td><td><code>' + esc(g.w) + '</code>' + (g.u ? ' <span class="small">unless</span> <code>' + esc(g.u) + '</code>' : '') + '</td>' +
+        '<td style="min-width:150px">' + bar('r', agree(g.r)) + '</td><td style="min-width:150px">' + bar('c', agree(g.c)) + '</td></tr>';
+    }).join('');
+    var G = groups.length;
+    var hard = ITEMS.map(function (it, i) {
+      var rw = groups.filter(function (g) { return g.r[i] !== it.y; }).length, cw = groups.filter(function (g) { return g.c[i] !== null && g.c[i] !== it.y; }).length;
+      return { i: i, it: it, rw: rw, cw: cw };
+    }).sort(function (a, b) { return (b.rw + b.cw) - (a.rw + a.cw) || a.i - b.i; });
+    var cnt = function (cls, v) { return '<div class="bar ' + cls + '"><span style="width:' + (100 * v / G) + '%"></span></div><span class="small">' + v + ' of ' + G + '</span>'; };
+    document.querySelector('#hard tbody').innerHTML = hard.map(function (h) {
+      return '<tr><td class="no">' + (h.i + 1) + '</td><td>' + esc(h.it.t) + (h.it.nl ? '<span class="lang">Dutch</span>' : '') + (h.it.c ? '<span class="contested">we argued about this</span>' : '') + '</td>' +
+        '<td class="lab">' + pill(h.it.y) + '</td><td style="min-width:130px">' + cnt('r', h.rw) + '</td><td style="min-width:130px">' + cnt('c', h.cw) + '</td></tr>';
+    }).join('');
+    $('class-out').classList.remove('hidden');
+  }
+
+  // ---------------------------------------------------------------- start
+  if (params.get('class')) {
+    $('group-view').classList.add('hidden'); $('class-view').classList.remove('hidden');
+    $('btn-show').addEventListener('click', showClass);
+    if (params.get('codes')) { $('codes').value = params.get('codes').split(',').join('\n'); showClass(); }
+  } else {
+    $('group').value = store.get('group') || ''; $('yes-words').value = store.get('yes') || '';
+    $('unless-words').value = store.get('unless') || ''; $('answer').value = store.get('answer') || '';
+    $('prompt').textContent = prompt();
+    ['group', 'yes-words', 'unless-words', 'answer'].forEach(function (id) { $(id).addEventListener('input', update); });
+    $('btn-copy').addEventListener('click', function () { copy(prompt(), $('copy-status')); });
+    $('btn-reveal').addEventListener('click', function () { revealed = true; $('scores').classList.remove('hidden'); $('after').classList.remove('hidden'); $('btn-reveal').classList.add('hidden'); update(); });
+    $('btn-code').addEventListener('click', function () { copy(groupCode(), $('code-status')); });
+    update();
+  }
+})();
+</script>
+<script src="../../assets/course.js" data-week="1" data-title="Rule or chatbot?"
+  data-help="A group exercise: write a keyword rule, ask UvA AI Chat the same question, and compare both with our reading of 20 headlines.|Teacher: open <kbd>?class=1</kbd>, paste the group codes and show the class result on the projector."></script>
+</body>
+</html>
