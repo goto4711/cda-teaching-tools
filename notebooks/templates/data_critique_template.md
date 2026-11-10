@@ -10,9 +10,7 @@
 
 *Cultural Data Analysis, University of Amsterdam. A template for any table of data: copy it once per dataset, keep it next to the data, and update it as you learn more.*
 
-These ten questions are a short version of [Datasheets for Datasets](https://arxiv.org/abs/1803.09010) by Timnit Gebru and colleagues. A datasheet is written by the people who make a dataset; here you write it from the outside, as a critique. The line under each heading names the matching sections of a full datasheet, if you want to go further. A full datasheet also covers how the data is distributed and maintained.
-
-After every answer, say what it rests on: *the data sheet* (or other documentation) says so, *the data* shows it (which check, which rows), or it is *our assumption*. Delete the two that don't apply. An answer that rests on an assumption is fine, as long as you say so.
+These ten questions are inspired by [Datasheets for Datasets](https://arxiv.org/abs/1803.09010) by Timnit Gebru and colleagues. The line under each heading names the matching sections of a full datasheet, if you want to go further. 
 
 ---
 
@@ -22,19 +20,19 @@ After every answer, say what it rests on: *the data sheet* (or other documentati
 
 ### 1. Who made this data, for what purpose, and with what system or process? Whose question was it made to answer?
 
-*Hint: look for an organisation, a system (a database, a form, a sensor, a platform) and a reason to collect. The data's purpose may not be yours.*
+*Hint: look for an organisation, a system (a database, a form, a sensor, a platform) and a reason to collect.*
 
 **Rests on:** data sheet / data / assumption
 
 ### 2. What does one row stand for, and what is outside the data: which people, periods or cases, and why?
 
-*Hint: look for filters, time limits and the ways records get in. What would have to happen for someone or something to be in this table?*
+*Hint: look for filters, time limits and the ways records get in.*
 
 **Rests on:** data sheet / data / assumption
 
 ### 3. Which categories did someone design? What can't be said in them?
 
-*Hint: look at columns with a fixed list of values, e.g. gender, age bands, regions, types. Who chose the list, and what does it leave out or lump together?*
+*Hint: look at columns with a fixed list of values, e.g. gender, age, regions, etc. What is included/excluded? Who made it all?*
 
 **Rests on:** data sheet / data / assumption
 
@@ -52,13 +50,13 @@ After every answer, say what it rests on: *the data sheet* (or other documentati
 
 ### 5. What would the label be for the question being asked? Who defines it, and is it a proxy for what we actually care about?
 
-*Hint: if no column says what you want to predict, someone has to make one. Write down the definition, and what it counts and misses.*
+*Hint: if no column says what you want to predict, choose one. Write down the definition, and what it counts and misses.*
 
 **Rests on:** data sheet / data / assumption
 
 ### 6. Where do the features come from: measured, chosen by the people themselves, typed in by someone else, or computed by another system?
 
-*Hint: take the columns one by one. Does the answer differ by source, e.g. a web form versus a staff member?*
+*Hint: take the columns one by one.*
 
 **Rests on:** data sheet / data / assumption
 
@@ -70,7 +68,7 @@ After every answer, say what it rests on: *the data sheet* (or other documentati
 
 ### 7. Who are the people in the data? Did they know, did they agree, and did they agree to *this* use?
 
-*Hint: agreeing to give or to sign up is not the same as agreeing to be analysed or profiled.*
+*Hint: agreeing to give or to sign up is not the same as agreeing to be analysed/profiled.*
 
 **Rests on:** data sheet / data / assumption
 
@@ -82,7 +80,7 @@ After every answer, say what it rests on: *the data sheet* (or other documentati
 
 ### 9. Who could benefit, and who could be harmed or left out, if the analysis is used?
 
-*Hint: think of the people in the data, the people missing from it, and the people the analysis is meant to serve.*
+*Hint: think of the people in and out of the data, and the people the analysis is meant to serve.*
 
 **Rests on:** data sheet / data / assumption
 
