@@ -1,207 +1,416 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Week 3 Workshop: Data Critique and Machine Learning</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
-<link rel="stylesheet" href="../../assets/guide.css">
-<style>
-  body { border-top: 6px solid #BC0031; }
-  .nbrow { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin: 10px 0; }
-  .nbrow .try { margin: 0; }
-  td.n { white-space: nowrap; font-weight: 700; color: #BC0031; }
-  ol.steps > li { margin: 4px 0; }
-  table.ten th.sec { background: #FBEEF1; color: #BC0031; text-align: left; }
-  table.ten td.hint { color: #555555; font-size: 15px; }
-  @media print { .noprint { display: none; } body { border-top: 0; } a { color: #1F1D21; } }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Week 3 Workshop: Data Critique and Machine Learning</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
+  <link rel="stylesheet" href="../../assets/guide.css">
+  <style>
+    body {
+      border-top: 6px solid #BC0031;
+    }
+
+    .nbrow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px 12px;
+      margin: 10px 0;
+    }
+
+    .nbrow .try {
+      margin: 0;
+    }
+
+    td.n {
+      white-space: nowrap;
+      font-weight: 700;
+      color: #BC0031;
+    }
+
+    ol.steps>li {
+      margin: 4px 0;
+    }
+
+    table.ten th.sec {
+      background: #FBEEF1;
+      color: #BC0031;
+      text-align: left;
+    }
+
+    table.ten td.hint {
+      color: #555555;
+      font-size: 15px;
+    }
+
+    @media print {
+      .noprint {
+        display: none;
+      }
+
+      body {
+        border-top: 0;
+      }
+
+      a {
+        color: #1F1D21;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div class="wrap">
-  <p class="small noprint"><a href="../../">&larr; All weeks and tools</a></p>
-  <h1>Workshop: data critique and machine learning</h1>
-  <p class="sub">Cultural Data Analysis &middot; Week 3: Structured Data and Machine Learning</p>
+  <div class="wrap">
+    <p class="small noprint"><a href="../../">&larr; All weeks and tools</a></p>
+    <h1>Workshop: data critique and machine learning</h1>
+    <p class="sub">Cultural Data Analysis &middot; Week 3: Structured Data and Machine Learning</p>
 
-  <p class="lead">This week's workshop has two parts: a 30-minute <a href="#critique">data critique</a> in groups, and the
-  <a href="#ml">machine learning workshop</a> with clustering and decision trees.</p>
-  <div class="box"><p><strong>First, save your own copy.</strong> Colab keeps your changes only if the notebook is in your own Google Drive.
-Go to <strong>File &rarr; Save a copy in Drive</strong> and work in the copy that opens in a new tab.
-You find it later in Google Drive, in <em>Colab Notebooks</em>.</p></div>
+    <p class="lead">This week's workshop has two parts: a 30-minute <a href="#critique">data critique</a> in groups, and
+      the
+      <a href="#ml">machine learning workshop</a> with clustering and decision trees.
+    </p>
 
-  <div class="toc noprint"><ol>
-    <li><a href="#critique">Data critique: ten questions for structured data (30 min, in groups)</a></li>
-    <li><a href="#datasheet">The practice case: Global Aid Alliance</a></li>
-    <li><a href="#ml">Machine learning workshop</a></li>
-    <li><a href="#reference">The full audit checklist for your group project</a></li>
-  </ol></div>
+    <div class="toc noprint">
+      <ol>
+        <li><a href="#critique">Data critique: ten questions for structured data (30 min, in groups)</a></li>
+        <li><a href="#datasheet">The practice case: Global Aid Alliance</a></li>
+        <li><a href="#ml">Machine learning workshop</a></li>
+        <li><a href="#reference">The full audit checklist for your group project</a></li>
+      </ol>
+    </div>
 
-  <h2 id="critique">1. Data critique: ten questions for structured data</h2>
-  <p>Every dataset was made by someone, for some purpose, about some people. This week is about <strong>structured data</strong>,
-  tables of rows and columns as in a spreadsheet or a database. Before you analyse such a table, or a machine
-  learns from it, ask what it is, who made it, who is in it and who is left out, and what happens when its columns become a
-  <strong>label</strong> and <strong>features</strong>. A model predicts the label from the features.</p>
-  <p>Use the ten questions below on <strong>every</strong> table you work with: the Senate votes and Spotify songs in
-  the next hour and the tables in your group project. Today you practise them on the donation records of a
-  fictional NGO. They also work for text corpora, though some need adapting.</p>
+    <h2 id="critique">1. Data critique: ten questions for structured data</h2>
+    <p>Every dataset was made by someone, for some purpose, about some people. This week is about <strong>structured
+        data</strong>,
+      tables of rows and columns as in a spreadsheet or a database. Before you analyse such a table, or a machine
+      learns from it, ask what it is, who made it, who is in it and who is left out, and what happens when its columns
+      become a
+      <strong>label</strong> and <strong>features</strong>. A model predicts the label from the features.
+    </p>
+    <p>Use the ten questions below on <strong>every</strong> table you work with: the Senate votes and Spotify songs in
+      the next hour and the tables in your group project. Today you practise them on the donation records of a
+      fictional NGO.</p>
 
-  <div class="box info"><p><strong>Mostly thinking, not coding.</strong> You can answer most questions by reading the data sheet,
-  looking at the rows and discussing. For each answer, say what it rests on: <em>the data sheet says …</em>,
-  <em>we saw in the data …</em> or <em>we assume …</em>. Use code if you want to check a suspicion.</p></div>
+    <div class="box info">
+      <p>You can answer most questions by reading the data sheet,
+        looking at the rows and discussing. For each answer, say what it rests on: <em>the data sheet says …</em>,
+        <em>we saw in the data …</em> or <em>we assume …</em>. Use code if you want to check your ideas.
+      </p>
+    </div>
 
-  <h3>The 30 minutes</h3>
-  <div class="tablewrap"><table>
-    <tr><th>Minutes</th><th>What</th></tr>
-    <tr><td>0&ndash;5</td><td>Read the case and the data sheet below, and look at the first rows</td></tr>
-    <tr><td>5&ndash;20</td><td>In your group, answer the ten questions in a sentence or two each, in the data critique template (below)</td></tr>
-    <tr><td>20&ndash;30</td><td>All together, each group brings its strongest point. Then question 10: can this data answer the NGO's question?</td></tr>
-  </table></div>
+    <h3>The 30 minutes</h3>
+    <div class="tablewrap">
+      <table>
+        <tr>
+          <th>Minutes</th>
+          <th>What</th>
+        </tr>
+        <tr>
+          <td>0&ndash;5</td>
+          <td>Read the case and the data sheet below, and look at the first rows</td>
+        </tr>
+        <tr>
+          <td>5&ndash;20</td>
+          <td>In your group, answer the ten questions in a sentence or two each, in the data critique template (below)
+          </td>
+        </tr>
+        <tr>
+          <td>20&ndash;30</td>
+          <td>Then question 10: can this data answer the NGO's question?</td>
+        </tr>
+      </table>
+    </div>
 
-  <h3>The ten questions</h3>
-  <p>The <strong>data critique template</strong> is a Markdown file with the ten questions, room for your
-  answers and what each answer rests on. It is a short version of
-  <a href="https://arxiv.org/abs/1803.09010" target="_blank" rel="noopener">Datasheets for Datasets</a> (Gebru et al.).
-  Download it, fill it in for today's case, and use a copy for every table in your group project.</p>
-  <div class="nbrow noprint"><a class="try primary" href="https://github.com/goto4711/cda-teaching-tools/blob/main/notebooks/templates/data_critique_template.md" target="_blank" rel="noopener">The data critique template</a><span class="muted"><code>data_critique_template.md</code> &middot; use the download button on that page</span></div>
-  <p>The right-hand column says where to look in today's case.</p>
-  <div class="tablewrap"><table class="ten">
-    <tr><th>#</th><th>Question (for any table of data)</th><th>In the donor case, look at …</th></tr>
-    <tr><th colspan="3" class="sec">The data: where it comes from</th></tr>
-    <tr><td class="n">1</td><td>Who made this data, for what purpose, and with what system or process? Whose question was it made to answer?</td><td class="hint">Who wrote the data sheet, and what do they want from the data?</td></tr>
-    <tr><td class="n">2</td><td>What does one row stand for, and what is <strong>outside</strong> the data: which people, periods or cases, and why?</td><td class="hint">The export filter, and the three ways gifts come in.</td></tr>
-    <tr><td class="n">3</td><td>Which <strong>categories</strong> did someone design (gender, region, age bands …)? What can't be said in them?</td><td class="hint">The columns <code>gender</code>, <code>age_range</code>, <code>region</code> and <code>campaign</code>.</td></tr>
-    <tr><td class="n">4</td><td>What looks missing, wrong or inconsistent? Is it a mistake, or a trace of how the data was made?</td><td class="hint">The dates and campaigns, the age and gender of cheque donors, and what a donor ID really identifies.</td></tr>
-    <tr><th colspan="3" class="sec">The label: what a model would predict</th></tr>
-    <tr><td class="n">5</td><td>What would the <strong>label</strong> be for the question being asked? Who defines it, and is it a <strong>proxy</strong> for what we actually care about?</td><td class="hint">There is no "retention" column. How would you make one, and what would it count as a loyal donor?</td></tr>
-    <tr><td class="n">6</td><td>Where do the <strong>features</strong> come from: measured, chosen by the people themselves, typed in by someone else, or computed by another system?</td><td class="hint">Who filled in each column, and on which channel?</td></tr>
-    <tr><th colspan="3" class="sec">The people: who is in it and who is affected</th></tr>
-    <tr><td class="n">7</td><td>Who are the people in the data? Did they know, did they agree, and did they agree to <em>this</em> use?</td><td class="hint">The last line of the data sheet, and what "donor retention" means for the donors.</td></tr>
-    <tr><td class="n">8</td><td>Which attributes are <strong>personal or sensitive</strong>, or could reveal something sensitive in combination? Could someone be identified?</td><td class="hint">Names, and what name, region, age band and a gift to a particular appeal say together.</td></tr>
-    <tr><td class="n">9</td><td>Who could <strong>benefit</strong>, and who could be <strong>harmed</strong> or left out, if the analysis is used?</td><td class="hint">Donors who give little or by cheque, and the people the NGO is supposed to help.</td></tr>
-    <tr><th colspan="3" class="sec">Together</th></tr>
-    <tr><td class="n">10</td><td>Can this data answer the question at all? What would you need to know, or whom would you need to ask, before trusting it?</td><td class="hint">The NGO's question: understand donation patterns, improve fundraising, keep donors.</td></tr>
-  </table></div>
+    <h3>The ten questions</h3>
+    <p>The <strong>data critique template</strong> is a Markdown file with the ten questions, room for your
+      answers and what each answer rests on. It is a short version of
+      <a href="https://arxiv.org/abs/1803.09010" target="_blank" rel="noopener">Datasheets for Datasets</a> (Gebru et
+      al.).
+      Download it, fill it in for today's case, and use a copy for every table in your future projects.
+    </p>
+    <div class="nbrow noprint"><a class="try primary"
+        href="https://github.com/goto4711/cda-teaching-tools/blob/main/notebooks/templates/data_critique_template.md"
+        target="_blank" rel="noopener">The data critique template</a><span
+        class="muted"><code>data_critique_template.md</code> &middot; use the download button on that page</span></div>
+    <p>The right-hand column says where to look in today's case.</p>
+    <div class="tablewrap">
+      <table class="ten">
+        <tr>
+          <th>#</th>
+          <th>Question (for any table of data)</th>
+          <th>In the donor case, look at …</th>
+        </tr>
+        <tr>
+          <th colspan="3" class="sec">The data: where it comes from</th>
+        </tr>
+        <tr>
+          <td class="n">1</td>
+          <td>Who made this data, for what purpose, and with what system or process? Whose question was it made to
+            answer?</td>
+          <td class="hint">Who wrote the data sheet, and what do they want from the data?</td>
+        </tr>
+        <tr>
+          <td class="n">2</td>
+          <td>What does one row stand for, and what is <strong>outside</strong> the data: which people, periods or
+            cases, and why?</td>
+          <td class="hint">The export filter, and the three ways gifts come in.</td>
+        </tr>
+        <tr>
+          <td class="n">3</td>
+          <td>Which <strong>categories</strong> did someone design (gender, region, age bands …)? What can't be said in
+            them?</td>
+          <td class="hint">The columns <code>gender</code>, <code>age_range</code>, <code>region</code> and
+            <code>campaign</code>.</td>
+        </tr>
+        <tr>
+          <td class="n">4</td>
+          <td>What looks missing, wrong or inconsistent? Is it a mistake, or a trace of how the data was made?</td>
+          <td class="hint">The dates and campaigns, the age and gender of cheque donors, and what a donor ID really
+            identifies.</td>
+        </tr>
+        <tr>
+          <th colspan="3" class="sec">The label: what a model would predict</th>
+        </tr>
+        <tr>
+          <td class="n">5</td>
+          <td>What would the <strong>label</strong> be for the question being asked? Who defines it, and is it a
+            <strong>proxy</strong> for what we actually care about?</td>
+          <td class="hint">There is no "retention" column. How would you make one, and what would it count as a loyal
+            donor?</td>
+        </tr>
+        <tr>
+          <td class="n">6</td>
+          <td>Where do the <strong>features</strong> come from: measured, chosen by the people themselves, typed in by
+            someone else, or computed by another system?</td>
+          <td class="hint">Who filled in each column, and on which channel?</td>
+        </tr>
+        <tr>
+          <th colspan="3" class="sec">The people: who is in it and who is affected</th>
+        </tr>
+        <tr>
+          <td class="n">7</td>
+          <td>Who are the people in the data? Did they know, did they agree, and did they agree to <em>this</em> use?
+          </td>
+          <td class="hint">The last line of the data sheet, and what "donor retention" means for the donors.</td>
+        </tr>
+        <tr>
+          <td class="n">8</td>
+          <td>Which attributes are <strong>personal or sensitive</strong>, or could reveal something sensitive in
+            combination? Could someone be identified?</td>
+          <td class="hint">Names, and what name, region, age band and a gift to a particular appeal say together.</td>
+        </tr>
+        <tr>
+          <td class="n">9</td>
+          <td>Who could <strong>benefit</strong>, and who could be <strong>harmed</strong> or left out, if the analysis
+            is used?</td>
+          <td class="hint">Donors who give little or by cheque, and the people the NGO is supposed to help.</td>
+        </tr>
+        <tr>
+          <th colspan="3" class="sec">Together</th>
+        </tr>
+        <tr>
+          <td class="n">10</td>
+          <td>Can this data answer the question at all? What would you need to know, or whom would you need to ask,
+            before trusting it?</td>
+          <td class="hint">The NGO's question: understand donation patterns, improve fundraising, keep donors.</td>
+        </tr>
+      </table>
+    </div>
 
-  <h2 id="datasheet">2. The practice case: Global Aid Alliance</h2>
-  <p>A disaster relief NGO, <em>Global Aid Alliance</em>, has exported five years of donation records. It wants to understand
-  donation patterns, improve fundraising efficiency and increase <strong>donor retention</strong> (keeping donors giving).
-  Can the data do this, and should it be used this way?</p>
-  <p><em>Global Aid Alliance and its data are made up for teaching. Read the data sheet as if it were real.
-  It is the organisation's own account of its data, and like any such account it may be incomplete or wrong.</em></p>
-  <div class="nbrow noprint"><a class="try primary" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week3/Week3_Data_Critique.ipynb" target="_blank" rel="noopener">Look at the data in Colab</a><span class="muted"><code>Week3_Data_Critique.ipynb</code></span></div>
-  <p class="small">The notebook loads <code>donor_records_export.csv</code>. It makes a label in three ways and shows whom each favours, where the features come from and whether a column gives away a sensitive one. Use it to test your answers on the label and the features, and again on your group project, as it works on any table.</p>
+    <h2 id="datasheet">2. The practice case: Global Aid Alliance</h2>
+    <p>A disaster relief NGO, <em>Global Aid Alliance</em>, has exported five years of donation records. It wants to
+      understand
+      donation patterns, improve fundraising efficiency and increase <strong>donor retention</strong> (keeping donors
+      giving).
+      Can the data do this, and should it be used this way?</p>
+    <p><em>Global Aid Alliance and its data are made up for teaching. It's synthetic data.
+        It is the organisation's own account of its data, and like any such account it may be incomplete or wrong.</em>
+    </p>
+    <div class="nbrow noprint"><a class="try primary"
+        href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week3/Week3_Data_Critique.ipynb"
+        target="_blank" rel="noopener">Look at the data in Colab</a><span
+        class="muted"><code>Week3_Data_Critique.ipynb</code></span></div>
+    <p class="small">The notebook loads <code>donor_records_export.csv</code>. Use it to test your answers on the label
+      and the features, and again on your group project, as it works on any table.</p>
 
-  <h3>Data sheet for <code>donor_records_export.csv</code></h3>
-  <p><strong>From:</strong> Fundraising &amp; Development, Global Aid Alliance<br>
-  <strong>Purpose of the export:</strong> to understand donation patterns, improve fundraising efficiency and increase donor retention.</p>
-  <p><strong>What the file contains</strong></p>
-  <ul>
-    <li>All individual donations from 1 January 2020 to 31 December 2024, exported from our Donor Management System (DonorBase CRM) on 15 January 2025.</li>
-    <li>Export filter: individual donors only, completed gifts of $10 or more. Refunds and failed payments are excluded. Corporate partners are kept in a separate system and are not included.</li>
-    <li>One row per donation. Every donor has a unique donor ID, so repeat gifts can be linked to the same person.</li>
-  </ul>
-  <p><strong>How the data are collected</strong></p>
-  <ul>
-    <li><em>Online:</em> donors fill in the form on our website. Age range and gender are optional questions on the form.</li>
-    <li><em>Mail:</em> cheques are opened and typed into the CRM by volunteers. Where the donor is already known, volunteers copy age range, gender and region from the donor's earlier record.</li>
-    <li><em>Event:</em> donations at fundraising events are written on paper forms and entered later by staff.</li>
-  </ul>
-  <p><strong>Columns</strong></p>
-  <div class="tablewrap"><table>
-    <tr><th>Column</th><th>Meaning</th></tr>
-      <tr><td class="mono"><code>donation_id</code></td><td>Unique ID of the donation</td></tr>
-      <tr><td class="mono"><code>donor_id</code></td><td>Unique ID of the donor</td></tr>
-      <tr><td class="mono"><code>donor_name</code></td><td>Name as given by the donor</td></tr>
-      <tr><td class="mono"><code>donation_date</code></td><td>Date the gift was received</td></tr>
-      <tr><td class="mono"><code>donation_amount</code></td><td>Amount of the gift</td></tr>
-      <tr><td class="mono"><code>currency</code></td><td>Currency of the gift. All gifts are converted to USD</td></tr>
-      <tr><td class="mono"><code>channel</code></td><td>How the gift was made: Online, Mail or Event</td></tr>
-      <tr><td class="mono"><code>campaign</code></td><td>The appeal the gift responded to, or General Fund if the donor did not choose one</td></tr>
-      <tr><td class="mono"><code>region</code></td><td>Region (continent) of the donor's address</td></tr>
-      <tr><td class="mono"><code>age_range</code></td><td>Age band of the donor</td></tr>
-      <tr><td class="mono"><code>gender</code></td><td>Gender of the donor: Female, Male, Non-binary, Prefer not to say</td></tr>
-      <tr><td class="mono"><code>recurring_gift</code></td><td>Yes if the gift is part of a monthly direct debit</td></tr>
-  </table></div>
-  <p><strong>Privacy:</strong> donors agree to our privacy notice when they give. Analysis for fundraising purposes is covered by it.</p>
+    <h3>Data sheet for <code>donor_records_export.csv</code></h3>
+    <p><strong>From:</strong> Fundraising &amp; Development, Global Aid Alliance<br>
+      <strong>Purpose of the export:</strong> to understand donation patterns, improve fundraising efficiency and
+      increase donor retention.
+    </p>
+    <p><strong>What the file contains</strong></p>
+    <ul>
+      <li>All individual donations from 1 January 2020 to 31 December 2024, exported from our Donor Management System
+        (DonorBase CRM) on 15 January 2025.</li>
+      <li>Export filter: individual donors only, completed gifts of $10 or more. Refunds and failed payments are
+        excluded. Corporate partners are kept in a separate system and are not included.</li>
+      <li>One row per donation. Every donor has a unique donor ID, so repeat gifts can be linked to the same person.
+      </li>
+    </ul>
+    <p><strong>How the data are collected</strong></p>
+    <ul>
+      <li><em>Online:</em> donors fill in the form on our website. Age range and gender are optional questions on the
+        form.</li>
+      <li><em>Mail:</em> cheques are opened and typed into the CRM by volunteers. Where the donor is already known,
+        volunteers copy age range, gender and region from the donor's earlier record.</li>
+      <li><em>Event:</em> donations at fundraising events are written on paper forms and entered later by staff.</li>
+    </ul>
+    <p><strong>Columns</strong></p>
+    <div class="tablewrap">
+      <table>
+        <tr>
+          <th>Column</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td class="mono"><code>donation_id</code></td>
+          <td>Unique ID of the donation</td>
+        </tr>
+        <tr>
+          <td class="mono"><code>donor_id</code></td>
+          <td>Unique ID of the donor</td>
+        </tr>
+        <tr>
+          <td class="mono"><code>donor_name</code></td>
+          <td>Name as given by the donor</td>
+        </tr>
+        <tr>
+          <td class="mono"><code>donation_date</code></td>
+          <td>Date the gift was received</td>
+        </tr>
+        <tr>
+          <td class="mono"><code>donation_amount</code></td>
+          <td>Amount of the gift</td>
+        </tr>
+        <tr>
+          <td class="mono"><code>currency</code></td>
+          <td>Currency of the gift. All gifts are converted to USD</td>
+        </tr>
+        <tr>
+          <td class="mono"><code>channel</code></td>
+          <td>How the gift was made: Online, Mail or Event</td>
+        </tr>
+        <tr>
+          <td class="mono"><code>campaign</code></td>
+          <td>The appeal the gift responded to, or General Fund if the donor did not choose one</td>
+        </tr>
+        <tr>
+          <td class="mono"><code>region</code></td>
+          <td>Region (continent) of the donor's address</td>
+        </tr>
+        <tr>
+          <td class="mono"><code>age_range</code></td>
+          <td>Age band of the donor</td>
+        </tr>
+        <tr>
+          <td class="mono"><code>gender</code></td>
+          <td>Gender of the donor: Female, Male, Non-binary, Prefer not to say</td>
+        </tr>
+        <tr>
+          <td class="mono"><code>recurring_gift</code></td>
+          <td>Yes if the gift is part of a monthly direct debit</td>
+        </tr>
+      </table>
+    </div>
+    <p><strong>Privacy:</strong> donors agree to our privacy notice when they give. Analysis for fundraising purposes is
+      covered by it.</p>
 
-  <h2 id="ml">3. Machine learning workshop</h2>
-  <p>Clustering and classification with scikit-learn: k-means finds voting blocs among US senators, and decision trees and a
-  random forest predict whether a song is danceable. Take the ten questions with you and ask who made the Senate and Spotify data,
-  what the label and the features are, who decided the categories and who is in the data.</p>
-  <div class="nbrow noprint"><a class="try primary" href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week3/Week3_Workshop.ipynb" target="_blank" rel="noopener">Open in Colab</a><span class="muted"><code>Week3_Workshop.ipynb</code></span></div>
-  <ul>
-    <li><strong>Unsupervised machine learning with clustering:</strong> data preparation, k-means, visualisation, and how many "parties" k-means finds in the Senate</li>
-    <li><strong>Supervised machine learning:</strong> one split by hand, scikit-learn's decision trees, random forest and feature importances, and how a tree finds the best split (optional)</li>
-  </ul>
-  <p><strong>To submit,</strong> run the whole notebook and complete every cell marked <code>#Complete cell</code>. You can skip sections and cells marked <em>optional</em>.</p>
-  <p>Run the first code cell to set up the checks. Below an exercise, <code>q1.check()</code> checks your answer, <code>q1.hint()</code>
-  gives a hint and <code>q1.solution()</code> the solution. Try first.</p>
-  <h3>Hand it in</h3>
-<p>The last cell makes an HTML file of your notebook and downloads it. Save the notebook first, run the cell,
-check the HTML file and upload it to Canvas.</p>
+    <h2 id="ml">3. Machine learning workshop</h2>
+    <p>Clustering and classification with scikit-learn: k-means finds voting blocs among US senators, and decision trees
+      and a
+      random forest predict whether a song is danceable. Take the ten questions with you and ask who made the Senate and
+      Spotify data,
+      what the label and the features are, who decided the categories and who is in the data.</p>
+    <div class="nbrow noprint"><a class="try primary"
+        href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week3/Week3_Workshop.ipynb"
+        target="_blank" rel="noopener">Open in Colab</a><span class="muted"><code>Week3_Workshop.ipynb</code></span>
+    </div>
+    <ul>
+      <li><strong>Unsupervised machine learning with clustering:</strong> data preparation, k-means, visualisation, and
+        how many "parties" k-means finds in the Senate</li>
+      <li><strong>Supervised machine learning:</strong> one split by hand, scikit-learn's decision trees, random forest
+        and feature importances, and how a tree finds the best split (optional)</li>
+    </ul>
+    <p><strong>To submit,</strong> run the whole notebook and complete every cell marked <code>#Complete cell</code>.
+      You can skip sections and cells marked <em>optional</em>.</p>
+    <p>Run the first code cell to set up the checks. Below an exercise, <code>q1.check()</code> checks your answer,
+      <code>q1.hint()</code>
+      gives a hint and <code>q1.solution()</code> the solution. Try first.</p>
+    <h3>Hand it in</h3>
+    <p>The last cell makes an HTML file of your notebook and downloads it. Save the notebook first, run the cell,
+      check the HTML file and upload it to Canvas.</p>
 
-  <p class="small">The code-along for this week's lecture: <a href="../../code-along/week3/">machine learning</a>.</p>
+    <p class="small">The code-along for this week's lecture: <a href="../../code-along/week3/">machine learning</a>.</p>
 
-  <h2 id="reference">4. The full audit checklist for your group project</h2>
-  <p>The ten questions are the core. Below is the full <em>Structured Data Audit Checklist</em> from the lecture. Use it for your group's
-  data before any analysis or modelling.</p>
-  <h3>Context &amp; provenance</h3>
-  <ul>
-    <li>What is the data source (database, API, manual entry, sensors, survey, scraping …)?</li>
-    <li>Who owns or maintains the dataset?</li>
-    <li>What process or system generates the data?</li>
-    <li>What does each row represent (granularity)?</li>
-    <li>What period does the data cover? For internet data, when exactly was it collected?</li>
-    <li>How was the data collected? Are there known biases or gaps?</li>
-    <li>Was software used to collect the data? If so, with which settings?</li>
-    <li>What is the goal or question behind the dataset, and whose question is it?</li>
-    <li>Who or what is not in the data, and why?</li>
-  </ul>
-  <h3>Structure &amp; schema</h3>
-  <ul>
-    <li>What are the data types (numeric, categorical, datetime …), and are they correctly assigned?</li>
-    <li>Which columns are raw, and which are derived or computed, and by whom?</li>
-    <li>Are the column names consistent and clear? Is there a data sheet or dictionary, and does the data match it?</li>
-    <li>Which categories did someone design (gender, region, age bands, genres), and what can't be said in them?</li>
-  </ul>
-  <h3>Data quality &amp; integrity</h3>
-  <ul>
-    <li>Are there missing values? In what proportion per column?</li>
-    <li>Are there patterns in missingness (by time, category, group)? Are there disguised missing values ("unknown", 0, 1900-01-01)?</li>
-    <li>Are there duplicates or inconsistent records? Do IDs identify what they claim to?</li>
-    <li>Are numeric values within expected ranges and units? Are categorical values valid?</li>
-    <li>Are there impossible or implausible entries? Are timestamps valid, and do events fit what you know about the world?</li>
-    <li>Is there evidence of data leakage (the target known in the features)?</li>
-  </ul>
-  <h3>Statistical &amp; distributional checks</h3>
-  <ul>
-    <li>What are the summary statistics (mean, median, min, max, standard deviation)?</li>
-    <li>What is the shape of the distributions?</li>
-    <li>Are classes or groups imbalanced?</li>
-    <li>Are there correlations among features?</li>
-    <li>Are there time trends or seasonality?</li>
-    <li>Are there anomalies or outliers? How many, and are they errors or interesting?</li>
-  </ul>
-  <h3>Ethical &amp; interpretive considerations</h3>
-  <ul>
-    <li>Could the dataset encode bias (sampling, measurement, social)?</li>
-    <li>Does it include sensitive attributes (gender, ethnicity, religion, age, location …), or things that stand in for them?</li>
-    <li>Who are the people in the data? Did they know about it, and did they agree to this use?</li>
-    <li>What privacy, legal or compliance standards apply (GDPR)? Could someone be identified?</li>
-    <li>Could analysis or models based on this data cause harm or discrimination?</li>
-    <li>Who might be affected by insights or predictions, and who benefits?</li>
-  </ul>
-  <h3>Readiness for analysis / modelling</h3>
-  <ul>
-    <li>What cleaning or transformation steps are needed, and which of them are interpretations?</li>
-    <li>What is the candidate target variable (label), who defined it, and is it a proxy?</li>
-    <li>Are there enough examples per class or group?</li>
-    <li>Are key features missing? Is any feature itself the output of another model?</li>
-    <li>Is the data fresh enough, and updated often enough?</li>
-    <li>What assumptions must hold for the analysis to be valid?</li>
-  </ul>
-</div>
+    <h2 id="reference">4. The full audit checklist for your group project</h2>
+    <p>The ten questions are the core. Below is the full <em>Structured Data Audit Checklist</em> from the lecture. Use
+      it for your group's
+      data before any analysis or modelling.</p>
+    <h3>Context &amp; provenance</h3>
+    <ul>
+      <li>What is the data source (database, API, manual entry, sensors, survey, scraping …)?</li>
+      <li>Who owns or maintains the dataset?</li>
+      <li>What process or system generates the data?</li>
+      <li>What does each row represent (granularity)?</li>
+      <li>What period does the data cover? For internet data, when exactly was it collected?</li>
+      <li>How was the data collected? Are there known biases or gaps?</li>
+      <li>Was software used to collect the data? If so, with which settings?</li>
+      <li>What is the goal or question behind the dataset, and whose question is it?</li>
+      <li>Who or what is not in the data, and why?</li>
+    </ul>
+    <h3>Structure &amp; schema</h3>
+    <ul>
+      <li>What are the data types (numeric, categorical, datetime …), and are they correctly assigned?</li>
+      <li>Which columns are raw, and which are derived or computed, and by whom?</li>
+      <li>Are the column names consistent and clear? Is there a data sheet or dictionary, and does the data match it?
+      </li>
+      <li>Which categories did someone design (gender, region, age bands, genres), and what can't be said in them?</li>
+    </ul>
+    <h3>Data quality &amp; integrity</h3>
+    <ul>
+      <li>Are there missing values? In what proportion per column?</li>
+      <li>Are there patterns in missingness (by time, category, group)? Are there disguised missing values ("unknown",
+        0, 1900-01-01)?</li>
+      <li>Are there duplicates or inconsistent records? Do IDs identify what they claim to?</li>
+      <li>Are numeric values within expected ranges and units? Are categorical values valid?</li>
+      <li>Are there impossible or implausible entries? Are timestamps valid, and do events fit what you know about the
+        world?</li>
+      <li>Is there evidence of data leakage (the target known in the features)?</li>
+    </ul>
+    <h3>Statistical &amp; distributional checks</h3>
+    <ul>
+      <li>What are the summary statistics (mean, median, min, max, standard deviation)?</li>
+      <li>What is the shape of the distributions?</li>
+      <li>Are classes or groups imbalanced?</li>
+      <li>Are there correlations among features?</li>
+      <li>Are there time trends or seasonality?</li>
+      <li>Are there anomalies or outliers? How many, and are they errors or interesting?</li>
+    </ul>
+    <h3>Ethical &amp; interpretive considerations</h3>
+    <ul>
+      <li>Could the dataset encode bias (sampling, measurement, social)?</li>
+      <li>Does it include sensitive attributes (gender, ethnicity, religion, age, location …), or things that stand in
+        for them?</li>
+      <li>Who are the people in the data? Did they know about it, and did they agree to this use?</li>
+      <li>What privacy, legal or compliance standards apply (GDPR)? Could someone be identified?</li>
+      <li>Could analysis or models based on this data cause harm or discrimination?</li>
+      <li>Who might be affected by insights or predictions, and who benefits?</li>
+    </ul>
+    <h3>Readiness for analysis / modelling</h3>
+    <ul>
+      <li>What cleaning or transformation steps are needed, and which of them are interpretations?</li>
+      <li>What is the candidate target variable (label), who defined it, and is it a proxy?</li>
+      <li>Are there enough examples per class or group?</li>
+      <li>Are key features missing? Is any feature itself the output of another model?</li>
+      <li>Is the data fresh enough, and updated often enough?</li>
+      <li>What assumptions must hold for the analysis to be valid?</li>
+    </ul>
+  </div>
 </body>
+
 </html>
