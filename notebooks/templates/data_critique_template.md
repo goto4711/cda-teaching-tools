@@ -32,11 +32,11 @@ These ten questions are inspired by [Datasheets for Datasets](https://arxiv.org/
 
 ### 3. Which categories did someone design? What can't be said in them?
 
-*Hint: look at columns with a fixed list of values, e.g. gender, age, regions, etc. What is included/excluded? Who made it all?*
+*Hint: look at columns with a fixed list of values, e.g. gender, age, regions, etc. What is included or excluded? Who made it all?*
 
 **Rests on:** data sheet / data / assumption
 
-### 4. What looks missing, wrong or inconsistent? Is it a mistake, or a trace of how the data was made?
+### 4. What looks missing, wrong or inconsistent? Is it a mistake, or a trace of how the data were made?
 
 *Hint: look at empty cells, spelling variants, impossible values, duplicates, IDs that do not stand for one thing, and patterns that differ by source or by period.*
 
@@ -68,7 +68,7 @@ These ten questions are inspired by [Datasheets for Datasets](https://arxiv.org/
 
 ### 7. Who are the people in the data? Did they know, did they agree, and did they agree to *this* use?
 
-*Hint: agreeing to give or to sign up is not the same as agreeing to be analysed/profiled.*
+*Hint: agreeing to give or to sign up is not the same as agreeing to be analysed or profiled.*
 
 **Rests on:** data sheet / data / assumption
 

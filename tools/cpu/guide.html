@@ -48,7 +48,7 @@ side by side in the same memory. The processor repeats one cycle for every instr
 <tr><td><b>Memory line</b></td><td>What the last instruction did with memory.</td><td><i>read 27 from #91</i>, <i>wrote 42 to #92</i>, or only <i>read the instruction</i>.</td></tr>
 <tr><td><b>Input</b>, right</td><td>A box that becomes active when the program asks for a value (IN).</td><td>Type a number and press Enter or <i>Send</i>.</td></tr>
 <tr><td><b>Output</b></td><td>Values the program has sent out with OUT, in binary and decimal.</td><td>Countdown writes 5, 4, 3, 2, 1 here.</td></tr>
-<tr><td><b>Execution Log</b></td><td>One line per step, saying what just happened.</td><td>Read it aloud while stepping: it is the script for the walkthroughs below.</td></tr>
+<tr><td><b>Execution log</b></td><td>One line per step, saying what just happened.</td><td>Read it aloud while stepping: it is the script for the walkthroughs below.</td></tr>
 </table></div>
 
 <h3 id="details">Show details: the full processor</h3>
@@ -58,9 +58,9 @@ side by side in the same memory. The processor repeats one cycle for every instr
 <tr><th>Part</th><th>What it is</th><th>What to watch</th></tr>
 <tr><td><b>MAR</b> (memory address register)</td><td>The address the processor is about to read or write.</td><td>During fetch it copies the PC; during LOAD/ADD/SUB/STO it holds the data address (90, 91, 92).</td></tr>
 <tr><td><b>MDR</b> (memory data register)</td><td>The value that has just come from memory.</td><td>During fetch it holds the instruction; the IR then copies it.</td></tr>
-<tr><td><b>Instruction Register (IR)</b></td><td>The instruction being worked on, in 16 bits.</td><td>The line below the bits spells it out, for example <code>LOAD 90</code>.</td></tr>
+<tr><td><b>Instruction register (IR)</b></td><td>The instruction being worked on, in 16 bits.</td><td>The line below the bits spells it out, for example <code>LOAD 90</code>.</td></tr>
 <tr><td><b>ALU</b></td><td>The arithmetic logic unit, which does the sums.</td><td>Shows the instruction name while an instruction executes, otherwise <i>Idle</i>.</td></tr>
-<tr><td><b>Control Unit</b></td><td>Runs the cycle.</td><td>Shows the phase coming next: FETCH, DECODE or EXECUTE (or HALTED, WAIT_INPUT).</td></tr>
+<tr><td><b>Control unit</b></td><td>Runs the cycle.</td><td>Shows the phase coming next: FETCH, DECODE or EXECUTE (or HALTED, WAIT_INPUT).</td></tr>
 <tr><td><b>Buses</b></td><td>The wires between processor and memory. The <b>address bus</b> carries where, the <b>data bus</b> carries what, the <b>control bus</b> carries commands.</td><td>The buses used in the last step light up in crimson. A fetch uses address and data; a decode only control; LOAD/ADD/SUB/STO use all three.</td></tr>
 </table></div>
 

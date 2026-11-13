@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Von Neumann CPU Simulator</title>
+    <title>Von Neumann CPU simulator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
@@ -58,7 +58,7 @@
         <div id="opcode-modal" class="modal hidden">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>Instruction Set</h2>
+                    <h2>Instruction set</h2>
                     <button id="btn-close-modal" class="btn-close">&times;</button>
                 </div>
                 <div class="modal-body">
@@ -87,7 +87,7 @@
                         <select id="program-select">
                             <option value="empty">Empty</option>
                             <option value="add">Simple Add</option>
-                            <option value="loop">Countdown Loop</option>
+                            <option value="loop">Countdown loop</option>
                             <option value="input">Input/Output</option>
                         </select>
                         <button id="btn-load" class="btn small">Load</button>
@@ -131,14 +131,14 @@
             <!-- Center Column, detailed view: CPU Internals -->
             <section class="cpu-core">
                 <div class="bus-system">
-                    <div class="bus data-bus" id="data-bus">Data Bus</div>
-                    <div class="bus address-bus" id="address-bus">Address Bus</div>
-                    <div class="bus control-bus" id="control-bus">Control Bus</div>
+                    <div class="bus data-bus" id="data-bus">Data bus</div>
+                    <div class="bus address-bus" id="address-bus">Address bus</div>
+                    <div class="bus control-bus" id="control-bus">Control bus</div>
                 </div>
 
                 <div class="component-group">
                     <div class="component" id="comp-pc">
-                        <div class="label">Program Counter (PC)</div>
+                        <div class="label">Program counter (PC)</div>
                         <div class="value font-mono">00</div>
                     </div>
                     <div class="component" id="comp-mar">
@@ -149,7 +149,7 @@
 
                 <div class="component-group">
                     <div class="component" id="comp-ir">
-                        <div class="label">Instruction Register (IR)</div>
+                        <div class="label">Instruction register (IR)</div>
                         <div class="value font-mono">00</div>
                         <div class="decode-hint" id="ir-decode">NOP</div>
                     </div>
@@ -171,7 +171,7 @@
                 </div>
 
                 <div class="component control-unit" id="comp-cu">
-                    <div class="label">Control Unit</div>
+                    <div class="label">Control unit</div>
                     <div class="state-indicator" id="cu-state">FETCH</div>
                 </div>
             </section>
@@ -192,7 +192,7 @@
                     </div>
                 </div>
                 <div class="io-block log-block">
-                    <h2>Execution Log</h2>
+                    <h2>Execution log</h2>
                     <div class="log-list font-mono" id="execution-log">
                         <!-- Logs -->
                     </div>
