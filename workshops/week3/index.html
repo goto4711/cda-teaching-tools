@@ -79,8 +79,8 @@
       <ol>
         <li><a href="#critique">Data critique: ten questions for structured data (30 min, in groups)</a></li>
         <li><a href="#datasheet">The practice case: Global Aid Alliance</a></li>
+        <li><a href="#reference">Appendix to the data critique: a more complete audit checklist</a></li>
         <li><a href="#ml">Machine learning workshop</a></li>
-        <li><a href="#reference">The full audit checklist for your future project working with structured data</a></li>
       </ol>
     </div>
 
@@ -318,34 +318,7 @@
     <p><strong>Privacy:</strong> donors agree to our privacy notice when they give. Analysis for fundraising purposes is
       covered by it.</p>
 
-    <h2 id="ml">3. Machine learning workshop</h2>
-    <p>Clustering and classification with scikit-learn: k-means finds voting blocs among US senators, and decision trees
-      and a
-      random forest predict whether a song is danceable. Take the ten questions with you and ask who made the Senate and
-      Spotify data,
-      what the label and the features are, who decided the categories and who is in the data.</p>
-    <div class="nbrow noprint"><a class="try primary"
-        href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week3/Week3_Workshop.ipynb"
-        target="_blank" rel="noopener">Open in Colab</a><span class="muted"><code>Week3_Workshop.ipynb</code></span>
-    </div>
-    <ul>
-      <li><strong>Unsupervised machine learning with clustering:</strong> data preparation, k-means, visualisation, and
-        how many "parties" k-means finds in the Senate</li>
-      <li><strong>Supervised machine learning:</strong> one split by hand, scikit-learn's decision trees, random forest
-        and feature importances, and how a tree finds the best split (optional)</li>
-    </ul>
-    <p><strong>To submit,</strong> run the whole notebook and complete every cell marked <code>#Complete cell</code>.
-      You can skip sections and cells marked <em>optional</em>.</p>
-    <p>Run the first code cell to set up the checks. Below an exercise, <code>q1.check()</code> checks your answer,
-      <code>q1.hint()</code>
-      gives a hint and <code>q1.solution()</code> the solution. Try first.</p>
-    <h3>Hand it in</h3>
-    <p>The last cell makes an HTML file of your notebook and downloads it. Save the notebook first, run the cell,
-      check the HTML file and upload it to Canvas.</p>
-
-    <p class="small">The code-along for this week's lecture: <a href="../../code-along/week3/">machine learning</a>.</p>
-
-    <h2 id="reference">4. The full audit checklist for your future project working with structured data</h2>
+    <h2 id="reference">3. Appendix to the data critique: a more complete audit checklist</h2>
     <p>Below is a more complete <em>Structured Data Audit Checklist</em> that could help in future projects.</p>
     <h3>Context &amp; provenance</h3>
     <ul>
@@ -406,6 +379,33 @@
       <li>Is the data fresh enough, and updated often enough?</li>
       <li>What assumptions must hold for the analysis to be valid?</li>
     </ul>
+
+    <h2 id="ml">4. Machine learning workshop</h2>
+    <p>Clustering and classification with scikit-learn: k-means finds voting blocs among US senators, and decision trees
+      and a
+      random forest predict whether a song is danceable. Take the ten questions with you and ask who made the Senate and
+      Spotify data,
+      what the label and the features are, who decided the categories and who is in the data.</p>
+    <div class="nbrow noprint"><a class="try primary"
+        href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/week3/Week3_Workshop.ipynb"
+        target="_blank" rel="noopener">Open in Colab</a><span class="muted"><code>Week3_Workshop.ipynb</code></span>
+    </div>
+    <ul>
+      <li><strong>Unsupervised machine learning with clustering:</strong> data preparation, k-means, visualisation, and
+        how many "parties" k-means finds in the Senate</li>
+      <li><strong>Supervised machine learning:</strong> one split by hand, scikit-learn's decision trees, random forest
+        and feature importances, and how a tree finds the best split (optional)</li>
+    </ul>
+    <p><strong>To submit,</strong> run the whole notebook and complete every cell marked <code>#Complete cell</code>.
+      You can skip sections and cells marked <em>optional</em>.</p>
+    <p>Run the first code cell to set up the checks. Below an exercise, <code>q1.check()</code> checks your answer,
+      <code>q1.hint()</code>
+      gives a hint and <code>q1.solution()</code> the solution. Try first.</p>
+    <h3>Hand it in</h3>
+    <p>The last cell makes an HTML file of your notebook and downloads it. Save the notebook first, run the cell,
+      check the HTML file and upload it to Canvas.</p>
+
+    <p class="small">The code-along for this week's lecture: <a href="../../code-along/week3/">machine learning</a>.</p>
   </div>
 </body>
 
