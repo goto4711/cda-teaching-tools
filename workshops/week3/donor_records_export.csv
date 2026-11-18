@@ -1,0 +1,201 @@
+donation_id,donor_id,donor_name,donation_date,donation_amount,currency,channel,campaign,region,age_range,gender,recurring_gift
+DN10000,D001,Nina Perera,2023-08-02,486.23,USD,Online,Winter Relief,Africa,56-65,Non-binary,Yes
+DN10001,D063,Alex Johnson,2020-08-16,64.82,USD,Mail,Earthquake Response,North America,36-45,Female,Yes
+DN10002,D061,Yuki Tanaka,2020-02-21,90.91,USD,Event,Flood Response,Oceania,56-65,Female,No
+DN10003,D058,Chen Wei,2024-02-27,131.47,USD,Event,General Fund,North America,18-25,Female,No
+DN10004,D031,Nina Perera,2021-07-17,337.8,USD,Online,Flood Response,Asia,26-35,Prefer not to say,No
+DN10005,D094,Maria Lopez,2021-05-16,339.95,USD,Online,Winter Relief,North America,18-25,Non-binary,No
+DN10006,D010,Lars Petersen,2021-04-02,405.93,USD,Mail,Earthquake Response,South America,18-25,Male,Yes
+DN10007,D001,George Mensah,2020-10-12,139.95,USD,Online,Hunger Relief,Europe,46-55,Prefer not to say,No
+DN10008,D075,Aisha Malik,2024-02-17,256.4,USD,Event,COVID-19 Emergency,North America,26-35,Male,Yes
+DN10009,D006,Ivan Petrov,2020-07-28,50.17,USD,Mail,Flood Response,Oceania,56-65,Non-binary,No
+DN10010,D097,Samuel Green,2023-10-17,14.56,USD,Mail,Winter Relief,Africa,56-65,Male,Yes
+DN10011,D070,Eric Young,2024-02-25,309.72,USD,Online,General Fund,North America,65+,Non-binary,Yes
+DN10012,D078,Ahmed Khan,2023-01-21,361.63,USD,Mail,GeneralFund,North America,65+,Prefer not to say,Yes
+DN10013,D034,Benjamin Carter,2020-06-27,373.2,USD,Event,Education Fund,Oceania,46-55,Male,Yes
+DN10014,D006,Eric Young,2023-04-24,188.68,USD,Event,COVID-19 Emergency,Oceania,18-25,Female,Yes
+DN10015,D031,Benjamin Carter,2022-05-14,488.34,USD,Event,Education Fund,Asia,46-55,Non-binary,Yes
+DN10016,D005,Aisha Malik,2020-03-06,118.99,USD,Mail,General Fund,Oceania,46-55,Female,No
+DN10017,D066,George Mensah,2020-03-02,342.96,USD,Mail,Hunger Relief,Europe,36-45,Male,No
+DN10018,D066,Chen Wei,2020-07-10,198.75,USD,Event,Winter Relief,Africa,36-45,,Yes
+DN10019,D043,Ivan Petrov,2021-03-23,163.82,USD,Mail,Winter Relief,Europe,65+,Non-binary,No
+DN10020,D023,Ivan Petrov,2021-04-21,288.86,USD,Mail,COVID-19 Emergency,Africa,18-25,Female,No
+DN10021,D095,Benjamin Carter,2022-10-31,332.84,USD,Online,Winter Relief,South America,65+,Non-binary,Yes
+DN10022,D079,Samuel Green,2023-05-17,233.15,USD,Onlline,Earthquake Response,South America,56-65,Prefer not to say,Yes
+DN10023,D029,Benjamin Carter,2020-02-24,404.01,USD,Mail,Hunger Relief,North America,46-55,Female,No
+DN10024,D093,Pedro Alvarez,2023-02-23,219.1,USD,Mail,Hunger Relief,South America,46-55,Prefer not to say,Yes
+DN10025,D010,Eric Young,2021-02-11,124.9,USD,Online,COVID-19 Emergency,Oceania,56-65,Female,No
+DN10026,D027,Claire Dubois,2024-01-06,200.84,USD,Mail,Earthquake Response,Europe,unknown,Prefer not to say,Yes
+DN10027,D035,Claire Dubois,2023-08-23,247.96,USD,Event,COVID-19 Emergency,Asia,65+,Prefer not to say,Yes
+DN10028,D055,Linda O’Connor,2023-12-07,434.76,USD,Mail,Earthquake Response,Europe,36-45,Female,Yes
+DN10029,D096,Yuki Tanaka,2023-01-21,35.52,USD,Online,Winter Relief,South America,26-35,Male,Yes
+DN10030,D028,Lars Petersen,2022-05-09,352.74,USD,Online,Education Fund,South America,26-35,Male,No
+DN10031,D092,Ahmed Khan,2021-03-27,47.24,USD,Event,Education Fund,Africa,65+,Non-binary,No
+DN10032,D083,Rachel Cohen,2022-07-08,16.2,USD,Mail,Hunger Relief,Asia,46-55,Non-binary,No
+DN10033,D069,Aisha Malik,2023-04-21,237.79,USD,Mail,COVID-19 Emergency,North America,56-65,Female,No
+DN10034,D064,Rachel Cohen,2021-07-23,99.1,USD,Online,COVID-19 Emergency,Africa,36-45,Non-binary,Yes
+DN10035,D083,Aisha Malik,2024-07-15,,USD,Event,COVID-19 Emergency,Africa,36-45,Female,No
+DN10036,D059,Nina Perera,2024-11-15,160.25,USD,Online,Education Fund,Oceania,65+,Male,No
+DN10037,D025,Eric Young,2020-01-14,121.47,USD,Event,Flood Response,North America,18-25,Female,No
+DN10038,D002,Fatima Zahra,2024-04-03,149.33,USD,Online,General Fund,Asia,36-45,Male,Yes
+DN10039,D073,Eric Young,2024-07-08,51.74,USD,Mail,Hunger Relief,Asia,56-65,Female,No
+DN10040,D008,Ivan Petrov,2020-11-22,480.45,USD,Event,General Fund,South America,26-35,Non-binary,No
+DN10041,D030,Eric Young,2023-11-30,356.41,USD,Online,Hunger Relief,Oceania,46-55,Female,Yes
+DN10042,D019,Samuel Green,2022-05-15,39.22,USD,Event,Education Fund,Asia,56-65,Non-binary,No
+DN10043,D077,Maria Lopez,2021-11-27,445.82,USD,Event,General Fund,Oceania,56-65,Male,No
+DN10044,D098,Benjamin Carter,2021-07-23,240.55,USD,Mail,Education Fund,Asia,36-45,Prefer not to say,Yes
+DN10045,D043,Claire Dubois,2020-11-14,349.9,USD,Online,COVID-19 Emergency,Europe,46-55,Male,Yes
+DN10046,D070,Lars Petersen,2021-03-16,212.49,USD,Event,Education Fund,North America,36-45,Prefer not to say,No
+DN10047,D081,Ivan Petrov,2024-04-12,401.66,USD,Online,Winter Relief,North America,36-45,Prefer not to say,No
+DN10048,D035,Claire Dubois,2021-11-20,419.01,USD,Online,Education Fund,Africa,26-35,Female,No
+DN10049,D065,Nina Perera,2020-07-28,412.07,USD,Mail,Earthquake Response,Asia,36-45,Prefer not to say,No
+DN10050,D025,Sofia Ramirez,2020-07-08,290.18,USD,Event,Flood Response,Asia,46-55,Prefer not to say,No
+DN10051,D017,Pedro Alvarez,2022-02-17,483.02,USD,Online,Flood Response,,18-25,Prefer not to say,Yes
+DN10052,D034,Rachel Cohen,2020-07-17,315.4,USD,Mail,General Fund,Oceania,18-25,Prefer not to say,Yes
+DN10053,D037,Sofia Ramirez,2022-01-05,375.92,USD,Online,Earthquake Response,Oceania,18-25,Male,No
+DN10054,D019,Sofia Ramirez,2024-10-01,270.27,USD,Online,Hunger Relief,Asia,26-35,Male,No
+DN10055,D059,Nina Perera,2021-12-05,336.75,USD,Mail,COVID-19 Emergency,Europe,46-55,Female,No
+DN10056,D026,George Mensah,2023-05-21,428.13,USD,Event,General Fund,,46-55,Non-binary,Yes
+DN10057,D096,Aisha Malik,2021-06-25,418.09,USD,Event,Earthquake Response,South America,26-35,Non-binary,Yes
+DN10058,D081,Maria Lopez,2024-07-10,161.38,USD,Mail,Winter Relief,Europe,56-65,Female,No
+DN10059,D035,Benjamin Carter,2020-03-29,135.92,USD,Mail,Winter Relief,Europe,46-55,Non-binary,Yes
+DN10060,D093,George Mensah,2024-02-03,483.96,USD,Mail,Flood Response,Africa,36-45,,No
+DN10061,D048,Chen Wei,2022-07-29,340.67,USD,Event,Flood Response,South America,56-65,Non-binary,No
+DN10062,D006,Maria Lopez,2023-01-03,159.14,USD,Event,Hunger Relief,Europe,18-25,Female,Yes
+DN10063,D084,Chen Wei,2020-09-12,418.51,USD,Mail,Flood Response,Asia,36-45,Non-binary,No
+DN10064,D036,Ahmed Khan,2022-02-14,484.42,USD,Online,Winter Relief,Africa,46-55,Female,Yes
+DN10065,D098,Yuki Tanaka,2020-06-10,111.51,USD,Online,Hunger Relief,,26-35,Female,Yes
+DN10066,D004,Linda O’Connor,2023-02-04,17.28,USD,Mail,Flood Response,North America,26-35,Male,No
+DN10067,D066,Fatima Zahra,2021-08-23,63.44,USD,Mail,COVID-19 Emergency,North America,56-65,Non-binary,No
+DN10068,D057,Samuel Green,2024-08-25,450.64,USD,Mail,Hunger Relief,Africa,26-35,Non-binary,No
+DN10069,D056,Chen Wei,2023-07-11,398.62,USD,Mail,Flood Response,South America,65+,Female,No
+DN10070,D033,Tomoko Sato,2023-06-20,477.26,USD,Mail,Hunger Relief,North America,46-55,Male,No
+DN10071,D053,Tomoko Sato,2024-12-18,438.07,USD,Online,Winter Relief,Africa,46-55,Male,No
+DN10072,D014,Tomoko Sato,2024-10-30,424.23,USD,Event,Hunger Relief,Africa,36-45,Prefer not to say,No
+DN10073,D035,Eric Young,2022-01-10,461.55,USD,Online,Hunger Relief,Oceania,26-35,Prefer not to say,No
+DN10074,D021,Tomoko Sato,2023-03-28,162.7,USD,Online,Flood Response,Africa,56-65,Male,No
+DN10075,D028,Pedro Alvarez,2021-01-28,65.77,USD,Mail,GeneralFund,Europe,36-45,Prefer not to say,No
+DN10076,D099,Linda O’Connor,2023-12-13,384.44,USD,Online,Earthquake Response,Asia,unknown,Prefer not to say,No
+DN10077,D095,Maria Lopez,2020-05-22,223.75,USD,Mail,General Fund,Oceania,18-25,Prefer not to say,Yes
+DN10078,D080,Lars Petersen,2020-04-03,417.69,USD,Online,Education Fund,Africa,18-25,Male,Yes
+DN10079,D022,Samuel Green,2023-09-16,260.14,USD,Online,Education Fund,Oceania,56-65,Non-binary,Yes
+DN10080,D084,Samuel Green,2021-04-11,96.8,USD,Event,Flood Response,Africa,46-55,Prefer not to say,No
+DN10081,D057,Eric Young,2024-05-02,400.2,USD,Mail,Earthquake Response,North America,36-45,Non-binary,Yes
+DN10082,D065,George Mensah,2021-08-15,236.73,USD,Mail,Hunger Relief,Africa,65+,Prefer not to say,Yes
+DN10083,D044,Samuel Green,2020-06-12,257.23,USD,Mail,COVID-19 Emergency,Africa,26-35,Prefer not to say,No
+DN10084,D007,Rachel Cohen,2024-10-17,42.3,USD,Event,Education Fund,Oceania,65+,Non-binary,Yes
+DN10085,D040,George Mensah,2021-04-21,73.19,USD,Event,Flood Response,Europe,18-25,Prefer not to say,Yes
+DN10086,D055,Pedro Alvarez,2024-11-09,187.3,USD,Online,Education Fund,Asia,26-35,Non-binary,Yes
+DN10087,D070,Pedro Alvarez,2020-07-25,28.5,USD,Event,Winter Relief,South America,56-65,Prefer not to say,Yes
+DN10088,D087,Sofia Ramirez,2022-02-17,485.1,USD,Mail,Winter Relief,Europe,65+,Female,No
+DN10089,D037,George Mensah,2021-07-23,256.42,USD,Mail,General Fund,North America,26-35,Female,Yes
+DN10090,D098,Benjamin Carter,2022-07-17,143.67,USD,Mail,COVID-19 Emergency,South America,26-35,Male,No
+DN10091,D011,Tomoko Sato,2023-07-25,120.02,USD,Mail,Winter Relief,South America,18-25,Non-binary,No
+DN10092,D001,Samuel Green,2024-09-04,19.31,USD,Online,COVID-19 Emergency,Europe,26-35,Prefer not to say,No
+DN10093,D064,Ivan Petrov,2022-01-17,272.67,USD,Online,Winter Relief,North America,56-65,Female,Yes
+DN10094,D047,Samuel Green,2020-11-29,477.17,USD,Mail,General Fund,North America,56-65,Prefer not to say,Yes
+DN10095,D094,Chen Wei,2022-01-28,388.04,USD,Event,Flood Response,Oceania,36-45,Non-binary,Yes
+DN10096,D009,Lars Petersen,2021-12-28,28.12,USD,Event,General Fund,Africa,26-35,Non-binary,Yes
+DN10097,D100,Maria Lopez,2021-03-05,434.24,USD,Mail,Winter Relief,Oceania,18-25,Prefer not to say,No
+DN10098,D067,Nina Perera,2023-10-04,402.56,USD,Mail,Education Fund,Europe,18-25,Female,No
+DN10099,D057,Tomoko Sato,2021-06-30,229.09,USD,Event,Hunger Relief,North America,36-45,Prefer not to say,Yes
+DN10100,D019,Ivan Petrov,2023-12-08,342.26,USD,Online,Education Fund,Africa,26-35,Non-binary,Yes
+DN10101,D068,Tomoko Sato,2023-10-31,205.04,USD,Event,Earthquake Response,Asia,26-35,Male,No
+DN10102,D079,Eric Young,2023-08-20,350.05,USD,Online,Earthquake Response,Oceania,26-35,Male,No
+DN10103,D071,Yuki Tanaka,2020-05-26,152.28,USD,Online,Winter Relief,Africa,26-35,Female,Yes
+DN10104,D074,Tomoko Sato,2023-06-01,239.03,USD,Event,COVID-19 Emergency,Asia,26-35,Male,Yes
+DN10105,D041,Samuel Green,2023-07-24,230.49,USD,Online,Hunger Relief,South America,36-45,Female,Yes
+DN10106,D091,Sofia Ramirez,2020-12-16,179.55,USD,Event,Hunger Relief,Africa,36-45,Non-binary,Yes
+DN10107,D075,Linda O’Connor,2022-12-29,93.89,USD,Event,Education Fund,North America,56-65,Male,No
+DN10108,D004,Aisha Malik,2024-02-02,445.61,USD,Mail,General Fund,Oceania,65+,Prefer not to say,No
+DN10109,D027,Rachel Cohen,2021-05-16,307.26,USD,Event,Education Fund,South America,65+,Non-binary,Yes
+DN10110,D032,Linda O’Connor,2020-11-30,57.44,USD,Event,Winter Relief,South America,46-55,Prefer not to say,No
+DN10111,D060,Aisha Malik,2022-08-04,440.75,USD,Online,COVID-19 Emergency,South America,18-25,Prefer not to say,No
+DN10112,D002,Chen Wei,2022-02-16,221.15,USD,Event,Hunger Relief,Asia,65+,Prefer not to say,No
+DN10113,D098,Yuki Tanaka,2021-07-06,147.06,USD,Mail,Education Fund,Asia,65+,Female,Yes
+DN10114,D052,Pedro Alvarez,2023-08-03,29.72,USD,Event,Hunger Relief,South America,65+,Prefer not to say,No
+DN10115,D095,Eric Young,2023-11-10,300.93,USD,Event,COVID-19 Emergency,North America,56-65,Non-binary,Yes
+DN10116,D034,Fatima Zahra,2023-02-14,293.04,USD,Event,General Fund,Oceania,56-65,Prefer not to say,No
+DN10117,D020,Claire Dubois,2021-03-25,348.35,USD,Mail,COVID-19 Emergency,Africa,56-65,Male,No
+DN10118,D059,Yuki Tanaka,2023-11-03,177.74,USD,Mail,Winter Relief,South America,65+,Non-binary,No
+DN10119,D091,Ahmed Khan,2021-10-26,348.22,USD,Mail,COVID-19 Emergency,Africa,46-55,Non-binary,Yes
+DN10120,D037,Samuel Green,2024-09-22,179.72,USD,Event,Winter Relief,Africa,36-45,Female,Yes
+DN10121,D086,Pedro Alvarez,2024-04-22,120.58,USD,Event,Winter Relief,,18-25,Prefer not to say,No
+DN10122,D026,Eric Young,2024-05-08,167.37,USD,Online,Winter Relief,Oceania,18-25,Female,Yes
+DN10123,D005,George Mensah,2020-04-24,396.1,USD,Event,Education Fund,North America,65+,Non-binary,No
+DN10124,D018,Pedro Alvarez,2021-04-14,239.33,USD,Event,Education Fund,Oceania,18-25,Prefer not to say,Yes
+DN10125,D082,George Mensah,2024-08-10,415.23,USD,Onlline,COVID-19 Emergency,South America,18-25,Male,No
+DN10126,D039,Fatima Zahra,2020-03-06,,USD,Online,Hunger Relief,North America,65+,Female,No
+DN10127,D082,Eric Young,2024-07-06,190.1,USD,Event,COVID-19 Emergency,Africa,26-35,Prefer not to say,Yes
+DN10128,D088,Ivan Petrov,2021-10-08,437.84,USD,Event,Winter Relief,Africa,46-55,Non-binary,Yes
+DN10129,D067,Lars Petersen,2022-04-01,66.96,USD,Mail,General Fund,Asia,56-65,Prefer not to say,No
+DN10130,D051,Nina Perera,2021-07-02,410.06,USD,Online,General Fund,North America,56-65,Prefer not to say,No
+DN10131,D053,Benjamin Carter,2020-05-15,386.8,USD,Mail,Flood Response,Asia,65+,Prefer not to say,Yes
+DN10132,D045,Chen Wei,2021-03-08,97.45,USD,Mail,Hunger Relief,North America,56-65,Female,No
+DN10133,D032,Lars Petersen,2023-03-07,179.62,USD,Online,General Fund,Asia,65+,Male,Yes
+DN10134,D087,Maria Lopez,2024-11-29,129.92,USD,Mail,Flood Response,North America,46-55,Female,No
+DN10135,D019,Pedro Alvarez,2024-01-10,118.31,USD,Online,Flood Response,Asia,18-25,Female,No
+DN10136,D053,Linda O’Connor,2021-10-06,156.95,USD,Mail,Hunger Relief,Oceania,56-65,Female,No
+DN10137,D018,George Mensah,2021-03-11,129,USD,Online,COVID-19 Emergency,North America,65+,Prefer not to say,Yes
+DN10138,D025,Fatima Zahra,2023-09-04,364.91,USD,Online,General Fund,North America,46-55,Non-binary,No
+DN10139,D090,Ivan Petrov,2022-10-19,354.85,USD,Mail,Hunger Relief,Africa,26-35,Non-binary,No
+DN10140,D093,Aisha Malik,2022-03-21,383.2,USD,Online,Hunger Relief,South America,26-35,Prefer not to say,No
+DN10141,D026,Rachel Cohen,2024-12-16,122.71,USD,Event,COVID-19 Emergency,Asia,26-35,Non-binary,No
+DN10142,D093,Yuki Tanaka,2023-08-09,249.27,USD,Event,General Fund,North America,56-65,Male,Yes
+DN10143,D020,Alex Johnson,2022-07-28,117.17,USD,Event,General Fund,,18-25,Prefer not to say,No
+DN10144,D037,Alex Johnson,2020-10-19,256.09,USD,Online,Hunger Relief,North America,46-55,Female,No
+DN10145,D051,Samuel Green,2021-06-26,192.8,USD,Event,General Fund,North America,56-65,Female,No
+DN10146,D008,Alex Johnson,2020-10-12,354.39,USD,Online,Earthquake Response,North America,46-55,Non-binary,No
+DN10147,D010,Nina Perera,2021-05-20,450.66,USD,Event,General Fund,South America,18-25,,Yes
+DN10148,D050,Yuki Tanaka,2024-03-05,172.55,USD,Mail,General Fund,Europe,26-35,Male,No
+DN10149,D042,Alex Johnson,2023-02-23,320.72,USD,Event,COVID-19 Emergency,Asia,46-55,Non-binary,No
+DN10150,D092,Samuel Green,2023-01-08,50.2,USD,Onlline,Education Fund,Europe,65+,Female,No
+DN10151,D012,Benjamin Carter,2021-06-22,221.18,USD,Event,Earthquake Response,Africa,56-65,Male,No
+DN10152,D100,Samuel Green,2024-03-09,365.17,USD,Mail,Winter Relief,South America,26-35,Female,No
+DN10153,D039,Aisha Malik,2023-04-12,393.51,USD,Online,COVID-19 Emergency,South America,26-35,Prefer not to say,No
+DN10154,D043,Lars Petersen,2022-05-27,174.02,USD,Online,Winter Relief,Africa,65+,Female,No
+DN10155,D089,Aisha Malik,2023-04-10,484.2,USD,Event,Earthquake Response,Africa,36-45,Prefer not to say,No
+DN10156,D027,Lars Petersen,2022-03-28,400.87,USD,Online,Winter Relief,South America,18-25,Prefer not to say,No
+DN10157,D077,Aisha Malik,2022-01-11,295.3,USD,Event,General Fund,Europe,65+,Male,Yes
+DN10158,D046,Benjamin Carter,2021-03-25,327.03,USD,Mail,General Fund,Europe,65+,Prefer not to say,Yes
+DN10159,D051,Lars Petersen,2020-10-10,388.45,USD,Online,Flood Response,Europe,56-65,Male,No
+DN10160,D027,Pedro Alvarez,2022-11-09,246.63,USD,Event,Earthquake Response,Europe,46-55,Prefer not to say,Yes
+DN10161,D022,Sofia Ramirez,2022-10-07,262.84,USD,Online,COVID-19 Emergency,Asia,36-45,Prefer not to say,Yes
+DN10162,D055,George Mensah,2020-07-05,12.18,USD,Mail,General Fund,Africa,36-45,Male,No
+DN10163,D082,Rachel Cohen,2024-03-27,302.52,USD,Event,Education Fund,Africa,56-65,Non-binary,Yes
+DN10164,D041,Chen Wei,2020-04-06,126.9,USD,Mail,Flood Response,South America,36-45,Prefer not to say,Yes
+DN10165,D063,Eric Young,2024-10-29,78.75,USD,Mail,Hunger Relief,Asia,46-55,Non-binary,No
+DN10166,D054,Lars Petersen,2020-08-12,249.46,USD,Mail,COVID-19 Emergency,Europe,18-25,Female,No
+DN10167,D015,Fatima Zahra,2020-11-09,65.96,USD,Mail,Earthquake Response,Asia,36-45,Male,Yes
+DN10168,D005,Lars Petersen,2023-07-09,138.78,USD,Event,Education Fund,South America,18-25,Male,No
+DN10169,D018,Ahmed Khan,2020-11-23,408.63,USD,Event,Hunger Relief,South America,56-65,Non-binary,Yes
+DN10170,D097,Claire Dubois,2024-06-10,460.2,USD,Online,Flood Response,Oceania,65+,Female,Yes
+DN10171,D035,Claire Dubois,2023-10-25,193.83,USD,Mail,General Fund,Europe,18-25,Non-binary,Yes
+DN10172,D059,Tomoko Sato,2022-05-14,426.55,USD,Mail,Hunger Relief,Asia,46-55,Prefer not to say,No
+DN10173,D088,Maria Lopez,2023-05-06,32.51,USD,Mail,Flood Response,North America,unknown,Female,No
+DN10174,D036,Samuel Green,2020-05-10,330.75,USD,Event,COVID-19 Emergency,Oceania,36-45,Female,Yess
+DN10175,D062,Samuel Green,2022-02-27,75.02,USD,Mail,COVID-19 Emergency,North America,65+,Male,No
+DN10176,D014,Chen Wei,2022-02-20,163.54,USD,Event,Hunger Relief,Oceania,26-35,Female,No
+DN10177,D028,Linda O’Connor,2023-05-05,460.75,USD,Event,Education Fund,South America,46-55,Male,No
+DN10178,D032,Nina Perera,2022-08-16,325.86,USD,Event,Winter Relief,,56-65,Non-binary,Yes
+DN10179,D038,Maria Lopez,2022-12-19,394.06,USD,Event,General Fund,Oceania,26-35,Male,No
+DN10180,D073,Claire Dubois,2021-05-29,189.05,USD,Online,General Fund,,46-55,,No
+DN10181,D081,Pedro Alvarez,2023-02-07,385.88,USD,Online,Winter Relief,Europe,46-55,Female,No
+DN10182,D098,Samuel Green,2024-10-28,161.98,USD,Event,Flood Response,North America,26-35,Male,Yes
+DN10183,D091,Linda O’Connor,2020-01-24,353.73,USD,Mail,General Fund,South America,36-45,Non-binary,Yes
+DN10184,D055,Nina Perera,2023-10-25,266.69,USD,Event,Winter Relief,Europe,56-65,Prefer not to say,Yes
+DN10185,D087,Chen Wei,2024-01-16,121.92,USD,Online,Earthquake Response,Asia,18-25,Male,No
+DN10186,D032,Claire Dubois,2020-08-22,458.77,USD,Event,COVID-19 Emergency,North America,18-25,Male,No
+DN10187,D100,Eric Young,2023-10-28,170.38,USD,Online,Hunger Relief,Europe,18-25,Non-binary,Yes
+DN10188,D070,Sofia Ramirez,2024-12-17,83.78,USD,Onlline,Flood Response,Oceania,18-25,Non-binary,No
+DN10189,D068,Sofia Ramirez,2023-01-04,215.71,USD,Event,Education Fund,South America,26-35,Male,Yes
+DN10190,D065,Linda O’Connor,2024-03-17,322.24,USD,Mail,Earthquake Response,South America,56-65,Prefer not to say,No
+DN10191,D035,Sofia Ramirez,2021-06-30,46.6,USD,Online,Earthquake Response,Asia,56-65,Male,No
+DN10192,D016,Samuel Green,2024-04-23,87.23,USD,Event,Education Fund,Europe,65+,Male,Yes
+DN10193,D034,Benjamin Carter,2023-08-05,25.23,USD,Online,General Fund,North America,46-55,Female,Yes
+DN10194,D052,Tomoko Sato,2021-11-27,346.28,USD,Online,Flood Response,,18-25,Non-binary,Yes
+DN10195,D043,Chen Wei,2020-08-16,30.92,USD,Mail,Winter Relief,Asia,26-35,Prefer not to say,Yes
+DN10196,D058,Linda O’Connor,2021-08-24,26.98,USD,Online,Winter Relief,Africa,26-35,Prefer not to say,Yes
+DN10197,D070,Alex Johnson,2022-06-09,494.81,USD,Mail,General Fund,Africa,36-45,Prefer not to say,Yes
+DN10198,D100,Nina Perera,2020-11-19,38.71,USD,Online,Earthquake Response,North America,56-65,Female,Yes
+DN10199,D029,Fatima Zahra,2022-07-18,424.79,USD,Event,Hunger Relief,Africa,36-45,Female,No
