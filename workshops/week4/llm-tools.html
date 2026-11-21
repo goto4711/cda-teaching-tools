@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LLM Toolkit How-To</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&family=Faustina:ital,wght@0,400;1,400&display=swap">
+<style>
+  body {
+    margin: 0;
+    background: #FFFFFF;
+    color: #000000;
+    font: 16px/1.5 Georgia, "Times New Roman", serif;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding-inline: 16px; padding-block: 24px 48px; }
+  h1 { font-size: 28px; font-weight: normal; margin: 0 0 4px; }
+  .sub { color: #555555; margin: 0 0 16px; }
+  h2 { font-size: 20px; margin: 32px 0 8px; border-bottom: 1px solid #CCCCCC; padding-bottom: 2px; }
+  h3 { font-size: 17px; margin: 24px 0 8px; }
+  a { color: #0000EE; }
+  a:visited { color: #551A8B; }
+  a:focus-visible { outline: 2px dotted #000000; }
+  .small { font-size: 14px; color: #555555; }
+  pre {
+    background: #F4F4F4;
+    border: 1px solid #CCCCCC;
+    padding: 10px 12px;
+    overflow-x: auto;
+    font: 14px/1.45 "Courier New", Courier, monospace;
+    margin: 8px 0;
+  }
+  details pre { background: #FFFFFF; border-style: dashed; }
+  blockquote { margin: 8px 0; padding: 4px 12px; border-left: 3px solid #CCCCCC; color: #333333; font-style: italic; }
+  .opt { font-weight: normal; font-size: 15px; color: #555555; }
+  summary { cursor: pointer; }
+  ol, ul { padding-left: 24px; }
+  hr { border: 0; border-top: 1px solid #CCCCCC; margin: 32px 0 12px; }
+  /* Course style: University of Amsterdam colours and fonts */
+  body {
+    font-family: "Source Sans 3", "Source Sans Pro", Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    color: #1F1D21;
+    border-top: 6px solid #BC0031;
+  }
+  h1 { font-weight: 700; font-size: 30px; }
+  h2 { font-weight: 700; border-bottom-color: #BEC6D1; }
+  .sub { font-family: Faustina, Georgia, "Times New Roman", serif; font-style: italic; color: #555555; }
+  a { color: #BC0031; }
+  a:visited { color: #7E0021; }
+  a:focus-visible { outline: 2px solid #BC0031; outline-offset: 2px; }
+  p > b:first-child { color: #BC0031; }
+  pre { font-family: "Courier New", Courier, monospace; background: #F9F9F9; border-color: #BEC6D1; }
+  details pre { background: #FFFFFF; border-color: #BEC6D1; }
+  blockquote { border-left-color: #BC0031; }
+  hr { border-top-color: #BEC6D1; }
+  summary { color: #1F1D21; }
+  .mode { font-weight: normal; font-size: 15px; color: #555555; }
+  p.new { background: #FBEEF1; padding: 6px 10px; margin: 8px 0; }
+  .nb { border: 1px solid #BEC6D1; border-left: 4px solid #BC0031; padding: 4px 12px; margin: 24px 0 8px; }
+  #toc li.nbli { list-style: none; margin-left: -18px; font-style: italic; }
+
+pre.py .k { color: #A3002B; font-weight: bold; }   /* keywords */
+pre.py .b { color: #5B2A86; }                      /* built-in functions */
+pre.py .s { color: #2B6B3A; }                      /* strings */
+pre.py .n { color: #1D5A99; }                      /* numbers */
+pre.py .c { color: #6B6B6B; font-style: italic; }  /* comments */
+pre.py .sh { color: #6B6B6B; }                     /* !pip and %magic lines */
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="small"><a href="./">&larr; Week 4 workshop</a> &middot; <a href="../../">All weeks and tools</a></p>
+  <h1>How to: research with language models</h1>
+  <p class="sub">Cultural Data Analysis &middot; the toolkit <code>llm_tools.py</code> for your own projects</p>
+
+  <p>The Week 4 notebooks use a small toolkit, <code>llm_tools.py</code>. You can use it in your own projects to ask models,
+  save their answers, let a model code texts and check the coding. The
+  <a href="https://colab.research.google.com/github/goto4711/cda-teaching-tools/blob/main/notebooks/templates/LLM_Project_Template.ipynb" target="_blank" rel="noopener">project template</a>
+  goes through a whole project step by step. This page is for looking things up.</p>
+
+  <h2 id="setup">1. Set up</h2>
+  <p>In a Colab code cell:</p>
+<pre>import urllib.request
+urllib.request.urlretrieve('https://raw.githubusercontent.com/goto4711/cdai/main/llm_tools.py', 'llm_tools.py')
+from llm_tools import *</pre>
+  <p><b>Keys</b> go into Colab's secrets (the key symbol on the left, then switch on <em>Notebook access</em>), never into your code.
+  The model name decides which key you need:</p>
+  <ul>
+    <li><code>gemini-3.5-flash-lite</code>: a name that starts with <code>gemini</code> needs <code>GEMINI_API_KEY</code>, free at <a href="https://aistudio.google.com" target="_blank" rel="noopener">aistudio.google.com</a>.</li>
+    <li><code>openai/gpt-4.1-mini</code>: a name with a <code>/</code> goes through <a href="https://openrouter.ai" target="_blank" rel="noopener">OpenRouter</a> and needs <code>OPENROUTER_API_KEY</code>. OpenRouter has most models, but costs money: you need some credit on your account.</li>
+  </ul>
+<pre>has_key('openai/gpt-4.1-mini')        # True if the key for this model is there
+openrouter_models('mistral')          # the models on OpenRouter, with prices; no key needed</pre>
+
+  <h2 id="ask">2. Ask</h2>
+<pre>answer = ask('Name three Dutch painters.', model='gemini-3.5-flash-lite')
+print(answer)</pre>
+  <p><code>temperature</code> sets the randomness (1.0 is the usual default) and <code>system</code> adds an instruction
+  for the whole conversation. Without a key, <code>ask()</code> stops with a message that says which key is missing.</p>
+
+  <h2 id="collect">3. Collect many answers</h2>
+  <p>One answer is one sample. Ask every prompt several times, and change one thing at a time: the model, the language, the wording.</p>
+<pre>answers = collect({'en': 'Name 20 important dates in world history.',
+                   'nl': 'Noem 20 belangrijke data uit de wereldgeschiedenis.'},
+                  models=['gemini-3.5-flash-lite', 'openai/gpt-4.1-mini'],
+                  runs=10, file='answers.csv')</pre>
+  <p>Every answer goes into the CSV file straight away, with the date, the model, the settings and the tokens.
+  If the cell stops, run it again: it goes on where it stopped. Download the file at the end, because files in Colab disappear when the session ends.</p>
+
+  <h2 id="read">4. Read the answers</h2>
+  <p>Ask for a format you can read with code, e.g. one item per line or JSON.</p>
+<pre>parse_dates('1492 | Columbus reaches the Americas\n221 BCE | Qin Shi Huang unifies China')
+# [(1492, 'Columbus reaches the Americas'), (-221, 'Qin Shi Huang unifies China')]
+
+parse_json('Here you go: [{"id": 0, "region": "Europe"}]')
+# [{'id': 0, 'region': 'Europe'}]</pre>
+
+  <h2 id="code">5. Let a model code texts, and check it</h2>
+  <p>Write your categories and instructions as you would for a human coder:</p>
+<pre>categories = {'region': ['Europe', 'Africa', 'Asia', 'Americas', 'Global']}
+instructions = 'These are events from world history. Where did each event mainly take place?'
+print(coding_prompt(instructions, categories))      # what the model receives: report it
+codes = code_with_llm(texts, instructions, categories, file='codes.csv')</pre>
+  <p><code>code_with_llm()</code> works with any model name, e.g. <code>model='anthropic/claude-haiku-4.5'</code>.
+  Codes the model could not give become <code>unclear</code>: look at them.</p>
+  <p>Then check the coding. Draw a sample and code it yourselves <em>before</em> you look at the model's codes:</p>
+<pre>sample = validation_sample(codes, n=20)
+mine = ['Europe', 'Asia', ...]                     # your codes, in the order printed
+agreement(mine, sample['region'])
+# items 20, percent ..., kappa ...</pre>
+  <p>Kappa is the agreement beyond chance: 1 is perfect, 0 no better than chance. As a rule of thumb, above 0.8 is very good,
+  0.6 to 0.8 good, below 0.4 weak. If it is low, change the categories or the instructions and try again.</p>
+
+  <h2 id="compare">6. Compare</h2>
+<pre>shares(df, 'model', 'region')                  # the share of each region per model
+jaccard({1492, 1789, 1914}, {1492, 1914, 1945})  # overlap of two lists: 0.5
+within_between(sets, labels)                   # same model vs different models
+brier(forecasts['probability'], forecasts['outcome'])   # score forecasts: 0 is perfect</pre>
+
+  <h2 id="nokey">7. Without a key</h2>
+  <p>You can try everything on data we collected beforehand: <code>llm_dates_2026.json</code> (dates of world history from five models) and
+  <code>llm_forecasts_2026.json</code> (forecasts from six models), in the <a href="https://github.com/goto4711/cdai" target="_blank" rel="noopener">course data</a>.
+  The project template uses them when there is no key.</p>
+
+  <h2 id="report">8. Report what you did</h2>
+  <p>Others must be able to repeat your study. Report the exact model names and when you asked them; the prompts and settings
+  (temperature, number of runs); how you read and coded the answers, with the coding prompt; the answers that failed; and the agreement of your check.
+  The CSV files from <code>collect()</code> and <code>code_with_llm()</code> hold most of this.</p>
+
+  <h2 id="problems">9. When it goes wrong</h2>
+  <ul>
+    <li><b>No key</b>: add the key named in the message to Colab's secrets and switch on <em>Notebook access</em>.</li>
+    <li><b>Too many requests</b>: free keys have limits per minute and per day. <code>ask()</code> waits and tries again; otherwise wait and run the cell again.</li>
+    <li><b>Answers in the wrong format</b>: say in the prompt exactly what you want, give an example, and read some answers yourself.</li>
+    <li><b>Costs</b>: check the prices with <code>openrouter_models()</code> and try a few requests before you send hundreds.</li>
+  </ul>
+
+  <hr>
+  <p class="small">All functions and their options are listed at the top of
+  <a href="https://github.com/goto4711/cdai/blob/main/llm_tools.py" target="_blank" rel="noopener">llm_tools.py</a>. Every function also has a help text: <code>help(collect)</code>.</p>
+</div>
+</body>
+</html>
