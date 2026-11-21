@@ -67,6 +67,9 @@ pre.py .s { color: #2B6B3A; }                      /* strings */
 pre.py .n { color: #1D5A99; }                      /* numbers */
 pre.py .c { color: #6B6B6B; font-style: italic; }  /* comments */
 pre.py .sh { color: #6B6B6B; }                     /* !pip and %magic lines */
+  figure { margin: 16px 0; }
+  figure img { max-width: 100%; height: auto; display: block; }
+  figcaption { font-size: 14px; color: #555555; margin-top: 4px; }
 </style>
 </head>
 <body>
@@ -138,6 +141,15 @@ agreement(mine, sample['region'])
 jaccard({1492, 1789, 1914}, {1492, 1914, 1945})  # overlap of two lists: 0.5
 within_between(sets, labels)                   # same model vs different models
 brier(forecasts['probability'], forecasts['outcome'])   # score forecasts: 0 is perfect</pre>
+  <p>Two results from the Week 4 data (<code>llm_dates_2026.json</code>, English answers):</p>
+  <figure>
+    <img src="img/llm-jaccard-heatmap.png" width="900" height="750" style="max-width: 460px; width: 100%" alt="Heatmap of the average Jaccard index between five models. On the diagonal, answers of the same model, it is 0.51 to 0.54, and 0.37 for Mistral; between different models it is 0.24 to 0.41.">
+    <figcaption><code>jaccard_matrix(sets, labels)</code>, drawn with seaborn's <code>heatmap()</code>: answers of the same model (the diagonal) overlap more than answers of different models.</figcaption>
+  </figure>
+  <figure>
+    <img src="img/llm-region-shares.png" width="1500" height="600" alt="Stacked bars per model with the share of events in each region. Europe is the largest share for every model.">
+    <figcaption><code>shares(events, 'label', 'region')</code>, drawn with <code>.plot(kind='barh', stacked=True)</code>: Europe is the largest region for every model.</figcaption>
+  </figure>
 
   <h2 id="nokey">7. Without a key</h2>
   <p>You can try everything on data we collected beforehand: <code>llm_dates_2026.json</code> (dates of world history from five models) and
