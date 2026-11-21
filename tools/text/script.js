@@ -8,20 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const exampleSelect = document.getElementById('example');
 
     const EXAMPLES = {
-        fox: {
-            label: 'The quick brown fox',
-            docs: ['The quick brown fox jumps over the lazy dog.', 'Never jump over the lazy dog.', 'A quick brown dog jumps over the lazy fox.'],
-            stop: 'the,a,is,in,it,of,for,with,over'
+        house: {
+            label: 'House and garden (Week 4 lecture)',
+            docs: ['The house has a beautiful garden with many flowers.', 'A small house has a red roof and a big backyard.', 'The garden has green grass and colorful plants around the house.'],
+            stop: 'the,a,has,and,with,many,around'
         },
         bites: {
             label: 'Who bites whom?',
             docs: ['Dog bites man.', 'Man bites dog.', 'The man was bitten by the dog.'],
             stop: 'the,a,is,in,it,of,for,with,over'
-        },
-        house: {
-            label: 'House and garden (Week 4 code-along)',
-            docs: ['The house has a beautiful garden with many flowers.', 'A small house has a red roof and a big backyard.', 'The garden has green grass and colorful plants around the house.'],
-            stop: 'the,a,has,and,with,many,around'
         }
     };
     Object.entries(EXAMPLES).forEach(([k, e]) => {
@@ -38,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         stopwordsInput.value = e.stop;
         exampleSelect.value = k;
     }
-    loadExample(EXAMPLES[q.get('example')] ? q.get('example') : 'fox');
+    loadExample(EXAMPLES[q.get('example')] ? q.get('example') : 'house');
     let edited = false;
     [['d1', docs[0]], ['d2', docs[1]], ['d3', docs[2]], ['stop', stopwordsInput]].forEach(([k, box]) => {
         if (q.has(k)) { box.value = q.get(k); edited = true; }
