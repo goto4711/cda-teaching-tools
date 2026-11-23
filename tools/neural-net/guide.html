@@ -79,6 +79,15 @@ is not in the four numbers, so no network can get both right.</p></div>
   <li><b>Update.</b> Every weight moves a little against its gradient: new weight = old weight &minus; learning rate &times; gradient.</li>
 </ol>
 <p>The halos and the <i>Biggest weight changes</i> list add up these small updates over the whole epoch.</p>
+<p><b>One animal at a time</b> (the switch above the controls, or <a href="./?mode=walk">?mode=walk</a>) slows a single update down into
+five stages, one per press of <i>Next</i> or Space: the forward pass, the error at the output, the blame flowing back to the hidden
+nodes, the update of every weight, and the same animal again with the new weights. Click a hidden node in the third stage to see its sum.
+<i>Show the maths</i> adds the derivatives to each stage: the error at the output is the derivative of the loss, the sum at a hidden node
+is the chain rule, and the update is one step of gradient descent. The page shows the gradients with the sign flipped, as
+&ldquo;should go up&rdquo; or &ldquo;should go down&rdquo;.</p>
+<p>The procedure goes back to David E. Rumelhart, Geoffrey E. Hinton and Ronald J. Williams, &ldquo;Learning representations by
+back-propagating errors&rdquo;, <i>Nature</i> 323 (1986), 533&ndash;536,
+<a href="https://doi.org/10.1038/323533a0">doi.org/10.1038/323533a0</a>.</p>
 
 <h2 id="w1">4. Walkthrough 1: the first epochs</h2>
 <p><a class="try primary" href="./?seed=1">Open with seed 1</a> &nbsp;about 5 minutes. With seed 1 the numbers below are exactly what you will see.</p>
