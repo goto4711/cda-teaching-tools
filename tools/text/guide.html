@@ -108,7 +108,7 @@ Keys: <kbd>Space</kbd> counts/TF-IDF, <kbd>P</kbd> presentation mode, <kbd>?</kb
   <li>“garden” is in two documents (df = 2) and gets 0.41. Every word in only one document gets the highest weight, 1.10.</li>
   <li>Look at the similarity table. Doc 1 and Doc 2 were 0.20 similar with counts; with TF-IDF they drop to <b>0.00</b>, because the only word they shared was “house”. Doc 1 and Doc 3 fall from 0.41 to 0.05.</li>
   <li>Open the swapped twin from Walkthrough 2 and switch to TF-IDF: Doc 1 and Doc 3 are still identical. Weighting changes <i>how much</i> each word counts, not the fact that word order is gone.</li>
-  <li>Ask: all three documents are about a house. Is a weighting that removes “house” a good one here? What changes when there are 236 speeches instead of 3 documents?</li>
+  <li>Ask: all three documents are about a house. Is a weighting that removes “house” a good one here? What changes when there are 240 speeches instead of 3 documents?</li>
 </ol>
 <div class="box info"><p>TF-IDF rewards words that are frequent in one document and rare in the others: the words that make a document distinctive. That is why the State of the Union exercise uses TF-IDF to find each speech's top words: words that every speech uses score low.</p></div>
 <h2 id="class">8. Questions for class</h2>
